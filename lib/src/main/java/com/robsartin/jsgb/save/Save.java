@@ -27,11 +27,22 @@ import java.util.regex.Pattern;
  */
 public final class Save {
 
+  /** A util-type character outside {@code ZIVSA}; the offending type was corrected to {@code Z}. */
   public static final long BAD_TYPE_CODE = 0x1;
+
+  /** A string or id longer than {@link #MAX_SV_STRING} or {@link #MAX_SV_ID} was truncated. */
   public static final long STRING_TOO_LONG = 0x2;
+
+  /** A {@code V} or {@code A} slot pointed outside the graph's own storage blocks. */
   public static final long ADDR_NOT_IN_DATA_AREA = 0x4;
+
+  /** A {@code V} or {@code A} slot pointed into a block save_graph classified differently. */
   public static final long ADDR_IN_MIXED_BLOCK = 0x8;
+
+  /** A string held a byte outside the GraphBase alphabet; it was written as {@code '?'}. */
   public static final long BAD_STRING_CHAR = 0x10;
+
+  /** A slot hidden by a {@code Z} util type actually held nonzero data, which was dropped. */
   public static final long IGNORED_DATA = 0x20;
 
   /** Longest string {@code save_graph} writes without truncation. */
