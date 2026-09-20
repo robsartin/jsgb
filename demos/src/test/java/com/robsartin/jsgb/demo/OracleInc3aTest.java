@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.robsartin.jsgb.graph.Vertex;
 import com.robsartin.jsgb.miles.Miles;
+import com.robsartin.jsgb.plane.Plane;
 import com.robsartin.jsgb.roget.Roget;
 import com.robsartin.jsgb.words.Words;
 import java.util.function.Consumer;
@@ -100,5 +101,51 @@ class OracleInc3aTest {
             Oracle.capture(
                 ps -> TestSample.printSample(Miles.miles(10L, 200000L, 0L, 0L, 0L, 0L, 1L), 0, ps)))
         .isEqualTo(Oracle.inc3a("miles_bad"));
+  }
+
+  @Test
+  @DisplayName("plane graphs and delaunay print exactly as the C")
+  void shouldMatchOracleWhenPlaneGraphsPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Plane.plane(10L, 0L, 0L, 0L, 0L, 1L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("plane_small"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Plane.plane(20L, 100L, 100L, 1L, 0L, 5L), 20, ps)))
+        .isEqualTo(Oracle.inc3a("plane_inf"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Plane.plane(30L, 500L, 500L, 1L, 300L, 7L), 3, ps)))
+        .isEqualTo(Oracle.inc3a("plane_prob"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Plane.plane(1L, 0L, 0L, 0L, 0L, 1L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("plane_bad"));
+    com.robsartin.jsgb.graph.Graph g = Plane.plane(6L, 100L, 100L, 0L, 0L, 3L);
+    String out =
+        Oracle.capture(
+            ps -> {
+              Plane.delaunay(
+                  g,
+                  (u, v) ->
+                      ps.print(
+                          (u == null ? "INF" : u.name)
+                              + "-"
+                              + (v == null ? "INF" : v.name)
+                              + "\n"));
+              TestSample.printSample(g, 2, ps);
+            });
+    assertThat(out).isEqualTo(Oracle.inc3a("delaunay"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Plane.planeMiles(20L, 0L, 0L, 0L, 0L, 0L, 1L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("plane_miles_small"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Plane.planeMiles(40L, 0L, 0L, 0L, 1L, 20000L, 9L), 40, ps)))
+        .isEqualTo(Oracle.inc3a("plane_miles_prob"));
   }
 }

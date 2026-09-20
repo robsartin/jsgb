@@ -7,6 +7,7 @@ import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
 import com.robsartin.jsgb.miles.Miles;
+import com.robsartin.jsgb.plane.Plane;
 import com.robsartin.jsgb.raman.Raman;
 import com.robsartin.jsgb.rand.Rand;
 import com.robsartin.jsgb.roget.Roget;
@@ -283,5 +284,16 @@ class TestSampleTest {
                     TestSample.printSample(
                         Miles.miles(50L, -500L, 100L, 1L, 500L, 5L, 314159L), 20, ps)))
         .isEqualTo(SampleCorrect.stanza(8));
+  }
+
+  @Test
+  @DisplayName("stanza 10: plane_miles(50,500,-100,1,1,40000,271818) at vertex 14")
+  void shouldMatchSampleCorrectWhenPlaneMilesStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Plane.planeMiles(50L, 500L, -100L, 1L, 1L, 40000L, 271818L), 14, ps)))
+        .isEqualTo(SampleCorrect.stanza(10));
   }
 }
