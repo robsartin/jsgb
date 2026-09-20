@@ -23,6 +23,25 @@ Data files ship unmodified under `lib/src/main/resources/sgb/`; a
 `jsgb.data.dir` system property names a directory to search before the
 classpath, playing the role of the C `DATA_DIRECTORY`.
 
+`demos/` holds `TestSample`, the port of `test_sample`: it prints the salient
+characteristics of a handful of generated graphs so the output can be
+compared, stanza by stanza, against the SGB distribution's own
+`sample.correct`. `lib`'s tests read the same oracle fixtures through the
+extra test resource root declared in `lib/build.gradle.kts`, so
+`demos/src/test/resources/oracle` stays the single canonical copy.
+
+## Running the sample
+
+`./gradlew :demos:run` runs the sample sequence ported so far, writing
+`test.gb` in the working directory. It is also exercised by
+`./gradlew :demos:test`. The multi-demo launcher arrives in increment 4.
+
+## Regenerating oracles
+
+`scripts/regen-oracle.sh` rebuilds the C Stanford GraphBase and regenerates
+the `demos/src/test/resources/oracle` fixtures (see that directory's
+`MANIFEST.md` for provenance).
+
 ## Licence
 
 MIT for the Java code. The Stanford GraphBase data files are redistributed

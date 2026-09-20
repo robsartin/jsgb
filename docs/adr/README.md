@@ -21,6 +21,9 @@
 - [19. Hand-rolled demo argument parsing over picocli](0019-hand-rolled-demo-arguments.md) — _Accepted_
   The baseline CLI conventions ADR (12) documents general command-line hygiene: meaningful exit codes, stdout/stderr separation, `--help` availability, and TTY-aware behaviour.
   Related: [12. CLI conventions](0012-cli-conventions.md)
+- [20. Mates by position for restored graphs](0020-mates-by-position-for-restored-graphs.md) — _Accepted_
+  `Arc.mate` is set only by `newEdge`, but `restore_graph` rebuilds a graph from a file without calling it, and downstream algorithms still need an arc's inverse by the C's positional rule.
+  Related: [17. Explicit ordering stand-ins over pointer arithmetic](0017-ordering-without-pointers.md)
 
 ## Universal
 

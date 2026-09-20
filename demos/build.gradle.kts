@@ -1,5 +1,6 @@
 plugins {
-    `java-library`
+    java
+    application
     jacoco
     id("com.diffplug.spotless")
 }
@@ -11,20 +12,17 @@ java {
     toolchain { languageVersion = JavaLanguageVersion.of(25) }
 }
 
+application {
+    mainClass = "com.robsartin.jsgb.demo.TestSample"
+}
+
 repositories { mavenCentral() }
 
 dependencies {
+    implementation(project(":lib"))
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.assertj)
-    testImplementation(libs.archunit.junit5)
     testRuntimeOnly(libs.junit.platform.launcher)
-}
-
-sourceSets {
-    // The oracle fixtures under demos/src/test/resources/oracle are the single canonical copy
-    // (see demos/src/test/resources/oracle/MANIFEST.md); lib's tests read them from here instead
-    // of keeping a second copy in lib/src/test/resources.
-    test { resources { srcDir("../demos/src/test/resources") } }
 }
 
 tasks.test {

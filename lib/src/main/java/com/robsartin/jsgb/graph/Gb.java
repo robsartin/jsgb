@@ -118,12 +118,63 @@ public final class Gb {
     g.utilTypes = g.utilTypes.substring(0, 8) + 'I' + g.utilTypes.substring(9);
   }
 
+  /**
+   * {@code gb_typed_alloc(count, Vertex, g->data)}: a fresh vertex block registered on {@code g}.
+   */
+  public static Vertex[] allocVertices(Graph g, int count) {
+    Vertex[] block = new Vertex[count];
+    for (int i = 0; i < count; i++) {
+      block[i] = new Vertex(i);
+    }
+    g.extraVertexBlocks.add(block);
+    return block;
+  }
+
+  /** {@code gb_typed_alloc(count, Arc, g->data)}: a fresh arc block registered on {@code g}. */
+  public static Arc[] allocArcs(Graph g, int count) {
+    Arc[] block = newBlock(count);
+    g.arcBlocks.add(block);
+    return block;
+  }
+
+  /**
+   * What {@code restore_graph} does after {@code gb_new_graph(0)}: drops the graph's storage and
+   * allocates exactly {@code n} vertices (at least one) and one block of exactly {@code m} arcs (at
+   * least one). If {@code g} is the current graph, the arc cursor is cleared (as it already is
+   * right after {@code gb_new_graph(0)}, the only intended call sequence), so a later {@link
+   * #newArc} starts a fresh block instead of resuming a now-discarded one; if {@code g} is not
+   * current, its cursor is left alone.
+   */
+  public static void restoreStorage(Graph g, int n, int m) {
+    int vcount = Math.max(n, 1);
+    g.vertices = new Vertex[vcount];
+    for (int i = 0; i < vcount; i++) {
+      g.vertices[i] = new Vertex(i);
+    }
+    g.extraVertexBlocks.clear();
+    g.arcBlocks.clear();
+    allocArcs(g, Math.max(m, 1));
+    if (g == curGraph) {
+      curBlock = null;
+      nextIndex = 0;
+    }
+  }
+
+  /**
+   * The C test {@code a->next == a+1}: {@code a} is the first arc of a self-loop edge. Requires
+   * mates to have been assigned ({@link #newEdge} or {@code restore}); false for arcs without a
+   * mate.
+   */
+  public static boolean isFirstOfSelfLoop(Arc a) {
+    return a.mate != null && a.next == a.mate && a.mate.index == a.index + 1;
+  }
+
   private record ArcCursor(Arc[] block, int index) {}
 
-  private static Arc[] newBlock() {
-    Arc[] block = new Arc[ARCS_PER_BLOCK];
-    for (int i = 0; i < ARCS_PER_BLOCK; i++) {
-      block[i] = new Arc();
+  private static Arc[] newBlock(int size) {
+    Arc[] block = new Arc[size];
+    for (int i = 0; i < size; i++) {
+      block[i] = new Arc(i);
     }
     return block;
   }
@@ -133,8 +184,8 @@ public final class Gb {
     if (curGraph == DUMMY_GRAPH) {
       throw new IllegalStateException("no current graph: call gb_new_graph first");
     }
-    if (curBlock == null || nextIndex == ARCS_PER_BLOCK) {
-      curBlock = newBlock();
+    if (curBlock == null || nextIndex == curBlock.length) {
+      curBlock = newBlock(ARCS_PER_BLOCK);
       curGraph.arcBlocks.add(curBlock);
       nextIndex = 1;
       return curBlock[0];
@@ -159,7 +210,7 @@ public final class Gb {
    */
   public static void newEdge(Vertex u, Vertex v, long len) {
     Arc a = virginArc();
-    if (nextIndex == ARCS_PER_BLOCK) {
+    if (nextIndex == curBlock.length) {
       throw new IllegalStateException(
           "gb_new_edge must not be mixed with an odd number of gb_new_arc calls");
     }

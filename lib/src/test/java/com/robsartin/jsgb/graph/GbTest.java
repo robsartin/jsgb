@@ -222,4 +222,100 @@ class GbTest {
     assertThat(g.id)
         .isEqualTo("gunion(" + "a".repeat(69) + "...)" + "," + "b".repeat(69) + "...)" + ",0,0)");
   }
+
+  @Test
+  @DisplayName("arcs know their slot index within their block")
+  void shouldNumberArcSlotsWhenBlockAllocated() {
+    Graph g = Gb.newGraph(2L);
+    Gb.newArc(g.vertices[0], g.vertices[1], 1L);
+    Gb.newArc(g.vertices[0], g.vertices[1], 2L);
+    Arc[] block = g.arcBlocks().get(0);
+    assertThat(block[0].index).isZero();
+    assertThat(block[101].index).isEqualTo(101);
+    assertThat(g.vertices[0].arcs.index).isEqualTo(1);
+  }
+
+  @Test
+  @DisplayName("allocVertices registers an extra vertex block in allocation order")
+  void shouldRegisterExtraBlockWhenAllocVerticesCalled() {
+    Graph g = Gb.newGraph(3L);
+    Vertex[] extra = Gb.allocVertices(g, 1);
+    assertThat(extra).hasSize(1);
+    assertThat(extra[0].index).isZero();
+    assertThat(extra[0].name).isSameAs(Gb.NULL_STRING);
+    assertThat(g.extraVertexBlocks()).containsExactly(extra);
+  }
+
+  @Test
+  @DisplayName("allocArcs appends an exact-size block without moving the cursor")
+  void shouldAppendExactBlockWhenAllocArcsCalled() {
+    Graph g = Gb.newGraph(2L);
+    Gb.newArc(g.vertices[0], g.vertices[1], 1L);
+    Arc[] exact = Gb.allocArcs(g, 5);
+    assertThat(exact).hasSize(5);
+    assertThat(exact[4].index).isEqualTo(4);
+    assertThat(g.arcBlocks()).hasSize(2);
+    Gb.newArc(g.vertices[1], g.vertices[0], 2L); // cursor still in the first block
+    assertThat(g.arcBlocks()).hasSize(2);
+    assertThat(g.arcBlocks().get(0)[1].len).isEqualTo(2L);
+  }
+
+  @Test
+  @DisplayName("restoreStorage gives exactly n vertices and one m-arc block, at least one each")
+  void shouldReplaceStorageWhenRestoreStorageCalled() {
+    Graph g = Gb.newGraph(0L);
+    Gb.restoreStorage(g, 3, 4);
+    assertThat(g.vertices).hasSize(3);
+    assertThat(g.vertices[2].index).isEqualTo(2);
+    assertThat(g.arcBlocks()).hasSize(1);
+    assertThat(g.arcBlocks().get(0)).hasSize(4);
+    assertThat(g.extraVertexBlocks()).isEmpty();
+    Gb.newArc(g.vertices[0], g.vertices[1], 9L); // C: a fresh 102-block, not the restored one
+    assertThat(g.arcBlocks()).hasSize(2);
+    assertThat(g.arcBlocks().get(1)).hasSize(Gb.ARCS_PER_BLOCK);
+
+    Graph empty = Gb.newGraph(0L);
+    Gb.restoreStorage(empty, 0, 0);
+    assertThat(empty.vertices).hasSize(1);
+    assertThat(empty.arcBlocks().get(0)).hasSize(1);
+  }
+
+  @Test
+  @DisplayName("isFirstOfSelfLoop is true only for the first arc of a self-loop edge")
+  void shouldDetectSelfLoopFirstArcWhenEdgeIsLoop() {
+    Graph g = Gb.newGraph(2L);
+    Vertex u = g.vertices[0];
+    Vertex v = g.vertices[1];
+    Gb.newEdge(u, u, 1L);
+    Gb.newEdge(u, v, 2L);
+    Gb.newArc(v, v, 3L);
+    Arc[] block = g.arcBlocks().get(0);
+    assertThat(Gb.isFirstOfSelfLoop(block[0])).isTrue();
+    assertThat(Gb.isFirstOfSelfLoop(block[1])).isFalse();
+    assertThat(Gb.isFirstOfSelfLoop(block[2])).isFalse();
+    assertThat(Gb.isFirstOfSelfLoop(block[3])).isFalse();
+    assertThat(Gb.isFirstOfSelfLoop(block[4])).isFalse(); // newArc: no mate
+  }
+
+  @Test
+  @DisplayName("virginArc rolls over on the current block's own length")
+  void shouldRollOverOnBlockLengthWhenBlockIsNotStandardSize() {
+    Graph g = Gb.newGraph(2L);
+    Gb.restoreStorage(g, 2, 1);
+    Gb.switchToGraph(g); // cursor: none; first newArc allocates a fresh block
+    Gb.newArc(g.vertices[0], g.vertices[1], 1L);
+    assertThat(g.arcBlocks()).hasSize(2);
+  }
+
+  @Test
+  @DisplayName("restoreStorage clears a live arc cursor so no discarded slot is ever handed out")
+  void shouldClearCursorWhenRestoreStorageCalledOnCurrentGraph() {
+    Graph g = Gb.newGraph(2L);
+    Gb.newArc(g.vertices[0], g.vertices[1], 1L); // cursor now points into a live 102-block
+    Gb.restoreStorage(g, 2, 1);
+    Gb.newArc(g.vertices[0], g.vertices[1], 2L);
+    assertThat(g.arcBlocks()).hasSize(2); // the restored 1-arc block plus a fresh block
+    assertThat(g.arcBlocks().get(1)).hasSize(Gb.ARCS_PER_BLOCK);
+    assertThat(g.vertices[0].arcs).isSameAs(g.arcBlocks().get(1)[0]);
+  }
 }
