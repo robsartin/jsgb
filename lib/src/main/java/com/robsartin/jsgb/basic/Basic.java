@@ -10,7 +10,8 @@ import com.robsartin.jsgb.graph.Vertex;
  * simplexes, subsets, permutations, partitions, binary trees), together with six routines that
  * combine or transform existing graphs. This class grows across several tasks; this port currently
  * provides {@link #board}, {@link #simplex}, {@link #subsets}, {@link #perms}, {@link #parts},
- * {@link #binary}, {@link #complement}, {@link #gunion} and {@link #intersection}.
+ * {@link #binary}, {@link #complement}, {@link #gunion}, {@link #intersection}, {@link #lines} and
+ * {@link #product}.
  *
  * <p>Several generators share a handful of C-global scratch arrays, translated here as {@code
  * private static} fields exactly as in the C (single-threaded, reused across calls): {@code nn}
@@ -45,6 +46,17 @@ public final class Basic {
 
   /** {@code IND_GRAPH}: sentinel used by the {@code ind} slot macro (future {@code induced}). */
   public static final long IND_GRAPH = 1000000000;
+
+  /** {@code cartesian}: {@link #product}'s {@code type} for the cartesian product. */
+  public static final long CARTESIAN = 0;
+
+  /** {@code direct}: {@link #product}'s {@code type} for the direct (tensor) product. */
+  public static final long DIRECT = 1;
+
+  /**
+   * {@code strong}: {@link #product}'s {@code type} for the strong product (cartesian + direct).
+   */
+  public static final long STRONG = 2;
 
   // Section 10: component sizes, wraparound flags, move displacements and their partial sums of
   // squares (board), and coordinate values before/after a move, or upper-bound tables (simplex,
@@ -1378,6 +1390,396 @@ public final class Basic {
       return null;
     }
     return newGraph;
+  }
+
+  /**
+   * {@code lines(g,directed)}: the line graph of {@code g}. If {@code directed} is zero, the result
+   * has one vertex for each edge of (undirected) {@code g}, two vertices adjacent exactly when the
+   * corresponding edges share an endpoint. If {@code directed} is nonzero, the result has one
+   * vertex for each arc of (directed) {@code g}, with an arc from {@code u} to {@code v} when the
+   * arc for {@code u} ends where the arc for {@code v} begins. All arcs of the result have length
+   * 1. Utility fields {@code u.V} and {@code v.V} of each result vertex point back to the {@code
+   * g}-vertices that define its arc or edge, and {@code w.A} points to the {@code g}-arc itself
+   * ({@code u.V <= v.V} in the undirected case); {@link Graph#utilTypes} is left at its default,
+   * since these are pointers into {@code g} rather than data the graph owns. Returns {@code null}
+   * and sets {@link Gb#panicCode} on failure ({@code g} missing, out of memory, or {@code g} does
+   * not obey the conventions for an undirected graph when {@code directed} is zero).
+   */
+  public static Graph lines(Graph g, long directed) {
+    if (g == null) {
+      Gb.panicCode = Gb.MISSING_OPERAND;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    // Section 89: set up a graph whose vertices are the lines of g.
+    long m = directed != 0 ? g.m : g.m / 2;
+    Graph newGraph = Gb.newGraph(m);
+    if (newGraph == null) {
+      Gb.panicCode = Gb.NO_ROOM;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    Gb.makeCompoundId(newGraph, "lines(", g, directed != 0 ? ",1)" : ",0)");
+
+    if (buildLineVertices(newGraph, g, m, directed)) {
+      return null; // near_panic already recovered and panicked
+    }
+    if (directed != 0) {
+      insertDirectedLineArcs(newGraph, m); // section 92
+    } else {
+      insertUndirectedLineEdges(newGraph, m); // section 93
+    }
+    restoreLinesPristine(newGraph, m, directed); // section 88
+
+    if (Gb.troubleCode != 0) {
+      Gb.recycle(newGraph);
+      Gb.panicCode = Gb.ALLOC_FAULT;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    return newGraph;
+  }
+
+  /**
+   * Section 89 (with section 91 folded in): walks {@code g}'s vertices from last to first, turning
+   * each surviving arc into a new vertex of {@code newGraph}. Temporarily rewires each processed
+   * edge's mate tip to point at its new vertex (undone by {@link #restoreLinesPristine}) and, for
+   * the first new vertex touching a given {@code g}-vertex {@code v}, moves {@code v}'s {@code z}
+   * slot into that new vertex's {@code z} slot so it can be found again as {@code v.map} and
+   * restored later. Returns {@code true} if it had to recover via {@link #linesNearPanic} (bad
+   * data: {@code g} does not obey the undirected-graph conventions, or its vertex/arc counts don't
+   * match what was declared).
+   */
+  private static boolean buildLineVertices(Graph newGraph, Graph g, long m, long directed) {
+    Vertex[] newVerts = newGraph.vertices;
+    Vertex[] gVerts = g.vertices;
+    int ui = 0;
+    for (int vi = (int) g.n - 1; vi >= 0; vi--) {
+      Vertex v = gVerts[vi];
+      boolean mapped = false;
+      for (Arc a = v.arcs; a != null; a = a.next) {
+        Vertex vv = a.tip;
+        if (directed == 0) {
+          if (vv.index < v.index) {
+            continue;
+          }
+          if (vv.index >= g.n || gVerts[vv.index] != vv) {
+            linesNearPanic(newGraph, ui, directed);
+            return true;
+          }
+        }
+        if (ui >= m) {
+          linesNearPanic(newGraph, ui, directed);
+          return true;
+        }
+        Vertex u = newVerts[ui];
+        u.u.V(v);
+        u.v.V(vv);
+        u.w.A(a);
+        if (directed == 0) {
+          if (a.mate == null || a.mate.tip != v) {
+            linesNearPanic(newGraph, ui, directed);
+            return true;
+          }
+          if (v == vv && Gb.isFirstOfSelfLoop(a)) {
+            a = a.mate; // skip second half of self-loop
+          } else {
+            a.mate.tip = u;
+          }
+        }
+        u.name =
+            Gb.saveString(
+                prefix(v.name, (BUF_SIZE - 3) / 2)
+                    + (directed != 0 ? "->" : "--")
+                    + prefix(vv.name, BUF_SIZE / 2 - 1));
+        if (!mapped) {
+          u.z.V(v.z.V()); // u.map = v.map, whatever v's z slot held before
+          v.z.V(u); // v.map = u
+          mapped = true;
+        }
+        ui++;
+      }
+    }
+    if (ui != m) {
+      linesNearPanic(newGraph, ui, directed);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Section 90: recovers from bad data found while building {@code newGraph}'s vertices &mdash;
+   * restores {@code g} (over just the {@code filled} vertices actually built), recycles {@code
+   * newGraph}, and panics {@link Gb#INVALID_OPERAND}.
+   */
+  private static void linesNearPanic(Graph newGraph, long filled, long directed) {
+    restoreLinesPristine(newGraph, filled, directed);
+    Gb.recycle(newGraph);
+    Gb.panicCode = Gb.INVALID_OPERAND;
+    Gb.troubleCode = 0;
+  }
+
+  /**
+   * Section 88: restores {@code g} to its pristine original condition after {@link
+   * #buildLineVertices} borrowed each touched vertex's {@code z} slot &mdash; puts back the value
+   * {@code buildLineVertices} saved in each first new vertex's {@code z} slot, and (undirected
+   * only) restores each new vertex's {@code g}-arc's mate's tip to the original vertex.
+   */
+  private static void restoreLinesPristine(Graph newGraph, long filled, long directed) {
+    Vertex[] newVerts = newGraph.vertices;
+    Vertex v = null;
+    for (int ui = 0; ui < filled; ui++) {
+      Vertex u = newVerts[ui];
+      if (u.u.V() != v) {
+        v = u.u.V();
+        v.z.V(u.z.V()); // restore v's original z slot
+        u.z.V(null);
+      }
+      if (directed == 0) {
+        u.w.A().mate.tip = v;
+      }
+    }
+  }
+
+  /**
+   * Section 92: for each new vertex {@code u} representing an arc {@code v -> vv} of {@code g},
+   * adds an arc to every new vertex representing one of {@code vv}'s own surviving arcs (found via
+   * {@code vv.map}, walking forward through {@code newGraph}'s vertices while they still represent
+   * arcs from {@code vv}).
+   */
+  private static void insertDirectedLineArcs(Graph newGraph, long m) {
+    Vertex[] newVerts = newGraph.vertices;
+    for (int ui = 0; ui < m; ui++) {
+      Vertex u = newVerts[ui];
+      Vertex v = u.v.V();
+      if (v.arcs != null) {
+        Vertex mapped = v.z.V();
+        int vi = mapped.index;
+        do {
+          Gb.newArc(u, newVerts[vi], 1L);
+          vi++;
+        } while (newVerts[vi].u.V() == v);
+      }
+    }
+  }
+
+  /**
+   * Section 93: for each new vertex {@code u} representing an edge {@code {v, vv}} of {@code g},
+   * adds an edge to every earlier-built new vertex representing another edge sharing {@code v} or
+   * {@code vv}. The first vertex's prior lines are found via {@code v.map}, walking forward through
+   * {@code newGraph}'s vertices below {@code u}; the second vertex's prior lines are found by
+   * scanning its (partially rewired) arc list, where an already-processed arc's tip now points into
+   * {@code newGraph} instead of {@code g}.
+   */
+  private static void insertUndirectedLineEdges(Graph newGraph, long m) {
+    Vertex[] newVerts = newGraph.vertices;
+    for (int ui = 0; ui < m; ui++) {
+      Vertex u = newVerts[ui];
+      boolean mapped = false;
+      Vertex v = u.u.V(); // look first for prior lines that touch the first vertex
+      for (Vertex vv = v.z.V(); vv.index < u.index; vv = newVerts[vv.index + 1]) {
+        Gb.newEdge(u, vv, 1L);
+      }
+      v = u.v.V(); // then look for prior lines that touch the other one
+      for (Arc a = v.arcs; a != null; a = a.next) {
+        Vertex vv = a.tip;
+        if (vv.index < u.index && newVerts[vv.index] == vv) {
+          Gb.newEdge(u, vv, 1L);
+        } else if (vv.index >= v.index) {
+          mapped = true;
+        }
+      }
+      if (mapped && v.index > u.u.V().index) {
+        for (Vertex vv = v.z.V(); vv.u.V() == v; vv = newVerts[vv.index + 1]) {
+          Gb.newEdge(u, vv, 1L);
+        }
+      }
+    }
+  }
+
+  /**
+   * {@code product(g,gg,type,directed)}: the product of {@code g} and {@code gg} ({@link
+   * #CARTESIAN}, {@link #DIRECT} or {@link #STRONG}). Vertices are ordered pairs {@code (v,v')} of
+   * a {@code g}-vertex and a {@code gg}-vertex, named {@code "v-name,v'-name"}; vertex {@code i *
+   * gg.n + j} is {@code (g.vertices[i], gg.vertices[j])}. The cartesian product has an arc from
+   * {@code (u,u')} to {@code (v,u')} whenever {@code g} has one from {@code u} to {@code v}, and
+   * from {@code (u,u')} to {@code (u,v')} whenever {@code gg} has one from {@code u'} to {@code
+   * v'}; its arc lengths are copied from the original arc. The direct product has an arc from
+   * {@code (u,u')} to {@code (v,v')} in the same circumstances, with length the minimum of the two
+   * original arcs' lengths. The strong product has both kinds of arcs. If {@code directed} is zero,
+   * both inputs are assumed undirected and the result is too. Returns {@code null} and sets {@link
+   * Gb#panicCode} on failure ({@code g} or {@code gg} missing, too many vertices, or out of
+   * memory).
+   */
+  public static Graph product(Graph g, Graph gg, long type, long directed) {
+    if (g == null || gg == null) {
+      Gb.panicCode = Gb.MISSING_OPERAND;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    // Section 97 (part): guard against overflow, then set up ordered-pair vertices.
+    float testProduct = (float) g.n * (float) gg.n;
+    if (testProduct > MAX_NNN) {
+      Gb.panicCode = Gb.VERY_BAD_SPECS;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    long n = g.n * gg.n;
+    Graph newGraph = Gb.newGraph(n);
+    if (newGraph == null) {
+      Gb.panicCode = Gb.NO_ROOM;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    Vertex[] newVerts = newGraph.vertices;
+    Vertex[] gVerts = g.vertices;
+    Vertex[] ggVerts = gg.vertices;
+    int ggN = (int) gg.n;
+    int gN = (int) g.n;
+    int vi = 0;
+    int vvi = 0;
+    for (int ui = 0; ui < n; ui++) {
+      newVerts[ui].name =
+          Gb.saveString(
+              prefix(gVerts[vi].name, BUF_SIZE / 2 - 1)
+                  + ","
+                  + prefix(ggVerts[vvi].name, (BUF_SIZE - 1) / 2));
+      vvi++;
+      if (vvi == ggN) {
+        vvi = 0;
+        vi++;
+      }
+    }
+    Gb.makeDoubleCompoundId(
+        newGraph,
+        "product(",
+        g,
+        ",",
+        gg,
+        "," + ((type != 0 ? 2 : 0) - (type & 1)) + "," + flag(directed) + ")");
+
+    if ((type & 1) == 0) {
+      insertCartesianProductArcs(newGraph, g, gg, directed); // sections 97-98
+    }
+    if (type != 0) {
+      insertDirectProductArcs(newGraph, g, gg, directed); // section 99
+    }
+
+    if (Gb.troubleCode != 0) {
+      Gb.recycle(newGraph);
+      Gb.panicCode = Gb.ALLOC_FAULT;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    return newGraph;
+  }
+
+  /**
+   * Sections 97-98: the cartesian-product arcs or edges &mdash; {@code gg}'s arcs replicated across
+   * every one of {@code g}'s {@code n} copies (section 97), then {@code g}'s arcs replicated across
+   * every one of {@code gg}'s {@code n} copies (section 98).
+   */
+  private static void insertCartesianProductArcs(Graph newGraph, Graph g, Graph gg, long directed) {
+    Vertex[] newVerts = newGraph.vertices;
+    Vertex[] gVerts = g.vertices;
+    Vertex[] ggVerts = gg.vertices;
+    int ggN = (int) gg.n;
+    int gN = (int) g.n;
+    for (int ui = 0; ui < ggN; ui++) {
+      Vertex u = ggVerts[ui];
+      for (Arc a = u.arcs; a != null; a = a.next) {
+        Vertex v = a.tip;
+        if (directed == 0) {
+          if (u.index > v.index) {
+            continue;
+          }
+          if (u == v && Gb.isFirstOfSelfLoop(a)) {
+            a = a.mate;
+          }
+        }
+        for (int k = 0; k < gN; k++) {
+          Vertex uu = newVerts[u.index + k * ggN];
+          Vertex vv = newVerts[v.index + k * ggN];
+          if (directed != 0) {
+            Gb.newArc(uu, vv, a.len);
+          } else {
+            Gb.newEdge(uu, vv, a.len);
+          }
+        }
+      }
+    }
+    for (int i = 0; i < gN; i++) {
+      Vertex u = gVerts[i];
+      int uuBase = i * ggN;
+      for (Arc a = u.arcs; a != null; a = a.next) {
+        Vertex v = a.tip;
+        if (directed == 0) {
+          if (u.index > v.index) {
+            continue;
+          }
+          if (u == v && Gb.isFirstOfSelfLoop(a)) {
+            a = a.mate;
+          }
+        }
+        int vvBase = v.index * ggN;
+        for (int j = 0; j < ggN; j++) {
+          Vertex uu = newVerts[uuBase + j];
+          Vertex vv = newVerts[vvBase + j];
+          if (directed != 0) {
+            Gb.newArc(uu, vv, a.len);
+          } else {
+            Gb.newEdge(uu, vv, a.len);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Section 99: the direct-product arcs or edges &mdash; for every arc {@code uu -> vv} of {@code
+   * g} and every arc {@code u -> v} of {@code gg}, an arc from {@code (uu,u)} to {@code (vv,v)}
+   * whose length is the minimum of the two arcs' lengths.
+   */
+  private static void insertDirectProductArcs(Graph newGraph, Graph g, Graph gg, long directed) {
+    Vertex[] newVerts = newGraph.vertices;
+    Vertex[] gVerts = g.vertices;
+    Vertex[] ggVerts = gg.vertices;
+    int ggN = (int) gg.n;
+    int gN = (int) g.n;
+    for (int i = 0; i < gN; i++) {
+      Vertex uu = gVerts[i];
+      for (Arc a = uu.arcs; a != null; a = a.next) {
+        Vertex vv = a.tip;
+        if (directed == 0) {
+          if (uu.index > vv.index) {
+            continue;
+          }
+          if (uu == vv && Gb.isFirstOfSelfLoop(a)) {
+            a = a.mate;
+          }
+        }
+        int vvBase = vv.index * ggN;
+        for (int ui = 0; ui < ggN; ui++) {
+          Vertex u = ggVerts[ui];
+          for (Arc aa = u.arcs; aa != null; aa = aa.next) {
+            long length = Math.min(a.len, aa.len);
+            Vertex v = aa.tip;
+            Vertex from = newVerts[i * ggN + u.index];
+            Vertex to = newVerts[vvBase + v.index];
+            if (directed != 0) {
+              Gb.newArc(from, to, length);
+            } else {
+              Gb.newEdge(from, to, length);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /** {@code "%.*s"}: {@code s} truncated to at most {@code max} characters. */
+  private static String prefix(String s, int max) {
+    return s.length() <= max ? s : s.substring(0, Math.max(max, 0));
   }
 
   /**

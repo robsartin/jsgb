@@ -173,4 +173,50 @@ class OracleInc2Test {
                         ps)))
         .isEqualTo(Oracle.inc2("intersection_dir"));
   }
+
+  @Test
+  @DisplayName("lines and product print exactly as the C")
+  void shouldMatchOracleWhenLinesAndProductsPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.lines(Basic.board(3L, 3L, 0L, 0L, 1L, 0L, 0L), 0L), 5, ps)))
+        .isEqualTo(Oracle.inc2("lines"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.lines(Basic.board(3L, 0L, 0L, 0L, -2L, 0L, 1L), 1L), 1, ps)))
+        .isEqualTo(Oracle.inc2("lines_dir"));
+    for (String[] c :
+        new String[][] {{"product_cart", "0"}, {"product_direct", "1"}, {"product_strong", "2"}}) {
+      long type = Long.parseLong(c[1]);
+      assertThat(
+              Oracle.capture(
+                  ps ->
+                      TestSample.printSample(
+                          Basic.product(
+                              Basic.board(2L, 0L, 0L, 0L, 1L, 0L, 0L),
+                              Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 0L),
+                              type,
+                              0L),
+                          1,
+                          ps)))
+          .as(c[0])
+          .isEqualTo(Oracle.inc2(c[0]));
+    }
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.product(
+                            Basic.board(2L, 0L, 0L, 0L, 1L, 0L, 1L),
+                            Basic.board(2L, 0L, 0L, 0L, -2L, 0L, 1L),
+                            1L,
+                            1L),
+                        0,
+                        ps)))
+        .isEqualTo(Oracle.inc2("product_dir"));
+  }
 }
