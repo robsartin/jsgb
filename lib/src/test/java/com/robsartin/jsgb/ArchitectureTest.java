@@ -1,5 +1,6 @@
 package com.robsartin.jsgb;
 
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 import com.tngtech.archunit.core.importer.ImportOption;
@@ -55,64 +56,43 @@ class ArchitectureTest {
           .dependOnClassesThat()
           .resideInAnyPackage(BASE + ".graph..", BASE + ".io..");
 
-  // Generators (raman, basic, rand, save) may depend on the kernel (graph, flip, io) but not on
-  // sort, demo, or each other. Each rule below forbids its own package from depending on the
-  // *other* generator packages plus sort and demo; it must not name its own package, since a
-  // generator legitimately depends on its own nested/helper classes (e.g. Raman's Quaternion,
-  // Save's Block and Where).
+  // Generators (raman, basic, rand, save) may depend on the kernel but not on sort, demo, or each
+  // other. Each rule is a whitelist of everything the package is allowed to depend on (its own
+  // package, its kernel packages, and the JDK); onlyDependOnClassesThat, unlike a blacklist of the
+  // forbidden packages, also catches an undeclared kernel dependency (e.g. raman depending on io).
   @ArchTest
   static final ArchRule ramanDependsOnlyOnKernel =
-      noClasses()
+      classes()
           .that()
           .resideInAPackage(BASE + ".raman..")
           .should()
-          .dependOnClassesThat()
-          .resideInAnyPackage(
-              BASE + ".basic..",
-              BASE + ".rand..",
-              BASE + ".save..",
-              BASE + ".sort..",
-              BASE + ".demo..");
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(BASE + ".raman..", BASE + ".graph..", BASE + ".flip..", "java..");
 
   @ArchTest
   static final ArchRule basicDependsOnlyOnKernel =
-      noClasses()
+      classes()
           .that()
           .resideInAPackage(BASE + ".basic..")
           .should()
-          .dependOnClassesThat()
-          .resideInAnyPackage(
-              BASE + ".raman..",
-              BASE + ".rand..",
-              BASE + ".save..",
-              BASE + ".sort..",
-              BASE + ".demo..");
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(BASE + ".basic..", BASE + ".graph..", BASE + ".flip..", "java..");
 
   @ArchTest
   static final ArchRule randDependsOnlyOnKernel =
-      noClasses()
+      classes()
           .that()
           .resideInAPackage(BASE + ".rand..")
           .should()
-          .dependOnClassesThat()
-          .resideInAnyPackage(
-              BASE + ".raman..",
-              BASE + ".basic..",
-              BASE + ".save..",
-              BASE + ".sort..",
-              BASE + ".demo..");
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(BASE + ".rand..", BASE + ".graph..", BASE + ".flip..", "java..");
 
   @ArchTest
   static final ArchRule saveDependsOnlyOnKernel =
-      noClasses()
+      classes()
           .that()
           .resideInAPackage(BASE + ".save..")
           .should()
-          .dependOnClassesThat()
-          .resideInAnyPackage(
-              BASE + ".raman..",
-              BASE + ".basic..",
-              BASE + ".rand..",
-              BASE + ".sort..",
-              BASE + ".demo..");
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(BASE + ".save..", BASE + ".graph..", BASE + ".io..", "java..");
 }
