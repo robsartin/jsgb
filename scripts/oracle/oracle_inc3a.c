@@ -72,4 +72,7 @@ init_queue=init_dlist;enqueue=enlist;requeue=reenlist;del_min=del_first;gb_recyc
 g=board(3L,0L,0L,0L,1L,0L,1L);printf("==dijkstra_unreachable\n");d=dijkstra(g->vertices+2,g->vertices,g,NULL);printf("return=%ld\n",d);print_dijkstra_result(g->vertices);gb_recycle(g);
 g=miles(20L,0L,0L,0L,0L,0L,1L);printf("==dijkstra_heuristic\n");verbose=1;d=dijkstra(g->vertices,g->vertices+19,g,hx);verbose=0;printf("return=%ld\n",d);print_dijkstra_result(g->vertices+19);gb_recycle(g);
 g=miles(20L,0L,0L,0L,0L,0L,1L);printf("==dijkstra_verbose_plain\n");verbose=1;d=dijkstra(g->vertices+3,g->vertices+7,g,NULL);verbose=0;printf("return=%ld\n",d);print_dijkstra_result(g->vertices+7);gb_recycle(g);
+g=words(5757L,NULL,0L,69L);
+printf("==find_word_neighbours\n");v=find_word("zords",pr_name);printf("|%s\n",v?v->name:"NULL");
+v=find_word("qqqqq",pr_name);printf("|%s\n",v?v->name:"NULL");gb_recycle(g);
 return 0;}

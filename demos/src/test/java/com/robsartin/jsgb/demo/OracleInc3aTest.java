@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 /** Every case reproduces a run of the C library recorded in oracle_inc3a.out. */
 class OracleInc3aTest {
 
-  private static final long[] DST = {0x20000000L, 0x10000000L, 0x10000000L};
-
   @Test
   @DisplayName("words graphs print exactly as the C, including the bad_specs panic")
   void shouldMatchOracleWhenWordsPrinted() {
@@ -45,5 +43,21 @@ class OracleInc3aTest {
               ps.print("|" + (v == null ? "NULL" : v.name) + "\n");
             });
     assertThat(out).isEqualTo(Oracle.inc3a("find_word"));
+  }
+
+  @Test
+  @DisplayName("find_word's neighbour callback prints exactly what the C harness printed")
+  void shouldMatchOracleWhenFindWordEnumeratesNeighbours() {
+    Words.words(5757L, null, 0L, 69L);
+    String out =
+        Oracle.capture(
+            ps -> {
+              Consumer<Vertex> pr = v -> ps.print(v.name + " ");
+              Vertex v = Words.findWord("zords", pr);
+              ps.print("|" + (v == null ? "NULL" : v.name) + "\n");
+              v = Words.findWord("qqqqq", pr);
+              ps.print("|" + (v == null ? "NULL" : v.name) + "\n");
+            });
+    assertThat(out).isEqualTo(Oracle.inc3a("find_word_neighbours"));
   }
 }

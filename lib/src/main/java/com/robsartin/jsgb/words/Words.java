@@ -228,7 +228,7 @@ public final class Words {
     }
     newGraph.utilTypes = "IZZZZZIZZZZZZZ";
     htab = new Vertex[5][HASH_PRIME];
-    if (n > 0) {
+    if (Gb.troubleCode == 0 && n > 0) {
       long remaining = n;
       int idx = 0;
       outer:
