@@ -198,4 +198,37 @@ public final class Gb {
     }
     curGraph.ww.ref = null;
   }
+
+  private static String prefix(String s, int max) {
+    return s.length() <= max ? s : s.substring(0, Math.max(max, 0));
+  }
+
+  /** {@code make_compound_id(g, s1, gg, s2)}: {@code g.id = s1 + gg.id + s2}, truncated to fit. */
+  public static void makeCompoundId(Graph g, String s1, Graph gg, String s2) {
+    int avail = ID_FIELD_SIZE - s1.length() - s2.length();
+    String tmp = gg.id;
+    if (tmp.length() < avail) {
+      g.id = s1 + tmp + s2;
+    } else {
+      g.id = s1 + prefix(tmp, avail - 5) + "...)" + s2;
+    }
+  }
+
+  /** {@code make_double_compound_id}: {@code s1 + gg.id + s2 + ggg.id + s3}, truncated to fit. */
+  public static void makeDoubleCompoundId(
+      Graph g, String s1, Graph gg, String s2, Graph ggg, String s3) {
+    int avail = ID_FIELD_SIZE - s1.length() - s2.length() - s3.length();
+    if (gg.id.length() + ggg.id.length() < avail) {
+      g.id = s1 + gg.id + s2 + ggg.id + s3;
+    } else {
+      g.id =
+          s1
+              + prefix(gg.id, avail / 2 - 5)
+              + "...)"
+              + s2
+              + prefix(ggg.id, (avail - 9) / 2)
+              + "...)"
+              + s3;
+    }
+  }
 }

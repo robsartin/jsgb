@@ -161,4 +161,52 @@ class GbTest {
     Gb.newArc(g1.vertices[0], g1.vertices[1], 2L);
     assertThat(g1.arcBlocks()).hasSize(2);
   }
+
+  @Test
+  @DisplayName("make_compound_id concatenates when the inner id fits")
+  void shouldConcatenateWhenInnerIdFits() {
+    Graph gg = Gb.newGraph(1L);
+    gg.id = "board(3,4,0,0,-1,0,0)";
+    Graph g = Gb.newGraph(1L);
+    Gb.makeCompoundId(g, "complement(", gg, ",1,1,0)");
+    assertThat(g.id).isEqualTo("complement(board(3,4,0,0,-1,0,0),1,1,0)");
+  }
+
+  @Test
+  @DisplayName("make_compound_id truncates the inner id with ...) to fit 160 characters")
+  void shouldTruncateWhenInnerIdTooLong() {
+    Graph gg = Gb.newGraph(1L);
+    gg.id = "x".repeat(160);
+    Graph g = Gb.newGraph(1L);
+    Gb.makeCompoundId(g, "lines(", gg, ",0)");
+    // avail = 161 - 6 - 3 = 152; inner keeps avail-5 = 147 chars, then "...)"
+    assertThat(g.id).isEqualTo("lines(" + "x".repeat(147) + "...)" + ",0)");
+    assertThat(g.id).hasSize(160);
+  }
+
+  @Test
+  @DisplayName("make_double_compound_id concatenates when both inner ids fit")
+  void shouldConcatenateWhenBothInnerIdsFit() {
+    Graph gg = Gb.newGraph(1L);
+    gg.id = "board(3,4,0,0,-1,0,0)";
+    Graph ggg = Gb.newGraph(1L);
+    ggg.id = "board(3,4,0,0,-2,0,0)";
+    Graph g = Gb.newGraph(1L);
+    Gb.makeDoubleCompoundId(g, "gunion(", gg, ",", ggg, ",0,0)");
+    assertThat(g.id).isEqualTo("gunion(board(3,4,0,0,-1,0,0),board(3,4,0,0,-2,0,0),0,0)");
+  }
+
+  @Test
+  @DisplayName("make_double_compound_id truncates both inner ids when they do not fit")
+  void shouldTruncateBothWhenInnerIdsTooLong() {
+    Graph gg = Gb.newGraph(1L);
+    gg.id = "a".repeat(100);
+    Graph ggg = Gb.newGraph(1L);
+    ggg.id = "b".repeat(100);
+    Graph g = Gb.newGraph(1L);
+    Gb.makeDoubleCompoundId(g, "gunion(", gg, ",", ggg, ",0,0)");
+    // avail = 161 - 7 - 1 - 5 = 148; first keeps 148/2-5 = 69, second keeps (148-9)/2 = 69
+    assertThat(g.id)
+        .isEqualTo("gunion(" + "a".repeat(69) + "...)" + "," + "b".repeat(69) + "...)" + ",0,0)");
+  }
 }
