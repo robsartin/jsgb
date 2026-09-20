@@ -2,6 +2,7 @@ package com.robsartin.jsgb.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.raman.Raman;
 import com.robsartin.jsgb.rand.Rand;
 import org.junit.jupiter.api.DisplayName;
@@ -56,5 +57,48 @@ class OracleInc2Test {
                     TestSample.printSample(
                         Rand.randomGraph(0L, 1L, 0L, 0L, 0L, null, null, 1L, 1L, 1L), 0, ps)))
         .isEqualTo(Oracle.inc2("random_bad"));
+  }
+
+  @Test
+  @DisplayName("board, simplex and subsets print exactly as the C")
+  void shouldMatchOracleWhenGridGraphsPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Basic.board(3L, 3L, 0L, 0L, -2L, 0L, 1L), 4, ps)))
+        .isEqualTo(Oracle.inc2("board_dir"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Basic.board(4L, 4L, 0L, 0L, 1L, 3L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc2("board_wrap"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Basic.simplex(4L, 2L, 0L, 0L, 0L, 0L, 0L), 3, ps)))
+        .isEqualTo(Oracle.inc2("simplex"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Basic.simplex(3L, -3L, 0L, 0L, 0L, 0L, 1L), 5, ps)))
+        .isEqualTo(Oracle.inc2("simplex_dir"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(Basic.subsets(3L, -4L, 0L, 0L, 0L, 0L, 3L, 0L), 2, ps)))
+        .isEqualTo(Oracle.inc2("subsets2"));
+  }
+
+  @Test
+  @DisplayName("random_lengths on board graphs prints exactly as the C, with the C's return codes")
+  void shouldMatchOracleWhenRandomLengthsApplied() {
+    com.robsartin.jsgb.graph.Graph g = Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 0L);
+    assertThat(Rand.randomLengths(g, 0L, -3L, 3L, null, 9L))
+        .isEqualTo(Oracle.inc2Return("random_lengths"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(g, 1, ps)))
+        .isEqualTo(Oracle.inc2("random_lengths"));
+    com.robsartin.jsgb.graph.Graph d = Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 1L);
+    assertThat(Rand.randomLengths(d, 1L, 10L, 12L, DST, 4L))
+        .isEqualTo(Oracle.inc2Return("random_lengths_dir"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(d, 0, ps)))
+        .isEqualTo(Oracle.inc2("random_lengths_dir"));
+    assertThat(Rand.randomLengths(null, 0L, 0L, 0L, null, 0L))
+        .isEqualTo(Oracle.inc2Return("random_lengths_null"));
   }
 }

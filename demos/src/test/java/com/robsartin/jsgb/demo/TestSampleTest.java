@@ -2,6 +2,7 @@ package com.robsartin.jsgb.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.raman.Raman;
@@ -134,5 +135,29 @@ class TestSampleTest {
                         3,
                         ps)))
         .isEqualTo(SampleCorrect.stanza(11));
+  }
+
+  @Test
+  @DisplayName("stanza 1: board(1,1,2,-33,1,-2^31,1) at vertex 2000")
+  void shouldMatchSampleCorrectWhenBoardStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.board(1L, 1L, 2L, -33L, 1L, -0x40000000L - 0x40000000L, 1L),
+                        2000,
+                        ps)))
+        .isEqualTo(SampleCorrect.stanza(1));
+  }
+
+  @Test
+  @DisplayName("stanza 2: subsets(32,18,16,0,999,-999,0x80000000,1) at vertex 1")
+  void shouldMatchSampleCorrectWhenSubsetsStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.subsets(32L, 18L, 16L, 0L, 999L, -999L, 0x80000000L, 1L), 1, ps)))
+        .isEqualTo(SampleCorrect.stanza(2));
   }
 }
