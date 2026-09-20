@@ -218,7 +218,14 @@ class TestSampleTest {
             + SampleCorrect.stanza(0)
             + SampleCorrect.stanza(1)
             + SampleCorrect.stanza(2)
-            + SampleCorrect.stanza(3);
+            + SampleCorrect.stanza(3)
+            + SampleCorrect.stanza(8)
+            + SampleCorrect.stanza(10)
+            + SampleCorrect.stanza(11)
+            + SampleCorrect.stanza(12)
+            + SampleCorrect.stanza(13)
+            + SampleCorrect.stanza(14)
+            + SampleCorrect.stanza(15);
     assertThat(Oracle.capture(ps -> TestSample.run(ps, dir))).isEqualTo(expected);
     assertThat(dir.resolve("test.gb")).exists();
   }

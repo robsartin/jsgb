@@ -165,7 +165,9 @@ public final class Dijkstra {
       p = q;
     } while (t != p); // the loop stops with t == p == uu
     do {
-      out.print(String.format("%10d %s", dist(t) - hhVal(t) + hhVal(p), t.name) + "\n");
+      out.print(
+          String.format(java.util.Locale.ROOT, "%10d %s", dist(t) - hhVal(t) + hhVal(p), t.name)
+              + "\n");
       t = backlink(t);
     } while (t != null);
     t = p;

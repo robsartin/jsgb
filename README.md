@@ -18,10 +18,12 @@ JaCoCo coverage gate (line ≥ 80%, branch ≥ 65%).
 ## Layout
 
 `lib/` holds the library: one package per SGB module under
-`com.robsartin.jsgb` (`flip`, `io`, `graph`, `sort`, then the generators).
-Data files ship unmodified under `lib/src/main/resources/sgb/`; a
-`jsgb.data.dir` system property names a directory to search before the
-classpath, playing the role of the C `DATA_DIRECTORY`.
+`com.robsartin.jsgb`. Kernel: `flip`, `io`, `graph`, `sort`. Generators:
+`raman`, `basic`, `rand`, `words`, `roget`, `miles`, `plane`. Algorithms:
+`dijk`, `save`. Data files ship unmodified under
+`lib/src/main/resources/sgb/`; a `jsgb.data.dir` system property names a
+directory to search before the classpath, playing the role of the C
+`DATA_DIRECTORY`.
 
 `demos/` holds `TestSample`, the port of `test_sample`: it prints the salient
 characteristics of a handful of generated graphs so the output can be
@@ -32,9 +34,10 @@ extra test resource root declared in `lib/build.gradle.kts`, so
 
 ## Running the sample
 
-`./gradlew :demos:run` runs the sample sequence ported so far, writing
-`test.gb` in the working directory. It is also exercised by
-`./gradlew :demos:test`. The multi-demo launcher arrives in increment 4.
+`./gradlew :demos:run` runs the sample sequence ported so far, printing
+eleven of the sixteen stanzas of `sample.correct` and writing `test.gb` in
+the working directory. It is also exercised by `./gradlew :demos:test`. The
+multi-demo launcher arrives in increment 4.
 
 ## Regenerating oracles
 
