@@ -155,6 +155,26 @@ class OracleInc3aTest {
         .isEqualTo(Oracle.inc3a("plane_miles_prob"));
   }
 
+  @Test
+  @DisplayName("unsigned parameters compare as the C does when negative arguments are passed")
+  void shouldMatchOracleWhenUnsignedParametersAreNegative() {
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Roget.roget(1022L, -1L, 0L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("roget_neg_mindist"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Roget.roget(-1L, 0L, 0L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("roget_neg_n"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Miles.miles(10L, 0L, 0L, 0L, 0L, -1L, 1L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("miles_neg_degree"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Plane.plane(10L, -1L, 0L, 0L, 0L, 1L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("plane_neg_range"));
+    assertThat(
+            Oracle.capture(ps -> TestSample.printSample(Words.words(-1L, null, 0L, 69L), 5555, ps)))
+        .isEqualTo(Oracle.inc3a("words_neg_n"));
+  }
+
   private static String dijkstraCase(Runnable body) {
     PrintStream saved = Dijkstra.out;
     try {

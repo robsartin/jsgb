@@ -232,3 +232,50 @@ return=1297
 ==find_word_neighbours
 words cords lords fords |NULL
 |NULL
+==roget_neg_mindist
+
+"roget(1022,18446744073709551615,0,0)"
+1022 vertices, 0 arcs, util_types IZZZZZZZZZZZZZ
+V0: "painting"[568]
+==roget_neg_n
+
+"roget(1022,0,0,0)"
+1022 vertices, 5075 arcs, util_types IZZZZZZZZZZZZZ
+V0: "painting"[568]
+   ->"ornamentation"[864], 1
+   ->"representation"[566], 1
+   ->"colour"[437], 1
+   ->"light"[429], 1
+   ->"resin"[364], 1
+==miles_neg_degree
+
+"miles(10,0,0,0,0,9,1)"
+10 vertices, 90 arcs, util_types ZZIIIIZZZZZZZZ
+V0: "Wilmington, NC"[139238][4520][1128][119]
+   ->"Rockford, IL"[139712][3402][2332][12], 1033
+   ->"West Palm Beach, FL"[63305][4307][0][111], 718
+   ->"Staunton, VA"[21857][4405][1714][64], 350
+   ->"Youngstown, OH"[115436][4247][2157][127], 637
+   ->"Richmond, VA"[219214][4567][1623][8], 247
+   ->"Williamsport, PA"[33401][4612][2179][116], 567
+   ->"Watertown, SD"[15649][2601][2727][105], 1572
+   ->"Waterbury, CT"[103266][5007][2224][102], 672
+   ->"Rochester, NY"[241741][4551][2466][11], 733
+==plane_neg_range
+
+Ooops, we just ran into panic code 30!
+==words_neg_n
+
+"words(5757,0,0,69)"
+5757 vertices, 28270 arcs, util_types IZZZZZIZZZZZZZ
+V5555: "laded"[0]
+   ->"lades"[0], 1[4]
+   ->"laden"[204], 1[4]
+   ->"laved"[0], 1[2]
+   ->"lased"[0], 1[2]
+   ->"lazed"[2], 1[2]
+   ->"lamed"[112], 1[2]
+   ->"laced"[168], 1[2]
+   ->"jaded"[110], 1[0]
+   ->"waded"[240], 1[0]
+   ->"faded"[430], 1[0]

@@ -45,7 +45,7 @@ public final class Roget {
    */
   public static Graph roget(long n, long minDistance, long prob, long seed) {
     Flip.initRand(seed);
-    if (n == 0 || n > MAX_N) {
+    if (n == 0 || Long.compareUnsigned(n, MAX_N) > 0) {
       n = MAX_N;
     }
 
@@ -120,8 +120,8 @@ public final class Roget {
               return null;
             }
             if (mapping[(int) j] != null
-                && iabs(j - cat) >= minDistance
-                && (prob == 0 || (Flip.nextRand() >> 15) >= prob)) {
+                && Long.compareUnsigned(iabs(j - cat), minDistance) >= 0
+                && (prob == 0 || Long.compareUnsigned(Flip.nextRand() >> 15, prob) >= 0)) {
               Gb.newArc(v, mapping[(int) j], 1L);
             }
             char c = GbIo.ch();

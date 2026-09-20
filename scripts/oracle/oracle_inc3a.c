@@ -75,4 +75,9 @@ g=miles(20L,0L,0L,0L,0L,0L,1L);printf("==dijkstra_verbose_plain\n");verbose=1;d=
 g=words(5757L,NULL,0L,69L);
 printf("==find_word_neighbours\n");v=find_word("zords",pr_name);printf("|%s\n",v?v->name:"NULL");
 v=find_word("qqqqq",pr_name);printf("|%s\n",v?v->name:"NULL");gb_recycle(g);
+printf("==roget_neg_mindist\n");print_sample(roget(1022L,-1L,0L,0L),0);
+printf("==roget_neg_n\n");print_sample(roget(-1L,0L,0L,0L),0);
+printf("==miles_neg_degree\n");print_sample(miles(10L,0L,0L,0L,0L,-1L,1L),0);
+printf("==plane_neg_range\n");print_sample(plane(10L,-1L,0L,0L,0L,1L),0);
+printf("==words_neg_n\n");print_sample(words(-1L,NULL,0L,69L),5555);
 return 0;}

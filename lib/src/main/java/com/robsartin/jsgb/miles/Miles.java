@@ -119,10 +119,10 @@ public final class Miles {
     Flip.initRand(seed);
 
     // Section 7: check that the parameters are valid.
-    if (n == 0 || n > MAX_N) {
+    if (n == 0 || Long.compareUnsigned(n, MAX_N) > 0) {
       n = MAX_N;
     }
-    if (maxDegree == 0 || maxDegree >= n) {
+    if (maxDegree == 0 || Long.compareUnsigned(maxDegree, n) >= 0) {
       maxDegree = n - 1;
     }
     if (northWeight > 100000
@@ -246,7 +246,7 @@ public final class Miles {
     }
 
     // Sections 17-19: put the appropriate edges into the graph.
-    if (maxDistance > 0 || maxDegree > 0) {
+    if (Long.compareUnsigned(maxDistance, 0) > 0 || Long.compareUnsigned(maxDegree, 0) > 0) {
       pruneUnwantedEdges(maxDistance, maxDegree);
     }
     for (int ui = 0; ui < n; ui++) {
@@ -298,7 +298,7 @@ public final class Miles {
     for (Node q : nodes) {
       if (q.pop != 0 && q != p) { // another city not deleted
         long dist = d((int) k, (int) q.kk); // distance from p to q
-        if (dist > maxDistance) {
+        if (Long.compareUnsigned(dist, maxDistance) > 0) {
           setD((int) k, (int) q.kk, -dist);
         } else {
           q.key = maxDistance - dist;
@@ -313,7 +313,7 @@ public final class Miles {
     for (Sortable t = LinkSort.sorted[0]; t != null; t = t.link()) {
       Node q = (Node) t;
       count++;
-      if (count > maxDegree) {
+      if (Long.compareUnsigned(count, maxDegree) > 0) {
         setD((int) k, (int) q.kk, -d((int) k, (int) q.kk));
       }
     }

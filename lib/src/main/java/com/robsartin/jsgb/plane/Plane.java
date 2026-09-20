@@ -757,12 +757,12 @@ public final class Plane {
    */
   public static Graph plane(long n, long xRange, long yRange, long extend, long prob, long seed) {
     Flip.initRand(seed);
-    if (xRange > 16384 || yRange > 16384) {
+    if (Long.compareUnsigned(xRange, 16384) > 0 || Long.compareUnsigned(yRange, 16384) > 0) {
       Gb.panicCode = Gb.BAD_SPECS;
       Gb.troubleCode = 0;
       return null;
     }
-    if (n < 2) {
+    if (Long.compareUnsigned(n, 2) < 0) {
       Gb.panicCode = Gb.VERY_BAD_SPECS;
       Gb.troubleCode = 0;
       return null;
@@ -856,7 +856,7 @@ public final class Plane {
     if (extend != 0) {
       Gb.extraN++;
     }
-    if (n == 0 || n > Miles.MAX_N) {
+    if (n == 0 || Long.compareUnsigned(n, Miles.MAX_N) > 0) {
       n = Miles.MAX_N;
     }
     Graph newGraph = Miles.miles(n, northWeight, westWeight, popWeight, 1L, 0L, seed);

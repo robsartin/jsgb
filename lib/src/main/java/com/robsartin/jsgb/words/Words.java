@@ -187,7 +187,7 @@ public final class Words {
     }
 
     LinkSort.linksort(stackPtr);
-    if (n == 0 || nn < n) {
+    if (n == 0 || Long.compareUnsigned(nn, n) < 0) {
       n = nn;
     }
     Graph newGraph = Gb.newGraph(n);
