@@ -5,12 +5,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
+import com.robsartin.jsgb.graph.Vertex;
 import com.robsartin.jsgb.raman.Raman;
 import com.robsartin.jsgb.rand.Rand;
+import com.robsartin.jsgb.save.Save;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class TestSampleTest {
+
+  @TempDir Path dir;
+
+  private static final long[] DST = {0x20000000L, 0x10000000L, 0x10000000L};
 
   @Test
   @DisplayName("print_sample reports a panic exactly as the C does")
@@ -159,5 +169,39 @@ class TestSampleTest {
                     TestSample.printSample(
                         Basic.subsets(32L, 18L, 16L, 0L, 999L, -999L, 0x80000000L, 1L), 1, ps)))
         .isEqualTo(SampleCorrect.stanza(2));
+  }
+
+  @Test
+  @DisplayName("test.gb written by the test_sample sequence is byte-identical to test.correct")
+  void shouldWriteTestCorrectWhenSampleSequenceSaves() throws Exception {
+    Graph g = Rand.randomGraph(3L, 10L, 1L, 1L, 0L, null, DST, 1L, 2L, 1L);
+    Graph gg = Basic.complement(g, 1L, 1L, 0L);
+    Vertex v = Gb.allocVertices(gg, 1)[0];
+    v.name = Gb.saveString("Testing");
+    gg.utilTypes = gg.utilTypes.substring(0, 10) + 'V' + gg.utilTypes.substring(11);
+    gg.ww.V(v);
+    Path out = dir.resolve("test.gb");
+    assertThat(Save.saveGraph(gg, out.toString())).isZero();
+    Gb.recycle(g);
+    Gb.recycle(gg);
+    String expected =
+        new String(
+            getClass().getResourceAsStream("/oracle/test.correct").readAllBytes(),
+            StandardCharsets.ISO_8859_1);
+    assertThat(Files.readString(out, StandardCharsets.ISO_8859_1)).isEqualTo(expected);
+  }
+
+  @Test
+  @DisplayName(
+      "stanza 3: gunion(random_lengths(restore_graph(test.gb)...), random_graph(...)) at vertex 2")
+  void shouldMatchSampleCorrectWhenRestoredGraphStanzaPrinted() throws Exception {
+    Path out = dir.resolve("test.gb");
+    Files.write(out, getClass().getResourceAsStream("/oracle/test.correct").readAllBytes());
+    Graph g = Save.restoreGraph(out.toString());
+    assertThat(g).isNotNull();
+    assertThat(Rand.randomLengths(g, 0L, 10L, 12L, DST, 2L)).isZero();
+    Graph gg = Rand.randomGraph(3L, 10L, 1L, 1L, 0L, null, DST, 1L, 2L, 1L);
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.gunion(g, gg, 1L, 0L), 2, ps)))
+        .isEqualTo(SampleCorrect.stanza(3));
   }
 }

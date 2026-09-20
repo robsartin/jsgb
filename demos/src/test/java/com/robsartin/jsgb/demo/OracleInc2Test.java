@@ -5,13 +5,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.raman.Raman;
 import com.robsartin.jsgb.rand.Rand;
+import com.robsartin.jsgb.save.Save;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 /** Every case here reproduces a `print_sample` run of the C library recorded in oracle_inc2.out. */
 class OracleInc2Test {
 
   private static final long[] DST = {0x20000000L, 0x10000000L, 0x10000000L};
+
+  @TempDir java.nio.file.Path dir;
 
   @Test
   @DisplayName("raman types 1, 2 and reduced 3 print exactly as the C")
@@ -243,5 +247,19 @@ class OracleInc2Test {
     assertThat(
             Oracle.capture(ps -> TestSample.printSample(Basic.induced(h, null, 0L, 0L, 0L), 1, ps)))
         .isEqualTo(Oracle.inc2("induced_subst"));
+  }
+
+  @Test
+  @DisplayName("restore_graph reproduces the C's restored board and lines graphs")
+  void shouldMatchOracleWhenSavedGraphsRestored() throws Exception {
+    java.nio.file.Path b = dir.resolve("b.gb");
+    Save.saveGraph(Basic.board(2L, 2L, 0L, 0L, 1L, 0L, 0L), b.toString());
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Save.restoreGraph(b.toString()), 0, ps)))
+        .isEqualTo(Oracle.inc2("restore_board"));
+    java.nio.file.Path l = dir.resolve("l.gb");
+    com.robsartin.jsgb.graph.Graph lines = Basic.lines(Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 0L), 0L);
+    Save.saveGraph(lines, l.toString());
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Save.restoreGraph(l.toString()), 1, ps)))
+        .isEqualTo(Oracle.inc2("restore_lines"));
   }
 }
