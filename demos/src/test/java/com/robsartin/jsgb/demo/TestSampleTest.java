@@ -3,6 +3,7 @@ package com.robsartin.jsgb.demo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.robsartin.jsgb.basic.Basic;
+import com.robsartin.jsgb.books.Books;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
@@ -303,5 +304,24 @@ class TestSampleTest {
                     TestSample.printSample(
                         Plane.planeMiles(50L, 500L, -100L, 1L, 1L, 40000L, 271818L), 14, ps)))
         .isEqualTo(SampleCorrect.stanza(10));
+  }
+
+  @Test
+  @DisplayName("stanza 5: book(homer,500,400,2,12,10000,-123456,789) at vertex 81")
+  void shouldMatchSampleCorrectWhenBookStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Books.book("homer", 500L, 400L, 2L, 12L, 10000L, -123456L, 789L), 81, ps)))
+        .isEqualTo(SampleCorrect.stanza(5));
+  }
+
+  @Test
+  @DisplayName("oracle_inc3b.out cases are addressable by name")
+  void shouldExtractInc3bCasesWhenReadingOracleFile() {
+    assertThat(Oracle.inc3b("book_bad")).isEqualTo("\nOoops, we just ran into panic code 30!\n");
+    assertThat(Oracle.inc3bReturn("risc2_eval")).isZero();
+    assertThat(Oracle.inc3b("risc2_eval")).isEqualTo("0000000000000001\n");
   }
 }
