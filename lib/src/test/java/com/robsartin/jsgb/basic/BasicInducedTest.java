@@ -48,5 +48,12 @@ class BasicInducedTest {
     assertThat(Basic.circuit(5L).id).isEqualTo("board(5,0,0,0,1,1,0)");
     assertThat(Basic.petersen().n).isEqualTo(10L);
     assertThat(Basic.petersen().m).isEqualTo(30L);
+    assertThat(Basic.transitive(4L).id).isEqualTo("board(4,0,0,0,-1,0,1)");
+    assertThat(Basic.empty(3L).id).isEqualTo("board(3,0,0,0,2,0,0)");
+    assertThat(Basic.cycle(5L).id).isEqualTo("board(5,0,0,0,1,1,1)");
+    assertThat(Basic.petersen().id).isEqualTo("subsets(2,1,-4,0,0,0,0x1,0)");
+    assertThat(Basic.allPerms(3L, 0L).id).isEqualTo("perms(1,-2,0,0,0,3,0)");
+    assertThat(Basic.allParts(4L, 1L).id).isEqualTo("parts(4,4,4,1)");
+    assertThat(Basic.allTrees(3L, 0L).id).isEqualTo("binary(3,3,0)");
   }
 }
