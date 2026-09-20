@@ -8,10 +8,13 @@ import com.robsartin.jsgb.graph.Vertex;
 /**
  * Port of {@code gb_basic}: six subroutines that generate standard graphs of various types (boards,
  * simplexes, subsets, permutations, partitions, binary trees), together with six routines that
- * combine or transform existing graphs. This class grows across several tasks; this port currently
- * provides {@link #board}, {@link #simplex}, {@link #subsets}, {@link #perms}, {@link #parts},
- * {@link #binary}, {@link #complement}, {@link #gunion}, {@link #intersection}, {@link #lines} and
- * {@link #product}.
+ * combine or transform existing graphs, and the ten {@code gb_basic.h} shortcut macros for common
+ * special cases. This port provides {@link #board}, {@link #simplex}, {@link #subsets}, {@link
+ * #perms}, {@link #parts}, {@link #binary}, {@link #complement}, {@link #gunion}, {@link
+ * #intersection}, {@link #lines}, {@link #product} and {@link #induced}; the standard applications
+ * of {@link #induced}, {@link #biComplete} and {@link #wheel}; and the shortcuts {@link #complete},
+ * {@link #transitive}, {@link #empty}, {@link #circuit}, {@link #cycle}, {@link #disjointSubsets},
+ * {@link #petersen}, {@link #allPerms}, {@link #allParts} and {@link #allTrees}.
  *
  * <p>Several generators share a handful of C-global scratch arrays, translated here as {@code
  * private static} fields exactly as in the C (single-threaded, reused across calls): {@code nn}
@@ -23,13 +26,27 @@ import com.robsartin.jsgb.graph.Vertex;
  * fixed {@code char} array).
  *
  * <p>The C source also defines several one-letter macros that rename a vertex's or graph's utility
- * slots for readability in the functions this class will add later ({@code perms}, {@code parts},
- * {@code binary}, and the graph-transformation routines): {@code tmp} is {@code u.V}, {@code tlen}
- * is {@code z.A}, {@code mult} is {@code v.I}, {@code minlen} is {@code w.I}, {@code map} is {@code
- * z.V}, {@code ind} is {@code z.I}, and {@code subst} is {@code y.G}. {@link #IND_GRAPH} is the
- * sentinel value that {@code ind} macro's slot uses to mark an "induced graph" pseudo-vertex. None
- * of these are used by {@link #board}, {@link #simplex}, {@link #subsets}, {@link #perms}, {@link
- * #parts} or {@link #binary} either.
+ * slots for readability: {@code tmp} is {@code u.V}, {@code tlen} is {@code z.A}, {@code mult} is
+ * {@code v.I}, {@code minlen} is {@code w.I}, {@code map} is {@code z.V}, {@code ind} is {@code
+ * z.I}, and {@code subst} is {@code y.G}. {@code tmp}/{@code tlen} are the multi-arc-merge scratch
+ * used by {@link #gunion}, {@link #intersection} and {@link #induced} (a vertex's existing arcs or
+ * edges are noted there, via {@code tmp}/{@code tlen}, before more are added, so a repeat can be
+ * merged instead of duplicated); {@code minlen} is {@link #intersection}'s own per-vertex running
+ * minimum.
+ *
+ * <p>{@code mult}, {@code map}, {@code ind} and {@code subst} belong to {@link #induced}. Every
+ * vertex of the graph being induced must first be given an "induction code" in its {@code ind}
+ * field ({@code v.z.I}): 0 to eliminate the vertex, 1 to keep it, {@code k>1} to split it into
+ * {@code k} nonadjacent clones with the same neighbors, or {@code k<0} to identify it with every
+ * other vertex sharing that value of {@code k}. When {@code ind} is {@link #IND_GRAPH} or more, the
+ * vertex's {@code subst} field ({@code v.y.G(graph)}) must instead point at a graph whose vertices
+ * are substituted in its place (used by {@link #wheel} to hang a cycle off a hub). {@link #induced}
+ * records each surviving vertex's original {@code ind} in its first clone's {@code mult} field and
+ * points {@code map} ({@code v.z.V()}) at that clone while it works, restoring {@code ind} from
+ * {@code mult} (and clearing {@code map}) before it returns, so a caller's graph is left exactly as
+ * it was handed in. {@link #biComplete} and {@link #wheel} set {@code ind} and, when substituting,
+ * {@code subst} on a trivial two-vertex board before calling {@link #induced} themselves; a direct
+ * caller of {@link #induced} is expected to do the same.
  */
 public final class Basic {
 
@@ -44,7 +61,11 @@ public final class Basic {
   /** {@code MAX_NNN}: {@link #board} refuses to build a board with more cells than this. */
   public static final float MAX_NNN = 1000000000.0f;
 
-  /** {@code IND_GRAPH}: sentinel used by the {@code ind} slot macro (future {@code induced}). */
+  /**
+   * {@code IND_GRAPH}: when a vertex's {@code ind} field ({@code z.I}) is this or greater, {@link
+   * #induced} substitutes a copy of the graph in its {@code subst} field ({@code y.G}) in its
+   * place, instead of splitting the vertex into {@code ind} plain clones.
+   */
   public static final long IND_GRAPH = 1000000000;
 
   /** {@code cartesian}: {@link #product}'s {@code type} for the cartesian product. */
@@ -2105,5 +2126,388 @@ public final class Basic {
       Gb.newEdge(v, u, 1L);
     }
     return false;
+  }
+
+  /**
+   * {@code induced(g,description,self,multi,directed)}: a graph obtained from {@code g} by
+   * eliminating, retaining, splitting or identifying vertices, per each vertex's {@code ind} field
+   * ({@code v.z.I}, set by the caller before this call): 0 eliminates the vertex; 1 retains it;
+   * {@code k>1} splits it into {@code k} nonadjacent clones with the same neighbors {@code v} had;
+   * {@code k<0} identifies it with every other vertex sharing that value of {@code k}. When a
+   * vertex's {@code ind} is {@link #IND_GRAPH} or more, its {@code subst} field ({@code v.y.G()})
+   * must point at a graph whose vertices are substituted in its place (used by {@link #wheel}).
+   * Duplicate arcs are discarded unless {@code multi} is nonzero; self-loops are discarded unless
+   * {@code self} is nonzero. {@code description}, if non-null, is folded into the result's {@code
+   * id}. If {@code directed} is zero, {@code g} is assumed undirected and the result is too. On
+   * return, {@code g}'s {@code ind} fields are restored to their original values, whatever this
+   * call did to them along the way. Returns {@code null} and sets {@link Gb#panicCode} on failure
+   * ({@code g} missing, a vertex marked {@link #IND_GRAPH} or more with no {@code subst} graph, too
+   * many resulting vertices, or out of memory).
+   */
+  public static Graph induced(Graph g, String description, long self, long multi, long directed) {
+    if (g == null) {
+      Gb.panicCode = Gb.MISSING_OPERAND;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    Vertex[] gVerts = g.vertices;
+    int gN = (int) g.n;
+
+    // Section 107: determine n (total new vertices) and nn (negative-vertex count).
+    long n = 0;
+    long nn = 0;
+    for (int i = 0; i < gN; i++) {
+      long ind = gVerts[i].z.I;
+      if (ind > 0) {
+        if (n > IND_GRAPH) {
+          Gb.panicCode = Gb.VERY_BAD_SPECS;
+          Gb.troubleCode = 0;
+          return null;
+        }
+        if (ind >= IND_GRAPH) {
+          if (gVerts[i].y.G() == null) {
+            Gb.panicCode = Gb.MISSING_OPERAND + 1;
+            Gb.troubleCode = 0;
+            return null;
+          }
+          n += gVerts[i].y.G().n;
+        } else {
+          n += ind;
+        }
+      } else if (ind < -nn) {
+        nn = -ind;
+      }
+    }
+    if (n > IND_GRAPH || nn > IND_GRAPH) {
+      Gb.panicCode = Gb.VERY_BAD_SPECS + 1;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    n += nn;
+
+    Graph newGraph = Gb.newGraph(n);
+    if (newGraph == null) {
+      Gb.panicCode = Gb.NO_ROOM;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    Vertex[] newVerts = newGraph.vertices;
+
+    // Section 108: assign names to the new vertices, and create a map from g to new_graph.
+    int ui = 0;
+    for (long k = 1; k <= nn; k++, ui++) {
+      Vertex u = newVerts[ui];
+      u.v.I = -k;
+      u.name = Gb.saveString(Long.toString(-k));
+    }
+    for (int i = 0; i < gN; i++) {
+      Vertex v = gVerts[i];
+      long k = v.z.I;
+      if (k < 0) {
+        v.z.V(newVerts[(int) (-k - 1)]);
+      } else if (k > 0) {
+        Vertex u = newVerts[ui];
+        u.v.I = k;
+        v.z.V(u);
+        if (k <= 2) {
+          u.name = Gb.saveString(v.name);
+          ui++;
+          if (k == 2) {
+            newVerts[ui].name = Gb.saveString(v.name + "'");
+            ui++;
+          }
+        } else if (k >= IND_GRAPH) {
+          ui = substituteGraph(v, newVerts, ui, self, multi, directed);
+        } else {
+          for (long j = 0; j < k; j++, ui++) {
+            newVerts[ui].name = Gb.saveString(prefix(v.name, BUF_SIZE - 12) + ":" + j);
+          }
+        }
+      }
+    }
+    Gb.makeCompoundId(
+        newGraph,
+        "induced(",
+        g,
+        ","
+            + (description == null ? "" : description)
+            + ","
+            + flag(self)
+            + ","
+            + flag(multi)
+            + ","
+            + flag(directed)
+            + ")");
+
+    // Sections 110-113: insert arcs or edges for induced vertices.
+    for (int i = 0; i < gN; i++) {
+      Vertex v = gVerts[i];
+      Vertex mapped = v.z.V();
+      if (mapped == null) {
+        continue;
+      }
+      long k = mapped.v.I;
+      if (k < 0) {
+        k = 1;
+      } else if (k >= IND_GRAPH) {
+        k = v.y.G().n;
+      }
+      int uIndex = mapped.index;
+      for (; k > 0; k--, uIndex++) {
+        Vertex u = newVerts[uIndex];
+        if (multi == 0) {
+          // Section 111: take note of existing edges that touch u.
+          for (Arc a = u.arcs; a != null; a = a.next) {
+            Vertex tip = a.tip;
+            tip.u.V(u);
+            if (directed != 0 || tip.index > u.index || Gb.isFirstOfSelfLoop(a)) {
+              tip.z.A(a);
+            } else {
+              tip.z.A(a.mate);
+            }
+          }
+        }
+        for (Arc a = v.arcs; a != null; a = a.next) {
+          Vertex vv = a.tip;
+          Vertex vvMapped = vv.z.V();
+          if (vvMapped == null) {
+            continue;
+          }
+          long j = vvMapped.v.I;
+          if (j < 0) {
+            j = 1;
+          } else if (j >= IND_GRAPH) {
+            j = vv.y.G().n;
+          }
+          Vertex uu = vvMapped;
+          if (directed == 0) {
+            if (vv.index < v.index) {
+              continue;
+            }
+            if (vv == v) {
+              if (Gb.isFirstOfSelfLoop(a)) {
+                a = a.mate;
+              }
+              j = k;
+              uu = u;
+            }
+          }
+          // Section 112: insert arcs or edges from u to uu through uu+j-1.
+          int uuIndex = uu.index;
+          for (; j > 0; j--, uuIndex++) {
+            Vertex uuVertex = newVerts[uuIndex];
+            if (u == uuVertex && self == 0) {
+              continue;
+            }
+            if (uuVertex.u.V() == u && multi == 0) {
+              // Section 113: update the minimum arc length from u to uu, then continue.
+              Arc b = uuVertex.z.A();
+              if (a.len < b.len) {
+                b.len = a.len;
+                if (directed == 0) {
+                  b.mate.len = a.len;
+                }
+              }
+              continue;
+            }
+            if (directed != 0) {
+              Gb.newArc(u, uuVertex, a.len);
+            } else {
+              Gb.newEdge(u, uuVertex, a.len);
+            }
+            uuVertex.u.V(u);
+            uuVertex.z.A(directed != 0 || u.index <= uuVertex.index ? u.arcs : uuVertex.arcs);
+          }
+        }
+      }
+    }
+
+    // Section 109: restore g to its original state, and clear the new graph's scratch fields.
+    for (int i = 0; i < gN; i++) {
+      Vertex v = gVerts[i];
+      Vertex mapped = v.z.V();
+      if (mapped != null) {
+        v.z.I = mapped.v.I;
+        v.z.ref = null;
+      }
+    }
+    int totalN = (int) newGraph.n;
+    for (int i = 0; i < totalN; i++) {
+      Vertex nv = newVerts[i];
+      nv.u.I = 0;
+      nv.u.ref = null;
+      nv.v.I = 0;
+      nv.v.ref = null;
+      nv.z.I = 0;
+      nv.z.ref = null;
+    }
+
+    if (Gb.troubleCode != 0) {
+      Gb.recycle(newGraph);
+      Gb.panicCode = Gb.ALLOC_FAULT;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    return newGraph;
+  }
+
+  /**
+   * Section 114: names and wires up the clones of {@code v}'s substituted graph ({@code v.y.G()}),
+   * starting at {@code newVerts[uBase]}, one clone per vertex of the substituted graph, in order.
+   * Each clone is named {@code v.name + ":" + <that vertex's name>} (both truncated to fit), and
+   * the substituted graph's own arcs or edges are copied among the clones, subject to {@code self}
+   * and {@code multi} exactly as {@link #induced}'s main arc-copying loop is. Returns the index
+   * just past the last clone written.
+   */
+  private static int substituteGraph(
+      Vertex v, Vertex[] newVerts, int uBase, long self, long multi, long directed) {
+    Graph gg = v.y.G();
+    Vertex[] ggVerts = gg.vertices;
+    int ggN = (int) gg.n;
+    for (int j = 0; j < ggN; j++) {
+      Vertex vv = ggVerts[j];
+      Vertex u = newVerts[uBase + j];
+      u.name =
+          Gb.saveString(
+              prefix(v.name, BUF_SIZE / 2 - 1) + ":" + prefix(vv.name, (BUF_SIZE - 1) / 2));
+      for (Arc a = vv.arcs; a != null; a = a.next) {
+        Vertex vvv = a.tip;
+        Vertex uu = newVerts[uBase + vvv.index];
+        if (vvv == vv && self == 0) {
+          continue;
+        }
+        if (uu.u.V() == u && multi == 0) {
+          Arc b = uu.z.A();
+          if (a.len < b.len) {
+            b.len = a.len;
+            if (directed == 0) {
+              b.mate.len = a.len;
+            }
+          }
+          continue;
+        }
+        if (directed == 0) {
+          if (vvv.index < vv.index) {
+            continue;
+          }
+          if (vvv == vv && Gb.isFirstOfSelfLoop(a)) {
+            a = a.mate;
+          }
+          Gb.newEdge(u, uu, a.len);
+        } else {
+          Gb.newArc(u, uu, a.len);
+        }
+        uu.u.V(u);
+        uu.z.A(directed != 0 || u.index <= uu.index ? u.arcs : uu.arcs);
+      }
+    }
+    return uBase + ggN;
+  }
+
+  /**
+   * {@code bi_complete(n1,n2,directed)}: the complete bipartite graph with parts of sizes {@code
+   * n1} and {@code n2}, built by splitting a trivial two-vertex graph's vertices via {@link
+   * #induced}. {@link Gb#markBipartite} records the size of the first part. Returns {@code null}
+   * and sets {@link Gb#panicCode} on failure (too many vertices, or out of memory).
+   */
+  public static Graph biComplete(long n1, long n2, long directed) {
+    Graph newGraph = board(2L, 0L, 0L, 0L, 1L, 0L, directed);
+    if (newGraph != null) {
+      newGraph.vertices[0].z.I = n1;
+      newGraph.vertices[1].z.I = n2;
+      newGraph = induced(newGraph, null, 0L, 0L, directed);
+      if (newGraph != null) {
+        newGraph.id =
+            "bi_complete("
+                + Long.toUnsignedString(n1)
+                + ","
+                + Long.toUnsignedString(n2)
+                + ","
+                + flag(directed)
+                + ")";
+        Gb.markBipartite(newGraph, n1);
+      }
+    }
+    return newGraph;
+  }
+
+  /**
+   * {@code wheel(n,n1,directed)}: {@code n1} hub vertices, all connected to every vertex of an
+   * {@code n}-vertex rim (a cycle if undirected, a circuit if directed, from hub to rim and
+   * around), built via {@link #induced}'s {@link #IND_GRAPH} substitution feature. Returns {@code
+   * null} and sets {@link Gb#panicCode} on failure (too many vertices, or out of memory).
+   */
+  public static Graph wheel(long n, long n1, long directed) {
+    Graph newGraph = board(2L, 0L, 0L, 0L, 1L, 0L, directed);
+    if (newGraph != null) {
+      newGraph.vertices[0].z.I = n1;
+      newGraph.vertices[1].z.I = IND_GRAPH;
+      newGraph.vertices[1].y.G(board(n, 0L, 0L, 0L, 1L, 1L, directed));
+      newGraph = induced(newGraph, null, 0L, 0L, directed);
+      if (newGraph != null) {
+        newGraph.id =
+            "wheel("
+                + Long.toUnsignedString(n)
+                + ","
+                + Long.toUnsignedString(n1)
+                + ","
+                + flag(directed)
+                + ")";
+      }
+    }
+    return newGraph;
+  }
+
+  /** {@code complete(n)}: the complete graph on {@code n} vertices. */
+  public static Graph complete(long n) {
+    return board(n, 0L, 0L, 0L, -1L, 0L, 0L);
+  }
+
+  /** {@code transitive(n)}: the transitive tournament on {@code n} vertices. */
+  public static Graph transitive(long n) {
+    return board(n, 0L, 0L, 0L, -1L, 0L, 1L);
+  }
+
+  /** {@code empty(n)}: {@code n} vertices with no arcs. */
+  public static Graph empty(long n) {
+    return board(n, 0L, 0L, 0L, 2L, 0L, 0L);
+  }
+
+  /** {@code circuit(n)}: the undirected cycle on {@code n} vertices. */
+  public static Graph circuit(long n) {
+    return board(n, 0L, 0L, 0L, 1L, 1L, 0L);
+  }
+
+  /** {@code cycle(n)}: the directed cycle on {@code n} vertices. */
+  public static Graph cycle(long n) {
+    return board(n, 0L, 0L, 0L, 1L, 1L, 1L);
+  }
+
+  /**
+   * {@code disjoint_subsets(n,k)}: the {@code k}-subsets of an {@code n}-element set, adjacent when
+   * disjoint.
+   */
+  public static Graph disjointSubsets(long n, long k) {
+    return subsets(k, 1L, 1L - n, 0L, 0L, 0L, 1L, 0L);
+  }
+
+  /** {@code petersen()}: the Petersen graph, {@code disjoint_subsets(5,2)}. */
+  public static Graph petersen() {
+    return disjointSubsets(5L, 2L);
+  }
+
+  /** {@code all_perms(n,directed)}: all {@code n!} permutations of an {@code n}-element set. */
+  public static Graph allPerms(long n, long directed) {
+    return perms(1L - n, 0L, 0L, 0L, 0L, 0L, directed);
+  }
+
+  /** {@code all_parts(n,directed)}: all partitions of {@code n}. */
+  public static Graph allParts(long n, long directed) {
+    return parts(n, 0L, 0L, directed);
+  }
+
+  /** {@code all_trees(n,directed)}: all binary trees with {@code n} internal nodes. */
+  public static Graph allTrees(long n, long directed) {
+    return binary(n, 0L, directed);
   }
 }

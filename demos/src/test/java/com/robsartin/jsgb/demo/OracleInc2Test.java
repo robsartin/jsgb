@@ -219,4 +219,29 @@ class OracleInc2Test {
                         ps)))
         .isEqualTo(Oracle.inc2("product_dir"));
   }
+
+  @Test
+  @DisplayName("induced, bi_complete and wheel print exactly as the C")
+  void shouldMatchOracleWhenInducedGraphsPrinted() {
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.biComplete(2L, 3L, 0L), 1, ps)))
+        .isEqualTo(Oracle.inc2("bi_complete"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.wheel(5L, 1L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc2("wheel"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.wheel(4L, 2L, 1L), 5, ps)))
+        .isEqualTo(Oracle.inc2("wheel_dir"));
+    com.robsartin.jsgb.graph.Graph g = Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 0L);
+    g.vertices[0].z.I = 2;
+    g.vertices[1].z.I = -1;
+    g.vertices[2].z.I = -2;
+    assertThat(
+            Oracle.capture(ps -> TestSample.printSample(Basic.induced(g, "x", 1L, 1L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc2("induced_neg"));
+    com.robsartin.jsgb.graph.Graph h = Basic.board(2L, 0L, 0L, 0L, 1L, 0L, 0L);
+    h.vertices[0].z.I = Basic.IND_GRAPH;
+    h.vertices[0].y.G(Basic.board(3L, 0L, 0L, 0L, 1L, 1L, 0L));
+    h.vertices[1].z.I = 1;
+    assertThat(
+            Oracle.capture(ps -> TestSample.printSample(Basic.induced(h, null, 0L, 0L, 0L), 1, ps)))
+        .isEqualTo(Oracle.inc2("induced_subst"));
+  }
 }
