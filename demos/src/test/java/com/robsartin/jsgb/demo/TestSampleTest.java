@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.books.Books;
 import com.robsartin.jsgb.econ.Econ;
+import com.robsartin.jsgb.games.Games;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
@@ -332,5 +333,16 @@ class TestSampleTest {
     assertThat(
             Oracle.capture(ps -> TestSample.printSample(Econ.econ(40L, 0L, 400L, -111L), 11, ps)))
         .isEqualTo(SampleCorrect.stanza(6));
+  }
+
+  @Test
+  @DisplayName("stanza 7: games(60,70,80,-90,-101,60,0,999999999) at vertex 14")
+  void shouldMatchSampleCorrectWhenGamesStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Games.games(60L, 70L, 80L, -90L, -101L, 60L, 0L, 999999999L), 14, ps)))
+        .isEqualTo(SampleCorrect.stanza(7));
   }
 }

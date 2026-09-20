@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.robsartin.jsgb.books.Books;
 import com.robsartin.jsgb.econ.Econ;
+import com.robsartin.jsgb.games.Games;
 import com.robsartin.jsgb.graph.Graph;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -75,5 +76,31 @@ class OracleInc3bTest {
         .isEqualTo(Oracle.inc3b("econ_users"));
     assertThat(Oracle.capture(ps -> TestSample.printSample(Econ.econ(0L, 0L, 0L, 0L), 80, ps)))
         .isEqualTo(Oracle.inc3b("econ_default"));
+  }
+
+  @Test
+  @DisplayName("games prints exactly as the C")
+  void shouldMatchOracleWhenGamesPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Games.games(120L, 0L, 0L, 0L, 0L, 0L, 0L, 1L), 0, ps)))
+        .isEqualTo(Oracle.inc3b("games_full"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(Games.games(30L, 1L, 1L, 1L, 1L, 60L, 90L, 7L), 3, ps)))
+        .isEqualTo(Oracle.inc3b("games_window"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Games.games(10L, -1L, -1L, -1L, -1L, -5L, 0L, 3L), 0, ps)))
+        .isEqualTo(Oracle.inc3b("games_neg"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Games.games(5L, 200000L, 0L, 0L, 0L, 0L, 0L, 1L), 0, ps)))
+        .isEqualTo(Oracle.inc3b("games_bad"));
   }
 }
