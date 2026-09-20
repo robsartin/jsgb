@@ -127,6 +127,8 @@ class OracleInc2Test {
         .isEqualTo(Oracle.inc2("binary_dir"));
     assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.binary(20L, 6L, 0L), 100, ps)))
         .isEqualTo(Oracle.inc2("binary_big"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.binary(100L, 5L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc2("binary_wide"));
   }
 
   @Test
@@ -247,6 +249,23 @@ class OracleInc2Test {
     assertThat(
             Oracle.capture(ps -> TestSample.printSample(Basic.induced(h, null, 0L, 0L, 0L), 1, ps)))
         .isEqualTo(Oracle.inc2("induced_subst"));
+  }
+
+  @Test
+  @DisplayName("lines of a dense graph (K4) prints exactly as the C, at two starting vertices")
+  void shouldMatchOracleWhenLineGraphOfCompleteGraphPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.lines(Basic.board(4L, 0L, 0L, 0L, -1L, 0L, 0L), 0L), 1, ps)))
+        .isEqualTo(Oracle.inc2("lines_k4_v1"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.lines(Basic.board(4L, 0L, 0L, 0L, -1L, 0L, 0L), 0L), 5, ps)))
+        .isEqualTo(Oracle.inc2("lines_k4_v5"));
   }
 
   @Test

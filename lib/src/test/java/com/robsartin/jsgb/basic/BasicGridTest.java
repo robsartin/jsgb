@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 class BasicGridTest {
 
   @Test
-  @DisplayName("board(3,4,0,0,-1,0,0) is the 3x4 wazir graph queen.w starts from")
-  void shouldBuildWazirMovesWhenPieceIsMinusOne() {
+  @DisplayName("board(3,4,0,0,-1,0,0) is the 3x4 rook graph queen.w starts from")
+  void shouldBuildRookMovesWhenPieceIsMinusOne() {
     Graph g = Basic.board(3L, 4L, 0L, 0L, -1L, 0L, 0L);
     assertThat(g.id).isEqualTo("board(3,4,0,0,-1,0,0)");
     assertThat(g.n).isEqualTo(12L);

@@ -1021,20 +1021,22 @@ public final class Basic {
         nverts = nn[(int) d];
       }
     } else {
-      nn[0] = nn[1] = 1;
-      for (k = 2; k <= n; k++) {
-        nn[(int) k] = 0;
-      }
+      // The C reuses the shared static nn (sized MAX_D+2) here, which is safe for it only because
+      // 2n + 2 > BUF_SIZE already bounds n well below MAX_D for any n this branch can still reach
+      // when maxHeight is small; a legal n up to BUF_SIZE/2 - 1 (with maxHeight < 6) would overflow
+      // that shared array, so this branch uses its own local array of exactly the size it needs.
+      long[] local = new long[(int) n + 2];
+      local[0] = local[1] = 1;
       for (j = 2; j <= maxHeight; j++) {
         for (k = n - 1; k > 0; k--) {
           s = 0;
           for (i = k; i >= 0; i--) {
-            s += nn[(int) i] * nn[(int) (k - i)];
+            s += local[(int) i] * local[(int) (k - i)];
           }
-          nn[(int) (k + 1)] = s;
+          local[(int) (k + 1)] = s;
         }
       }
-      nverts = nn[(int) n];
+      nverts = local[(int) n];
     }
 
     Graph newGraph = Gb.newGraph(nverts);
@@ -1448,7 +1450,7 @@ public final class Basic {
     if (directed != 0) {
       insertDirectedLineArcs(newGraph, m); // section 92
     } else {
-      insertUndirectedLineEdges(newGraph, m); // section 93
+      insertUndirectedLineEdges(newGraph, g, m); // section 93
     }
     restoreLinesPristine(newGraph, m, directed); // section 88
 
@@ -1586,9 +1588,13 @@ public final class Basic {
    * {@code vv}. The first vertex's prior lines are found via {@code v.map}, walking forward through
    * {@code newGraph}'s vertices below {@code u}; the second vertex's prior lines are found by
    * scanning its (partially rewired) arc list, where an already-processed arc's tip now points into
-   * {@code newGraph} instead of {@code g}.
+   * {@code newGraph} instead of {@code g}. The C's {@code vv >= v && vv < g->vertices + g->n} test
+   * (is {@code vv} still an unrewired vertex of {@code g}?) is translated as {@code vv.index >=
+   * v.index && vv.index < g.n && g.vertices[vv.index] == vv}; the last conjunct is required because
+   * an already-rewired arc's tip is a {@code newGraph} vertex whose {@code index} can coincide with
+   * a legitimate {@code g}-vertex index.
    */
-  private static void insertUndirectedLineEdges(Graph newGraph, long m) {
+  private static void insertUndirectedLineEdges(Graph newGraph, Graph g, long m) {
     Vertex[] newVerts = newGraph.vertices;
     for (int ui = 0; ui < m; ui++) {
       Vertex u = newVerts[ui];
@@ -1602,7 +1608,7 @@ public final class Basic {
         Vertex vv = a.tip;
         if (vv.index < u.index && newVerts[vv.index] == vv) {
           Gb.newEdge(u, vv, 1L);
-        } else if (vv.index >= v.index) {
+        } else if (vv.index >= v.index && vv.index < g.n && g.vertices[vv.index] == vv) {
           mapped = true;
         }
       }

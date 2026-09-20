@@ -77,4 +77,7 @@ g=board(2L,2L,0L,0L,1L,0L,0L);save_graph(g,"oracle_board.gb");gg=restore_graph("
 printf("==restore_board\n");print_sample(gg,0);gb_recycle(g);
 g=lines(board(3L,0L,0L,0L,1L,0L,0L),0L);g->util_types[0]='Z';g->util_types[1]='Z';save_graph(g,"oracle_lines.gb");
 printf("==restore_lines\n");print_sample(restore_graph("oracle_lines.gb"),1);
+printf("==lines_k4_v1\n");print_sample(lines(board(4L,0L,0L,0L,-1L,0L,0L),0L),1);
+printf("==lines_k4_v5\n");print_sample(lines(board(4L,0L,0L,0L,-1L,0L,0L),0L),5);
+printf("==binary_wide\n");print_sample(binary(100L,5L,0L),0);
 return 0;}

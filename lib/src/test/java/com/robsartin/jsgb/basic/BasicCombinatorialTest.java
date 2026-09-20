@@ -49,4 +49,12 @@ class BasicCombinatorialTest {
     assertThat(Basic.binary(40L, 31L, 0L)).isNull();
     assertThat(Gb.panicCode).isEqualTo(Gb.VERY_BAD_SPECS);
   }
+
+  @Test
+  @DisplayName("binary(100,5) has no tree of height 5 with 100 internal nodes, so it is empty")
+  void shouldReturnEmptyGraphWhenBinaryHasTooManyNodesForHeight() {
+    Graph g = Basic.binary(100L, 5L, 0L);
+    assertThat(g.n).isZero();
+    assertThat(g.m).isZero();
+  }
 }
