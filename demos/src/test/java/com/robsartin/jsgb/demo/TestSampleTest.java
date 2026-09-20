@@ -78,7 +78,7 @@ class TestSampleTest {
     g.utilTypes = "VSAZZZZZZZZZZZ";
     g.vertices[0].name = "a";
     g.vertices[1].name = "b";
-    g.vertices[1].u.I = 1; // a V slot holding the value 1 is gb_gates' ONE
+    g.vertices[1].u.V(Gb.ONE); // gb_gates' boolean ONE
     g.vertices[1].v.S("s");
     Gb.newArc(g.vertices[0], g.vertices[1], 5L);
     g.vertices[1].w.A(g.vertices[0].arcs);
@@ -217,5 +217,30 @@ class TestSampleTest {
             + SampleCorrect.stanza(3);
     assertThat(Oracle.capture(ps -> TestSample.run(ps, dir))).isEqualTo(expected);
     assertThat(dir.resolve("test.gb")).exists();
+  }
+
+  @Test
+  @DisplayName("print_sample prints ONE for a boolean arc tip and a boolean V slot")
+  void shouldPrintOneWhenTipOrSlotIsBoolean() {
+    Graph g = Gb.newGraph(1L);
+    g.id = "one";
+    g.utilTypes = "VZZZZZZZZZZZZZ";
+    g.vertices[0].name = "a";
+    g.vertices[0].u.V(Gb.ONE);
+    Gb.newArc(g.vertices[0], Gb.ONE, 2L);
+    assertThat(Oracle.capture(ps -> TestSample.printSample(g, 0, ps)))
+        .isEqualTo(
+            "\n\"one\"\n1 vertices, 1 arcs, util_types VZZZZZZZZZZZZZ\nV0: \"a\"[ONE]\n   ->ONE, 2\n");
+  }
+
+  @Test
+  @DisplayName("oracle_inc3a.out cases are addressable by name")
+  void shouldExtractInc3aCasesWhenReadingOracleFile() {
+    assertThat(Oracle.inc3a("words_top"))
+        .startsWith("\n\"words(50,0,1000,1)\"\n50 vertices, 26 arcs");
+    assertThat(Oracle.inc3aReturn("miles_distance")).isEqualTo(520L);
+    assertThat(Oracle.inc3a("find_word")).isEqualTo("words\n|NULL\n|graph\n");
+    assertThat(Oracle.inc3a("dijkstra_unreachable"))
+        .isEqualTo("return=-1\nSorry, 0 is unreachable.\n");
   }
 }

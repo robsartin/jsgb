@@ -19,3 +19,10 @@ cc -w -I. oracle_inc2.c -L. -lgb -o oracle_inc2
 OUT="$HERE/demos/src/test/resources/oracle/inc2"
 cp oracle_inc2.out oracle_board.gb oracle_lines.gb "$OUT/"
 echo "regenerated into $OUT (scratch: $WORK)"
+
+cp "$HERE/scripts/oracle/oracle_inc3a.c" .
+cc -w -I. oracle_inc3a.c -L. -lgb -o oracle_inc3a
+./oracle_inc3a > oracle_inc3a.out
+OUT3A="$HERE/demos/src/test/resources/oracle/inc3a"
+cp oracle_inc3a.out "$OUT3A/"
+echo "regenerated into $OUT3A (scratch: $WORK)"

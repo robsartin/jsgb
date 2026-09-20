@@ -98,6 +98,10 @@ public final class TestSample {
       out.print("NULL");
       return;
     }
+    if (v == Gb.ONE) {
+      out.print("ONE"); // gb_gates' boolean vertex
+      return;
+    }
     out.print("\"" + v.name + "\"");
     prUtil(v.u, s.charAt(0), l - 1, s, out);
     prUtil(v.v, s.charAt(1), l - 1, s, out);
@@ -144,11 +148,7 @@ public final class TestSample {
           return;
         }
         out.print("[");
-        if (u.ref == null && u.I == 1) {
-          out.print("ONE"); // gb_gates' boolean vertex; a V slot holding the value 1
-        } else {
-          prVert(u.V(), l, s, out);
-        }
+        prVert(u.V(), l, s, out);
         out.print("]");
       }
       default -> {}

@@ -24,6 +24,9 @@
 - [20. Mates by position for restored graphs](0020-mates-by-position-for-restored-graphs.md) — _Accepted_
   `Arc.mate` is set only by `newEdge`, but `restore_graph` rebuilds a graph from a file without calling it, and downstream algorithms still need an arc's inverse by the C's positional rule.
   Related: [17. Explicit ordering stand-ins over pointer arithmetic](0017-ordering-without-pointers.md)
+- [21. Boolean vertex and auxiliary vertices for gb_gates](0021-boolean-vertex-and-aux-vertices.md) — _Accepted_
+  `gb_gates` stores a boolean constant, the C's `(Vertex*) 1`, in both `Arc.tip` and `V`-typed util slots, and allocates scratch vertices in a separate arena that `save_graph` never numbers; increment 2's slot-only `I == 1` encoding could not represent the arc-tip case.
+  Related: [17. Explicit ordering stand-ins over pointer arithmetic](0017-ordering-without-pointers.md), [20. Mates by position for restored graphs](0020-mates-by-position-for-restored-graphs.md)
 
 ## Universal
 

@@ -6,6 +6,7 @@ import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.graph.Arc;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
+import com.robsartin.jsgb.graph.Vertex;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -132,5 +133,39 @@ class SaveTest {
     }
     Graph r = Save.restoreGraph(out.toString());
     assertThat(r.vertices[0].name).isEqualTo("x".repeat(200));
+  }
+
+  @Test
+  @DisplayName("a boolean tip and a boolean V slot save as 1 and restore as Gb.ONE")
+  void shouldRoundTripOneWhenSlotsAreBoolean() throws Exception {
+    Graph g = Gb.newGraph(2L);
+    g.id = "bool";
+    g.utilTypes = "VZZZZZZZZZZZZZ";
+    g.vertices[0].name = "a";
+    g.vertices[1].name = "b";
+    Gb.newArc(g.vertices[0], Gb.ONE, 3L);
+    g.vertices[1].u.V(Gb.ONE);
+    Path out = dir.resolve("bool.gb");
+    assertThat(Save.saveGraph(g, out.toString())).isZero();
+    String text = read(out);
+    assertThat(text).contains("\"a\",A0,0\n").contains("\"b\",0,1\n").contains("1,0,3\n");
+    Graph r = Save.restoreGraph(out.toString());
+    assertThat(r.vertices[0].arcs.tip).isSameAs(Gb.ONE);
+    assertThat(r.vertices[1].u.V()).isSameAs(Gb.ONE);
+    assertThat(r.vertices[1].u.I).isZero();
+  }
+
+  @Test
+  @DisplayName("auxiliary vertices are never numbered by save_graph")
+  void shouldIgnoreAuxVerticesWhenSaving() throws Exception {
+    Graph g = Gb.newGraph(1L);
+    g.id = "aux";
+    g.utilTypes = "VZZZZZZZZZZZZZ";
+    Vertex[] aux = Gb.allocAuxVertices(1);
+    aux[0].name = "scratch";
+    g.vertices[0].u.V(aux[0]);
+    Path out = dir.resolve("aux.gb");
+    assertThat(Save.saveGraph(g, out.toString())).isEqualTo(Save.ADDR_NOT_IN_DATA_AREA);
+    assertThat(read(out)).contains(",5V,").doesNotContain("scratch");
   }
 }

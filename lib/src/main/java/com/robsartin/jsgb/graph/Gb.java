@@ -35,6 +35,18 @@ public final class Gb {
   /** Number of spare vertices allocated beyond {@code n} by {@link #newGraph}. */
   public static long extraN = 4;
 
+  /**
+   * {@code gb_gates}' boolean constant, the C's {@code (Vertex*) 1}: a sentinel vertex that no
+   * graph owns, stored in an {@link Arc#tip} or a {@code V}-typed {@link Util} slot to mean {@code
+   * true}. Index {@code -1} marks it as outside every graph's vertex array; index arithmetic on it
+   * is a bug, as pointer arithmetic on the C's constant {@code 1} would be.
+   */
+  public static final Vertex ONE = new Vertex(-1);
+
+  static {
+    ONE.name = "ONE";
+  }
+
   private static final Graph DUMMY_GRAPH = new Graph();
   private static Graph curGraph = DUMMY_GRAPH;
   private static Arc[] curBlock;
@@ -135,6 +147,28 @@ public final class Gb {
     Arc[] block = newBlock(count);
     g.arcBlocks.add(block);
     return block;
+  }
+
+  /**
+   * {@code gb_typed_alloc(count, Vertex, g->aux_data)}: fresh scratch vertices registered on no
+   * graph, so {@code save_graph} never numbers them. Used by {@code dijkstra}'s {@code head[128]}
+   * and by {@code gb_gates}' scratch vertices.
+   */
+  public static Vertex[] allocAuxVertices(int count) {
+    Vertex[] block = new Vertex[count];
+    for (int i = 0; i < count; i++) {
+      block[i] = new Vertex(i);
+    }
+    return block;
+  }
+
+  /**
+   * {@code is_boolean(v)}'s ONE case: whether {@code v} is the sentinel {@link #ONE}. The C macro
+   * is {@code (unsigned long) v <= 1}, true for both {@code NULL} and {@code (Vertex*) 1}; callers
+   * that also need to treat {@code null} as boolean test that themselves.
+   */
+  public static boolean isBoolean(Vertex v) {
+    return v == ONE;
   }
 
   /**
@@ -255,11 +289,11 @@ public final class Gb {
   }
 
   /**
-   * Clamps a negative {@code max} to the empty string, whereas C's {@code %.*s} with a negative
-   * precision prints the whole string. Unreachable in SGB, since {@code s1 + s2} never exceed 156
-   * characters.
+   * The C's {@code %.*s}: the first {@code max} characters, or the whole string if shorter; a
+   * negative {@code max} yields the empty string, where C would print the whole string —
+   * unreachable in SGB.
    */
-  private static String prefix(String s, int max) {
+  public static String prefix(String s, int max) {
     return s.length() <= max ? s : s.substring(0, Math.max(max, 0));
   }
 
