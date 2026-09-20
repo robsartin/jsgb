@@ -101,4 +101,27 @@ class OracleInc2Test {
     assertThat(Rand.randomLengths(null, 0L, 0L, 0L, null, 0L))
         .isEqualTo(Oracle.inc2Return("random_lengths_null"));
   }
+
+  @Test
+  @DisplayName("perms, parts and binary print exactly as the C, including the binary panic")
+  void shouldMatchOracleWhenCombinatorialGraphsPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Basic.perms(1L, 1L, 1L, 0L, 0L, 0L, 0L), 3, ps)))
+        .isEqualTo(Oracle.inc2("perms"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Basic.perms(2L, 1L, 0L, 0L, 0L, 2L, 1L), 2, ps)))
+        .isEqualTo(Oracle.inc2("perms_dir"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.parts(6L, 0L, 0L, 0L), 4, ps)))
+        .isEqualTo(Oracle.inc2("parts"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.parts(7L, 3L, 4L, 1L), 2, ps)))
+        .isEqualTo(Oracle.inc2("parts_dir"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.binary(4L, 0L, 0L), 5, ps)))
+        .isEqualTo(Oracle.inc2("binary"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.binary(5L, 4L, 1L), 3, ps)))
+        .isEqualTo(Oracle.inc2("binary_dir"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.binary(20L, 6L, 0L), 100, ps)))
+        .isEqualTo(Oracle.inc2("binary_big"));
+  }
 }
