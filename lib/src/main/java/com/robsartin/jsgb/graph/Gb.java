@@ -51,6 +51,7 @@ public final class Gb {
     curGraph = DUMMY_GRAPH;
     curBlock = null;
     nextIndex = 0;
+    DUMMY_GRAPH.ww.ref = null;
   }
 
   /** The graph that {@link #newArc} and {@link #newEdge} add to. Tests only. */
@@ -114,5 +115,87 @@ public final class Gb {
   public static void markBipartite(Graph g, long n1) {
     g.uu.I = n1;
     g.utilTypes = g.utilTypes.substring(0, 8) + 'I' + g.utilTypes.substring(9);
+  }
+
+  private record ArcCursor(Arc[] block, int index) {}
+
+  private static Arc[] newBlock() {
+    Arc[] block = new Arc[ARCS_PER_BLOCK];
+    for (int i = 0; i < ARCS_PER_BLOCK; i++) {
+      block[i] = new Arc();
+    }
+    return block;
+  }
+
+  /** {@code gb_virgin_arc()}: the next unused arc slot of the current graph. */
+  public static Arc virginArc() {
+    if (curGraph == DUMMY_GRAPH) {
+      throw new IllegalStateException("no current graph: call gb_new_graph first");
+    }
+    if (curBlock == null || nextIndex == ARCS_PER_BLOCK) {
+      curBlock = newBlock();
+      curGraph.arcBlocks.add(curBlock);
+      nextIndex = 1;
+      return curBlock[0];
+    }
+    return curBlock[nextIndex++];
+  }
+
+  /** {@code gb_new_arc(u, v, len)}: a new arc from {@code u} to {@code v} in the current graph. */
+  public static void newArc(Vertex u, Vertex v, long len) {
+    Arc a = virginArc();
+    a.tip = v;
+    a.next = u.arcs;
+    a.len = len;
+    u.arcs = a;
+    curGraph.m++;
+  }
+
+  /**
+   * {@code gb_new_edge(u, v, len)}: a new undirected edge as two consecutive arcs. The arc from the
+   * lower-indexed vertex occupies the first slot, as in C where the first arc was the one at the
+   * lower address.
+   */
+  public static void newEdge(Vertex u, Vertex v, long len) {
+    Arc a = virginArc();
+    if (nextIndex == ARCS_PER_BLOCK) {
+      throw new IllegalStateException(
+          "gb_new_edge must not be mixed with an odd number of gb_new_arc calls");
+    }
+    Arc mate = curBlock[nextIndex++];
+    if (u.index < v.index) {
+      a.tip = v;
+      a.next = u.arcs;
+      mate.tip = u;
+      mate.next = v.arcs;
+      u.arcs = a;
+      v.arcs = mate;
+    } else {
+      mate.tip = v;
+      mate.next = u.arcs;
+      u.arcs = mate;
+      a.tip = u;
+      a.next = v.arcs;
+      v.arcs = a;
+    }
+    a.len = len;
+    mate.len = len;
+    a.mate = mate;
+    mate.mate = a;
+    curGraph.m += 2;
+  }
+
+  /** {@code switch_to_graph(g)}: makes {@code g} current, parking the old graph's arc cursor. */
+  public static void switchToGraph(Graph g) {
+    curGraph.ww.ref = curBlock == null ? null : new ArcCursor(curBlock, nextIndex);
+    curGraph = g == null ? DUMMY_GRAPH : g;
+    if (curGraph.ww.ref instanceof ArcCursor c) {
+      curBlock = c.block();
+      nextIndex = c.index();
+    } else {
+      curBlock = null;
+      nextIndex = 0;
+    }
+    curGraph.ww.ref = null;
   }
 }
