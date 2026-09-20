@@ -1,0 +1,301 @@
+==perms
+
+"perms(1,1,1,0,0,3,0)"
+6 vertices, 12 arcs, util_types VVZZZZZZZZZZZZ
+V3: "102"[NULL]["012"]
+   ->"120", 1
+   ->"012", 1
+==perms_dir
+
+"perms(2,1,0,0,0,2,1)"
+3 vertices, 2 arcs, util_types VVZZZZZZZZZZZZ
+V2: "100"["001"]["010"]
+==binary
+
+"binary(4,4,0)"
+14 vertices, 42 arcs, util_types VVZZZZZZZZZZZZ
+V5: "..xx.x.xx"[NULL][".x.x..xxx"]
+   ->"...xxx.xx", 1
+   ->"..xx..xxx", 1
+   ->".x.x.x.xx", 1
+==binary_dir
+
+"binary(5,4,1)"
+26 vertices, 40 arcs, util_types VVZZZZZZZZZZZZ
+V3: ".x..x.xx.xx"[NULL][NULL]
+   ->".x.x..xx.xx", 1
+==binary_big
+
+Ooops, we just ran into panic code 31!
+==raman1
+
+"raman(5,3,1,0)"
+4 vertices, 24 arcs, util_types ZZZIZZIZZZZZZZ
+V1: "1"[1]
+   ->"2"[2], 1[0]
+   ->"0"[0], 1[1]
+   ->"0"[0], 1[2]
+   ->"INF"[3], 1[3]
+   ->"INF"[3], 1[4]
+   ->"2"[2], 1[5]
+==raman2
+
+"raman(5,3,2,1)"
+6 vertices, 30 arcs, util_types ZZZIIZIZZZZZZZ
+V2: "{0,INF}"[0][3]
+   ->"{0,1}"[0][1], 1[0]
+   ->"{2,INF}"[2][3], 1[1]
+   ->"{1,2}"[1][2], 1[3]
+   ->"{0,2}"[0][2], 1[4]
+   ->"{1,INF}"[1][3], 1[5]
+==raman3red
+
+"raman(31,3,3,1)"
+12 vertices, 96 arcs, util_types ZZZIIIIZZZZZZZ
+V4: "(1,0;1,1)"[1][0][1]
+   ->"(1,2;1,0)"[1][2][0], 1[16]
+   ->"(1,1;1,2)"[1][1][2], 1[17]
+   ->"(0,2;1,0)"[0][2][0], 1[18]
+   ->"(1,1;0,1)"[1][1][3], 1[19]
+   ->"(2,0;1,2)"[2][0][2], 1[20]
+   ->"(1,0;0,1)"[1][0][3], 1[21]
+   ->"(0,2;1,1)"[0][2][1], 1[22]
+   ->"(2,1;1,1)"[2][1][1], 1[23]
+==board_dir
+
+"board(3,3,0,0,-2,0,1)"
+9 vertices, 10 arcs, util_types ZZZIIIZZZZZZZZ
+V4: "1.1"[1][1][0]
+   ->"2.0"[2][0][0], 1
+   ->"2.2"[2][2][0], 1
+==board_wrap
+
+"board(4,4,0,0,1,3,0)"
+16 vertices, 64 arcs, util_types ZZZIIIZZZZZZZZ
+V0: "0.0"[0][0][0]
+   ->"3.0"[3][0][0], 1
+   ->"1.0"[1][0][0], 1
+   ->"0.3"[0][3][0], 1
+   ->"0.1"[0][1][0], 1
+==simplex
+
+"simplex(4,2,0,0,0,0,0)"
+0 vertices, 0 arcs, util_types VVZIIIZZZZZZZZ
+V3: index is out of range!
+==simplex_dir
+
+"simplex(3,-3,0,0,0,0,1)"
+20 vertices, 60 arcs, util_types VVZIIIZZZZZZZZ
+V5: "0.1.1.1"["0.0.2.1"[0][0][2]]["0.1.2.0"[0][1][2]][0][1][1]
+   ->"1.1.1.0"[1][1][1], 1
+   ->"1.1.0.1"[1][1][0], 1
+   ->"1.0.1.1"[1][0][1], 1
+   ->"0.2.1.0"[0][2][1], 1
+   ->"0.2.0.1"[0][2][0], 1
+   ->"0.1.2.0"[0][1][2], 1
+==subsets2
+
+"subsets(3,-4,0,0,0,0,0x3,0)"
+35 vertices, 890 arcs, util_types ZZZIIIZZZZZZZZ
+V2: "0.0.0.2.1"[0][0][0]
+   ->"3.0.0.0.0"[3][0][0], 1
+   ->"2.1.0.0.0"[2][1][0], 1
+   ->"2.0.1.0.0"[2][0][1], 1
+   ->"2.0.0.1.0"[2][0][0], 1
+   ->"2.0.0.0.1"[2][0][0], 1
+   ->"1.2.0.0.0"[1][2][0], 1
+   ->"1.1.1.0.0"[1][1][1], 1
+   ->"1.1.0.1.0"[1][1][0], 1
+   ->"1.1.0.0.1"[1][1][0], 1
+   ->"1.0.2.0.0"[1][0][2], 1
+   ->"1.0.1.1.0"[1][0][1], 1
+   ->"1.0.1.0.1"[1][0][1], 1
+   ->"1.0.0.0.2"[1][0][0], 1
+   ->"0.3.0.0.0"[0][3][0], 1
+   ->"0.2.1.0.0"[0][2][1], 1
+   ->"0.2.0.1.0"[0][2][0], 1
+   ->"0.2.0.0.1"[0][2][0], 1
+   ->"0.1.2.0.0"[0][1][2], 1
+   ->"0.1.1.1.0"[0][1][1], 1
+   ->"0.1.1.0.1"[0][1][1], 1
+   ->"0.1.0.0.2"[0][1][0], 1
+   ->"0.0.3.0.0"[0][0][3], 1
+   ->"0.0.2.1.0"[0][0][2], 1
+   ->"0.0.2.0.1"[0][0][2], 1
+   ->"0.0.1.0.2"[0][0][1], 1
+   ->"0.0.0.0.3"[0][0][0], 1
+==parts
+
+"parts(6,6,6,0)"
+11 vertices, 34 arcs, util_types VVZZZZZZZZZZZZ
+V4: "3+1+1+1"[NULL]["1+1+1+1+1+1"]
+   ->"4+1+1", 1
+   ->"3+2+1", 1
+   ->"2+1+1+1+1", 1
+==parts_dir
+
+"parts(7,3,4,1)"
+4 vertices, 3 arcs, util_types VVZZZZZZZZZZZZ
+V2: "4+2+1"[NULL]["4+3"]
+==complement_dir
+
+"complement(board(3,0,0,0,1,0,1),0,0,1)"
+3 vertices, 4 arcs, util_types ZZZZZZZZZZZZZZ
+V1: "1"
+   ->"0", 1
+==gunion_dir
+
+"gunion(board(3,0,0,0,1,0,1),board(3,0,0,0,-2,0,1),0,1)"
+3 vertices, 2 arcs, util_types ZZZZZZZZZZZZZZ
+V0: "0"
+   ->"1", 1
+==intersection
+
+"intersection(board(3,3,0,0,-1,0,0),board(3,3,0,0,-2,0,0),0,0)"
+9 vertices, 0 arcs, util_types ZZZZZZZZZZZZZZ
+V4: "1.1"
+==intersection_dir
+
+"intersection(board(3,0,0,0,-2,0,1),board(3,0,0,0,1,0,1),1,1)"
+3 vertices, 0 arcs, util_types ZZZZZZZZZZZZZZ
+V1: "1"
+==lines
+
+"lines(board(3,3,0,0,1,0,0),0)"
+12 vertices, 44 arcs, util_types ZZZZZZZZZZZZZZ
+V5: "1.0--2.0"
+   ->"0.0--1.0", 1
+   ->"1.0--1.1", 1
+   ->"2.0--2.1", 1
+==lines_dir
+
+"lines(board(3,0,0,0,-2,0,1),1)"
+0 vertices, 0 arcs, util_types ZZZZZZZZZZZZZZ
+V1: index is out of range!
+==product_cart
+
+"product(board(2,0,0,0,1,0,0),board(3,0,0,0,1,0,0),0,0)"
+6 vertices, 14 arcs, util_types ZZZZZZZZZZZZZZ
+V1: "0,1"
+   ->"1,1", 1
+   ->"0,2", 1
+   ->"0,0", 1
+==product_direct
+
+"product(board(2,0,0,0,1,0,0),board(3,0,0,0,1,0,0),1,0)"
+6 vertices, 8 arcs, util_types ZZZZZZZZZZZZZZ
+V1: "0,1"
+   ->"1,0", 1
+   ->"1,2", 1
+==product_strong
+
+"product(board(2,0,0,0,1,0,0),board(3,0,0,0,1,0,0),2,0)"
+6 vertices, 22 arcs, util_types ZZZZZZZZZZZZZZ
+V1: "0,1"
+   ->"1,0", 1
+   ->"1,2", 1
+   ->"1,1", 1
+   ->"0,2", 1
+   ->"0,0", 1
+==product_dir
+
+"product(board(2,0,0,0,1,0,1),board(2,0,0,0,-2,0,1),1,1)"
+4 vertices, 0 arcs, util_types ZZZZZZZZZZZZZZ
+V0: "0,0"
+==bi_complete
+
+"bi_complete(2,3,0)"
+5 vertices, 12 arcs, util_types ZZZZZZZZIZZZZZ[2]
+V1: "0'"
+   ->"1:2", 1
+   ->"1:1", 1
+   ->"1:0", 1
+==wheel
+
+"wheel(5,1,0)"
+6 vertices, 20 arcs, util_types ZZZZZZZZZZZZZZ
+V0: "0"
+   ->"1:4", 1
+   ->"1:3", 1
+   ->"1:2", 1
+   ->"1:1", 1
+   ->"1:0", 1
+==wheel_dir
+
+"wheel(4,2,1)"
+6 vertices, 12 arcs, util_types ZZZZZZZZZZZZZZ
+V5: "1:3"
+   ->"1:0", 1
+==induced_neg
+
+"induced(board(3,0,0,0,1,0,0),x,1,1,0)"
+4 vertices, 6 arcs, util_types ZZZZZZZZZZZZZZ
+V0: "-1"
+   ->"-2", 1
+   ->"0'", 1
+   ->"0", 1
+==induced_subst
+
+"induced(board(2,0,0,0,1,0,0),,0,0,0)"
+4 vertices, 12 arcs, util_types ZZZZZZZZZZZZZZ
+V1: "0:1"
+   ->"1", 1
+   ->"0:2", 1
+   ->"0:0", 1
+==random_dir
+
+"random_graph(4,7,1,1,1,0,0,5,9,3)"
+4 vertices, 7 arcs, util_types ZZZZZZZZZZZZZZ
+V2: "2"
+   ->"0", 5
+==random_dist
+
+"random_graph(3,3,0,0,0,dist,0,1,1,7)"
+3 vertices, 6 arcs, util_types ZZZZZZZZZZZZZZ
+V0: "0"
+   ->"2", 1
+   ->"1", 1
+==random_multi_neg
+
+"random_graph(3,8,-1,1,0,0,0,1,5,11)"
+3 vertices, 6 arcs, util_types ZZZZZZZZZZZZZZ
+V1: "1"
+   ->"2", 2
+   ->"0", 1
+==random_bigraph
+
+"random_bigraph(2,3,5,0,0,0,1,3,5)"
+5 vertices, 10 arcs, util_types ZZZZZZZZIZZZZZ[2]
+V3: "3"
+   ->"0", 1
+   ->"1", 1
+==random_bad
+
+Ooops, we just ran into panic code 30!
+==random_lengths=0
+
+"random_lengths(board(3,0,0,0,1,0,0),0,-3,3,0,9)"
+3 vertices, 4 arcs, util_types ZZZIIIZZZZZZZZ
+V1: "1"[1][0][0]
+   ->"2"[2][0][0], -2
+   ->"0"[0][0][0], 0
+==random_lengths_dir=0
+
+"random_lengths(board(3,0,0,0,1,0,1),1,10,12,dist,4)"
+3 vertices, 2 arcs, util_types ZZZIIIZZZZZZZZ
+V0: "0"[0][0][0]
+   ->"1"[1][0][0], 12
+==random_lengths_null=50
+==restore_board
+
+"board(2,2,0,0,1,0,0)"
+4 vertices, 8 arcs, util_types ZZZIIIZZZZZZZZ
+V0: "0.0"[0][0][0]
+   ->"1.0"[1][0][0], 1
+   ->"0.1"[0][1][0], 1
+==restore_lines
+
+"lines(board(3,0,0,0,1,0,0),0)"
+2 vertices, 2 arcs, util_types ZZZZZZZZZZZZZZ
+V1: "0--1"
+   ->"1--2", 1
