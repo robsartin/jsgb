@@ -306,4 +306,16 @@ class GbTest {
     Gb.newArc(g.vertices[0], g.vertices[1], 1L);
     assertThat(g.arcBlocks()).hasSize(2);
   }
+
+  @Test
+  @DisplayName("restoreStorage clears a live arc cursor so no discarded slot is ever handed out")
+  void shouldClearCursorWhenRestoreStorageCalledOnCurrentGraph() {
+    Graph g = Gb.newGraph(2L);
+    Gb.newArc(g.vertices[0], g.vertices[1], 1L); // cursor now points into a live 102-block
+    Gb.restoreStorage(g, 2, 1);
+    Gb.newArc(g.vertices[0], g.vertices[1], 2L);
+    assertThat(g.arcBlocks()).hasSize(2); // the restored 1-arc block plus a fresh block
+    assertThat(g.arcBlocks().get(1)).hasSize(Gb.ARCS_PER_BLOCK);
+    assertThat(g.vertices[0].arcs).isSameAs(g.arcBlocks().get(1)[0]);
+  }
 }

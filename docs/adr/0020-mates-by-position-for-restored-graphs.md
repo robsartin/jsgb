@@ -20,18 +20,24 @@ inverse on a restored graph, because they follow the C's positional rule from `g
 > `a->next=a+1` can hold only if `u=v`.
 
 That is `edge_trick`: mate-by-slot-parity, independent of how the arc was created. Increment 1
-gave `Arc` no way to express `a->next == a+1`, because `next` is an object reference and `+1` is
-address arithmetic with no Java equivalent; `Arc.index` (this task) now records slot position
-within a block, so that comparison becomes `a.next == a.mate && a.mate.index == a.index + 1`.
+gave `Arc` no way to express slot adjacency at all, because `next` is an object reference and `+1`
+is address arithmetic with no Java equivalent; `Arc.index` (this task) now records slot position
+within a block, so slot adjacency becomes expressible as ordinary integer arithmetic.
 
 ## Decision
 
-`restore` (a later task) pairs every restored arc by the C's positional rule after reading a
-graph back from a file, walking each vertex's arc list to learn `u` so it can apply `u<v` or the
-`a.next==a+1` self-loop case. `Gb.isFirstOfSelfLoop(Arc)`, added by this task, expresses the
-`a->next==a+1` half of that rule in terms of `Arc.index`, which now records an arc's slot position
-within its block — the C's address order within a block, exactly as `Vertex.index` (ADR 0017)
-records address order within the vertex array.
+`restore` (a later task) pairs every restored arc by the C's positional rule directly on slots,
+before any mate exists: for the arc at slot `i` in a block, walk its vertex's arc list to learn
+`u`, then the inverse is the arc at slot `i+1` iff `u.index < v.index` or `a.next` is the arc at
+slot `i+1`, else the arc at slot `i-1`. This is `a->next == a+1` read off `Arc.index` — `restore`
+cannot use a `mate`-based test at this point because pairing is what *establishes* `mate`.
+
+`Gb.isFirstOfSelfLoop(Arc)`, added by this task, is a separate, consumer-side query for code that
+runs *after* mates are assigned — either a graph built by `newEdge`, or a restored graph once
+`restore` has finished pairing. It requires `a.mate != null` by design: on an unpaired restored
+arc, or on a directed graph's arc (`newArc`, no mate), the question "is this the first arc of a
+self-loop *edge*" has no answer yet, so the method reports `false` rather than reading `a.next`
+against a slot-adjacent arc that has not been confirmed to be its mate.
 
 ## Alternatives considered
 

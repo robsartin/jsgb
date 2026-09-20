@@ -140,7 +140,10 @@ public final class Gb {
   /**
    * What {@code restore_graph} does after {@code gb_new_graph(0)}: drops the graph's storage and
    * allocates exactly {@code n} vertices (at least one) and one block of exactly {@code m} arcs (at
-   * least one). The arc cursor is untouched, so a later {@link #newArc} starts a fresh block.
+   * least one). If {@code g} is the current graph, the arc cursor is cleared (as it already is
+   * right after {@code gb_new_graph(0)}, the only intended call sequence), so a later {@link
+   * #newArc} starts a fresh block instead of resuming a now-discarded one; if {@code g} is not
+   * current, its cursor is left alone.
    */
   public static void restoreStorage(Graph g, int n, int m) {
     int vcount = Math.max(n, 1);
@@ -151,9 +154,17 @@ public final class Gb {
     g.extraVertexBlocks.clear();
     g.arcBlocks.clear();
     allocArcs(g, Math.max(m, 1));
+    if (g == curGraph) {
+      curBlock = null;
+      nextIndex = 0;
+    }
   }
 
-  /** The C test {@code a->next == a+1}: {@code a} is the first arc of a self-loop edge. */
+  /**
+   * The C test {@code a->next == a+1}: {@code a} is the first arc of a self-loop edge. Requires
+   * mates to have been assigned ({@link #newEdge} or {@code restore}); false for arcs without a
+   * mate.
+   */
   public static boolean isFirstOfSelfLoop(Arc a) {
     return a.mate != null && a.next == a.mate && a.mate.index == a.index + 1;
   }
