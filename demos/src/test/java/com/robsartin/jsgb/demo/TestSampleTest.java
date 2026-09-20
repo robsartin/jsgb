@@ -9,6 +9,7 @@ import com.robsartin.jsgb.games.Games;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
+import com.robsartin.jsgb.lisa.Lisa;
 import com.robsartin.jsgb.miles.Miles;
 import com.robsartin.jsgb.plane.Plane;
 import com.robsartin.jsgb.raman.Raman;
@@ -344,5 +345,27 @@ class TestSampleTest {
                     TestSample.printSample(
                         Games.games(60L, 70L, 80L, -90L, -101L, 60L, 0L, 999999999L), 14, ps)))
         .isEqualTo(SampleCorrect.stanza(7));
+  }
+
+  @Test
+  @DisplayName("stanza 9: plane_lisa(100,100,50,1,300,1,200,2975050,11900200) at vertex 1294")
+  void shouldMatchSampleCorrectWhenPlaneLisaStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Lisa.planeLisa(
+                            100L,
+                            100L,
+                            50L,
+                            1L,
+                            300L,
+                            1L,
+                            200L,
+                            50L * 299L * 199L,
+                            200L * 299L * 199L),
+                        1294,
+                        ps)))
+        .isEqualTo(SampleCorrect.stanza(9));
   }
 }

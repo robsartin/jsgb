@@ -6,6 +6,7 @@ import com.robsartin.jsgb.books.Books;
 import com.robsartin.jsgb.econ.Econ;
 import com.robsartin.jsgb.games.Games;
 import com.robsartin.jsgb.graph.Graph;
+import com.robsartin.jsgb.lisa.Lisa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -102,5 +103,53 @@ class OracleInc3bTest {
                     TestSample.printSample(
                         Games.games(5L, 200000L, 0L, 0L, 0L, 0L, 0L, 1L), 0, ps)))
         .isEqualTo(Oracle.inc3b("games_bad"));
+  }
+
+  @Test
+  @DisplayName("lisa, plane_lisa and bi_lisa print exactly as the C")
+  void shouldMatchOracleWhenLisaPrinted() {
+    long[] a = Lisa.lisa(4L, 4L, 255L, 0L, 0L, 0L, 0L, 0L, 0L);
+    assertThat(matrix(a, 4)).isEqualTo(Oracle.inc3b("lisa_matrix"));
+    long[] b = Lisa.lisa(3L, 5L, 7L, 100L, 110L, 100L, 110L, 1000L, 60000L);
+    assertThat(matrix(b, 5)).isEqualTo(Oracle.inc3b("lisa_window"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Lisa.planeLisa(20L, 20L, 10L, 0L, 0L, 0L, 0L, 0L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc3b("plane_lisa_small"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Lisa.planeLisa(0L, 0L, 0L, 100L, 110L, 100L, 110L, 0L, 0L), 3, ps)))
+        .isEqualTo(Oracle.inc3b("plane_lisa_window"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Lisa.biLisa(10L, 10L, 0L, 0L, 0L, 0L, 30000L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc3b("bi_lisa"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Lisa.biLisa(10L, 10L, 100L, 110L, 100L, 110L, 20000L, 1L), 12, ps)))
+        .isEqualTo(Oracle.inc3b("bi_lisa_c"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Lisa.planeLisa(5L, 5L, 0L, 10L, 10L, 0L, 0L, 0L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc3b("lisa_bad"));
+  }
+
+  /** The harness's printing of a lisa matrix: the id line, then rows of space-separated values. */
+  private static String matrix(long[] a, int cols) {
+    StringBuilder sb = new StringBuilder(Lisa.lisaId).append('\n');
+    for (int k = 0; k < a.length; k++) {
+      sb.append(a[k]).append(k % cols == cols - 1 ? '\n' : ' ');
+    }
+    return sb.toString();
   }
 }
