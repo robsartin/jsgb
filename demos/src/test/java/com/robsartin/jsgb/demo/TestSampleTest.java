@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.raman.Raman;
+import com.robsartin.jsgb.rand.Rand;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -119,5 +120,19 @@ class TestSampleTest {
     assertThat(Oracle.inc2Return("random_lengths")).isZero();
     assertThat(Oracle.inc2Return("random_lengths_null")).isEqualTo(50L);
     assertThat(Oracle.inc2("random_lengths_null")).isEmpty();
+  }
+
+  @Test
+  @DisplayName("stanza 11: random_bigraph(300,3,1000,-1,0,dist,-500,500,666) at vertex 3")
+  void shouldMatchSampleCorrectWhenRandomBigraphStanzaPrinted() {
+    long[] dst = {0x20000000L, 0x10000000L, 0x10000000L};
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Rand.randomBigraph(300L, 3L, 1000L, -1L, null, dst, -500L, 500L, 666L),
+                        3,
+                        ps)))
+        .isEqualTo(SampleCorrect.stanza(11));
   }
 }
