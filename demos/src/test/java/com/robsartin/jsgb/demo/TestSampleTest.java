@@ -9,6 +9,7 @@ import com.robsartin.jsgb.graph.Vertex;
 import com.robsartin.jsgb.raman.Raman;
 import com.robsartin.jsgb.rand.Rand;
 import com.robsartin.jsgb.save.Save;
+import com.robsartin.jsgb.words.Words;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -242,5 +243,23 @@ class TestSampleTest {
     assertThat(Oracle.inc3a("find_word")).isEqualTo("words\n|NULL\n|graph\n");
     assertThat(Oracle.inc3a("dijkstra_unreachable"))
         .isEqualTo("return=-1\nSorry, 0 is unreachable.\n");
+  }
+
+  @Test
+  @DisplayName("stanzas 13 to 15: the three words calls of test_sample")
+  void shouldMatchSampleCorrectWhenWordsStanzasPrinted() {
+    long[] wt = {100, -80589, 50000, 18935, -18935, 18935, 18935, 18935, 18935};
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Words.words(100L, wt, 70000000L, 69L), 5, ps)))
+        .isEqualTo(SampleCorrect.stanza(13));
+    wt[1]++;
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Words.words(100L, wt, 70000000L, 69L), 5, ps)))
+        .isEqualTo(SampleCorrect.stanza(14));
+    assertThat(
+            Oracle.capture(ps -> TestSample.printSample(Words.words(0L, null, 0L, 69L), 5555, ps)))
+        .isEqualTo(SampleCorrect.stanza(15));
   }
 }
