@@ -10,7 +10,7 @@ related: [ordering-without-pointers, mates-by-position-for-restored-graphs]
 
 ## Context
 
-`gb_gates.w` (increment 3a) needs two C idioms that increment 2's `Vertex`, `Save`, and
+`gb_gates.w` (increment 3b) needs two C idioms that increment 2's `Vertex`, `Save`, and
 `TestSample` have no room for.
 
 First, `gb_gates` stores a boolean constant, the C's `(Vertex*) 1`, directly in places typed to
@@ -75,3 +75,8 @@ scratch storage `save_graph` *should* number must use `Gb.allocVertices` instead
 becoming public is a small, related surface change bundled into this task so a later `gb_gates`
 task can reuse the same `%.*s`-truncation helper `make_compound_id` already relies on, instead of
 duplicating it.
+
+The sharpest instances of the index hazard are `Basic`'s `newVerts[a.tip.index]` subscripts in the
+graph transformers and `Gb.newEdge`'s `u.index < v.index` test, which would fail or misbehave on
+`Gb.ONE` exactly as the C's `vert_offset`/pointer comparison would on the address 1; no SGB code
+feeds a gates graph to either.
