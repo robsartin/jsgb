@@ -1468,16 +1468,12 @@ public final class Basic {
             return true;
           }
         }
-        if (ui >= m) {
-          linesNearPanic(newGraph, ui, directed);
-          return true;
-        }
         Vertex u = newVerts[ui];
         u.u.V(v);
         u.v.V(vv);
         u.w.A(a);
         if (directed == 0) {
-          if (a.mate == null || a.mate.tip != v) {
+          if (ui >= m || a.mate == null || a.mate.tip != v) {
             linesNearPanic(newGraph, ui, directed);
             return true;
           }
