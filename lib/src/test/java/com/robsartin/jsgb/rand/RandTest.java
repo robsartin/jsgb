@@ -73,12 +73,30 @@ class RandTest {
   }
 
   @Test
-  @DisplayName("random_graph draws u from the alias table when distFrom is given, v uniformly")
-  void shouldSelectViaAliasTableWhenDistFromIsProvided() {
-    Graph g = Rand.randomGraph(3L, 3L, 0L, 0L, 0L, DST, null, 1L, 1L, 7L);
-    assertThat(g).isNotNull();
-    assertThat(g.n).isEqualTo(3L);
-    assertThat(g.m).isEqualTo(6L);
+  @DisplayName("walker builds Walker's alias table as the C does, and it routes draws correctly")
+  void shouldBuildAliasTableWhenDistributionIsGiven() {
+    Rand.MagicEntry[] table = Rand.walker(3L, 4L, DST);
+    assertThat(table[0].prob).isEqualTo(0x1fffffffL);
+    assertThat(table[0].inx).isEqualTo(0L);
+    assertThat(table[1].prob).isEqualTo(0x3fffffffL);
+    assertThat(table[1].inx).isEqualTo(0L);
+    assertThat(table[2].prob).isEqualTo(0x5fffffffL);
+    assertThat(table[2].inx).isEqualTo(0L);
+    assertThat(table[3].prob).isEqualTo(0x5fffffffL);
+    assertThat(table[3].inx).isEqualTo(0L);
+
+    int kk = 29;
+    assertThat(route(table, 0x7fffffffL, kk)).isEqualTo(0L);
+    assertThat(route(table, 0x40000000L, kk)).isEqualTo(2L);
+    assertThat(route(table, 0x20000000L, kk)).isEqualTo(1L);
+    assertThat(route(table, 0L, kk)).isEqualTo(0L);
+  }
+
+  /** Applies the same {@code uu <= magic->prob ? k : magic->inx} rule the generators use. */
+  private static long route(Rand.MagicEntry[] table, long uu, int kk) {
+    int k = (int) (uu >> kk);
+    Rand.MagicEntry magic = table[k];
+    return uu <= magic.prob ? k : magic.inx;
   }
 
   @Test
@@ -91,11 +109,16 @@ class RandTest {
   }
 
   @Test
-  @DisplayName("random_graph creates plain arcs for a directed multigraph")
-  void shouldCreateArcsWhenGraphIsDirected() {
+  @DisplayName("random_graph(4,7,1,1,1,0,0,5,9,3) matches the C oracle at vertex 2")
+  void shouldMatchOracleArcWhenDirectedGraphBuilt() {
     Graph g = Rand.randomGraph(4L, 7L, 1L, 1L, 1L, null, null, 5L, 9L, 3L);
     assertThat(g).isNotNull();
     assertThat(g.m).isEqualTo(7L);
+    Arc a = g.vertices[2].arcs;
+    assertThat(a).isNotNull();
+    assertThat(a.tip.name).isEqualTo("0");
+    assertThat(a.len).isEqualTo(5L);
+    assertThat(a.next).isNull();
   }
 
   @Test
@@ -116,6 +139,22 @@ class RandTest {
     Graph g = Rand.randomBigraph(2L, 3L, 4L, 1L, dist1, dist2, 1L, 1L, 9L);
     assertThat(g).isNotNull();
     assertThat(g.id).isEqualTo("random_bigraph(2,3,4,1,dist,dist,1,1,9)");
+
+    // dist1 puts all source probability on vertex 0 of part 1; dist2 puts all destination
+    // probability on the last vertex of part 2 (global index n1+n2-1 = 4). If the padding
+    // offsets were wrong, arcs would land on the wrong vertices instead of always 0 -> 4.
+    long[] forcedDist1 = {0x40000000L, 0L};
+    long[] forcedDist2 = {0L, 0L, 0x40000000L};
+    Graph forced = Rand.randomBigraph(2L, 3L, 3L, 1L, forcedDist1, forcedDist2, 1L, 1L, 5L);
+    assertThat(forced).isNotNull();
+    assertThat(forced.m).isEqualTo(6L);
+    assertThat(forced.vertices[0].arcs).isNotNull();
+    for (Arc a = forced.vertices[0].arcs; a != null; a = a.next) {
+      assertThat(a.tip.name).isEqualTo("4");
+    }
+    assertThat(forced.vertices[1].arcs).isNull();
+    assertThat(forced.vertices[2].arcs).isNull();
+    assertThat(forced.vertices[3].arcs).isNull();
   }
 
   @Test
@@ -139,19 +178,19 @@ class RandTest {
   }
 
   @Test
-  @DisplayName("random_lengths draws non-uniform lengths from a distribution table")
-  void shouldDrawFromDistributionTableWhenDistIsGiven() {
-    Graph g = Gb.newGraph(2L);
-    g.id = "hand2";
-    Gb.newEdge(g.vertices[0], g.vertices[1], 0L);
-    Gb.newEdge(g.vertices[1], g.vertices[1], 0L);
-    long[] dist = {0x20000000L, 0x20000000L};
-    assertThat(Rand.randomLengths(g, 0L, 4L, 5L, dist, 3L)).isZero();
-    for (int i = 0; i < 2; i++) {
-      for (Arc a = g.vertices[i].arcs; a != null; a = a.next) {
-        assertThat(a.len).isBetween(4L, 5L);
-      }
-    }
+  @DisplayName("random_lengths(...,1,10,12,dist,4) on a hand-built path matches the C oracle")
+  void shouldMatchOracleLengthWhenDistributionTableUsed() {
+    Graph g = Gb.newGraph(3L);
+    g.vertices[0].name = "0";
+    g.vertices[1].name = "1";
+    g.vertices[2].name = "2";
+    Gb.newArc(g.vertices[1], g.vertices[2], 1L);
+    Gb.newArc(g.vertices[0], g.vertices[1], 1L);
+    long[] dist = {0x20000000L, 0x10000000L, 0x10000000L};
+    assertThat(Rand.randomLengths(g, 1L, 10L, 12L, dist, 4L)).isZero();
+    assertThat(g.vertices[0].arcs).isNotNull();
+    assertThat(g.vertices[0].arcs.tip.name).isEqualTo("1");
+    assertThat(g.vertices[0].arcs.len).isEqualTo(12L);
   }
 
   @Test

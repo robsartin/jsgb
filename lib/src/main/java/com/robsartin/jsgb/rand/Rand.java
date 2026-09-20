@@ -26,8 +26,8 @@ public final class Rand {
     return minLen == maxLen ? minLen : minLen + Flip.unifRand(maxLen - minLen + 1);
   }
 
-  /** The C {@code magic_entry} struct: a Walker's-alias-table cell. */
-  private static final class MagicEntry {
+  /** The C {@code magic_entry} struct: a Walker's-alias-table cell. Package-private for testing. */
+  static final class MagicEntry {
     long prob;
     long inx;
   }
@@ -43,8 +43,9 @@ public final class Rand {
    * {@code walker(n, nn, dist, g)}: builds a Walker's-alias table of size {@code nn} (a power of 2,
    * {@code nn >= n}) from the {@code n}-entry probability vector {@code dist}, which must sum to
    * {@code 0x40000000}. Indices {@code n .. nn-1} are treated as having probability 0.
+   * Package-private for testing.
    */
-  private static MagicEntry[] walker(long n, long nn, long[] dist) {
+  static MagicEntry[] walker(long n, long nn, long[] dist) {
     int nni = (int) nn;
     MagicEntry[] table = new MagicEntry[nni];
     for (int i = 0; i < nni; i++) {
@@ -259,6 +260,7 @@ public final class Rand {
       return null;
     }
 
+    mmLoop:
     for (long mm = m; mm != 0; mm--) {
       Vertex u;
       Vertex v;
@@ -283,6 +285,9 @@ public final class Rand {
           continue;
         }
         if (multi <= 0) {
+          if (Gb.troubleCode != 0) {
+            break mmLoop;
+          }
           Arc dup = null;
           for (Arc a = u.arcs; a != null; a = a.next) {
             if (a.tip == v) {
