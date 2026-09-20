@@ -1,2 +1,2 @@
 rootProject.name = "jsgb"
-include("lib")
+include("lib", "demos")
