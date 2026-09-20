@@ -67,7 +67,7 @@ class GraphTest {
     assertThat(v.u.V()).isSameAs(g.vertices[1]);
     v.x.S("hello");
     assertThat(v.x.S()).isEqualTo("hello");
-    Arc a = new Arc();
+    Arc a = new Arc(0);
     v.z.A(a);
     assertThat(v.z.A()).isSameAs(a);
     g.uu.G(g);

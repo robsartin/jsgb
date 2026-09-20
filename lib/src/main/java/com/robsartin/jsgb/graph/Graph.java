@@ -30,10 +30,20 @@ public final class Graph {
 
   final List<Arc[]> arcBlocks = new ArrayList<>();
 
+  final List<Vertex[]> extraVertexBlocks = new ArrayList<>();
+
   Graph() {}
 
   /** The arc blocks in allocation order; each has {@link Gb#ARCS_PER_BLOCK} slots. */
   public List<Arc[]> arcBlocks() {
     return Collections.unmodifiableList(arcBlocks);
+  }
+
+  /**
+   * Vertex blocks allocated by {@link Gb#allocVertices} beyond {@link #vertices}, in allocation
+   * order.
+   */
+  public List<Vertex[]> extraVertexBlocks() {
+    return Collections.unmodifiableList(extraVertexBlocks);
   }
 }

@@ -14,4 +14,14 @@ public final class Arc {
 
   public final Util a = new Util();
   public final Util b = new Util();
+
+  /**
+   * Position of this arc within its block; the C's address order within a block. {@code save}
+   * numbers arcs by it.
+   */
+  public final int index;
+
+  Arc(int index) {
+    this.index = index;
+  }
 }
