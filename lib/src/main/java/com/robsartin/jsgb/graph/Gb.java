@@ -198,6 +198,9 @@ public final class Gb {
       nextIndex = 0;
     }
     curGraph.ww.ref = null;
+    curGraph.xx.ref = null;
+    curGraph.yy.ref = null;
+    curGraph.zz.ref = null;
   }
 
   /**

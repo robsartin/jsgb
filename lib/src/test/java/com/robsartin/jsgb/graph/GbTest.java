@@ -32,6 +32,13 @@ class GbTest {
     assertThat(g.m).isEqualTo(5L);
     assertThat(v.arcs.next.tip).isSameAs(u);
     assertThat(v.arcs.tip).isSameAs(u); // the newArc(v,u) is at the head of v's list
+
+    // The C test_graph also checks the edge trick (mate lookup by slot parity); pin the block
+    // layout it depends on: u.arcs = slot2 -> slot3 -> slot0, v.arcs = slot4 -> slot1.
+    Arc[] block = g.arcBlocks().get(0);
+    assertThat(u.arcs).isSameAs(block[2]);
+    assertThat(u.arcs.next.next).isSameAs(block[0]);
+    assertThat(v.arcs.next).isSameAs(block[1]);
   }
 
   @Test
@@ -140,6 +147,9 @@ class GbTest {
     Gb.newArc(g2.vertices[0], g2.vertices[1], 2L);
     Gb.switchToGraph(g1); // parks g2's cursor, resumes g1 at slot 1
     Gb.newArc(g1.vertices[1], g1.vertices[0], 3L);
+    g2.xx.ref = "x";
+    g2.yy.ref = "y";
+    g2.zz.ref = "z";
     Gb.switchToGraph(g2); // parks g1, resumes g2 at slot 1
     Gb.newArc(g2.vertices[1], g2.vertices[0], 4L);
 
@@ -149,6 +159,9 @@ class GbTest {
     assertThat(g2.arcBlocks().get(0)[1].len).isEqualTo(4L);
     assertThat(g1.ww.ref).isNotNull(); // g1 is parked: its cursor lives in ww
     assertThat(g2.ww.ref).isNull(); // g2 is current: its ww is cleared
+    assertThat(g2.xx.ref).isNull(); // g2 is current: its xx is cleared too
+    assertThat(g2.yy.ref).isNull(); // g2 is current: its yy is cleared too
+    assertThat(g2.zz.ref).isNull(); // g2 is current: its zz is cleared too
   }
 
   @Test

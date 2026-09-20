@@ -41,6 +41,6 @@ jobs:
         with:
           name: reports
           path: |
-            build/reports/tests/test
-            build/reports/jacoco/test
+            **/build/reports/tests/test
+            **/build/reports/jacoco/test
           if-no-files-found: ignore
