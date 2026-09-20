@@ -84,6 +84,31 @@ class SaveTest {
   }
 
   @Test
+  @DisplayName(
+      "restore_graph panics instead of throwing on a header count that is huge or negative")
+  void shouldPanicWhenHeaderCountMalformed() throws Exception {
+    Graph g = Basic.board(2L, 0L, 0L, 0L, 1L, 0L, 0L);
+
+    Path huge = dir.resolve("huge.gb");
+    Save.saveGraph(g, huge.toString());
+    Files.writeString(
+        huge,
+        read(huge).replaceFirst(",\\d+V,\\d+A\\)", ",99999999999V,1A)"),
+        StandardCharsets.ISO_8859_1);
+    assertThat(Save.restoreGraph(huge.toString())).isNull();
+    assertThat(Gb.panicCode).isEqualTo(Gb.NO_ROOM + 1);
+
+    Path negative = dir.resolve("negative.gb");
+    Save.saveGraph(g, negative.toString());
+    Files.writeString(
+        negative,
+        read(negative).replaceFirst(",\\d+V,\\d+A\\)", ",-1V,1A)"),
+        StandardCharsets.ISO_8859_1);
+    assertThat(Save.restoreGraph(negative.toString())).isNull();
+    assertThat(Gb.panicCode).isEqualTo(Gb.NO_ROOM + 1);
+  }
+
+  @Test
   @DisplayName("save_graph returns -1 for a null or recycled graph")
   void shouldReturnMinusOneWhenGraphUnusable() {
     assertThat(Save.saveGraph(null, dir.resolve("x.gb").toString())).isEqualTo(-1L);

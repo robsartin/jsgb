@@ -479,135 +479,169 @@ public final class Save {
     try {
       // section 5
       GbIo.rawOpen(f);
-      if (GbIo.ioErrors != 0) {
-        return panic(g, Gb.EARLY_DATA_FAULT);
-      }
-      String types;
-      int n;
-      int m;
-      while (true) {
-        String s = GbIo.string(')');
-        Matcher hm = HEADER.matcher(s);
-        if (hm.find() && hm.group(1).length() == 14) {
-          types = hm.group(1);
-          n = Integer.parseInt(hm.group(2));
-          m = Integer.parseInt(hm.group(3));
-          break;
+      try {
+        if (GbIo.ioErrors != 0) {
+          return panic(g, Gb.EARLY_DATA_FAULT);
         }
-        if (s.isEmpty() || s.charAt(0) != '*') {
-          return panic(g, Gb.SYNTAX_ERROR);
+        String types;
+        long n;
+        long m;
+        while (true) {
+          String s = GbIo.string(')');
+          Matcher hm = HEADER.matcher(s);
+          if (hm.find() && hm.group(1).length() == 14) {
+            types = hm.group(1);
+            // gb_typed_alloc fails in the C for a count that doesn't fit an int, or is negative;
+            // Integer.MAX_VALUE - 8 matches gb_new_graph's own allocation ceiling (see
+            // Gb.newGraph).
+            long[] counts = parseCounts(hm.group(2), hm.group(3));
+            if (counts == null) {
+              return panic(g, Gb.NO_ROOM + 1);
+            }
+            n = counts[0];
+            m = counts[1];
+            break;
+          }
+          if (s.isEmpty() || s.charAt(0) != '*') {
+            return panic(g, Gb.SYNTAX_ERROR);
+          }
         }
-      }
-      // section 6
-      g = Gb.newGraph(0L);
-      if (g == null) {
-        return panic(null, Gb.NO_ROOM);
-      }
-      Gb.restoreStorage(g, n, m);
-      verts = g.vertices;
-      lastVert = n;
-      arcs = g.arcBlocks().get(0);
-      lastArc = m;
-      g.utilTypes = types;
-      GbIo.newline();
-      if (GbIo.ch() != '"') {
-        return panic(g, Gb.SYNTAX_ERROR + 1);
-      }
-      String id = GbIo.string('"');
-      if (id.length() >= 2 && id.endsWith("\\\n")) {
-        GbIo.newline();
-        id = id.substring(0, id.length() - 2) + GbIo.string('"');
-      }
-      g.id = id;
-      if (GbIo.ch() != '"') {
-        return panic(g, Gb.SYNTAX_ERROR + 2);
-      }
-      // section 15
-      Gb.panicCode = 0;
-      commaExpected = true;
-      Util tmp = new Util();
-      if (fillField(tmp, 'I') != 0) {
-        return sorry(g);
-      }
-      g.n = tmp.I;
-      if (fillField(tmp, 'I') != 0) {
-        return sorry(g);
-      }
-      g.m = tmp.I;
-      if (fillField(g.uu, types.charAt(8)) != 0
-          || fillField(g.vv, types.charAt(9)) != 0
-          || fillField(g.ww, types.charAt(10)) != 0
-          || fillField(g.xx, types.charAt(11)) != 0
-          || fillField(g.yy, types.charAt(12)) != 0
-          || fillField(g.zz, types.charAt(13)) != 0
-          || finishRecord() != 0) {
-        return sorry(g);
-      }
-      // section 16
-      if (!GbIo.string('\n').equals("* Vertices")) {
-        return panic(g, Gb.SYNTAX_ERROR + 3);
-      }
-      GbIo.newline();
-      for (int k = 0; k < lastVert; k++) {
-        Vertex v = verts[k];
-        if (fillField(tmp, 'S') != 0) {
-          return sorry(g);
+        // section 6
+        g = Gb.newGraph(0L);
+        if (g == null) {
+          return panic(null, Gb.NO_ROOM);
         }
-        v.name = tmp.S();
-        if (fillField(tmp, 'A') != 0) {
-          return sorry(g);
-        }
-        v.arcs = tmp.A();
-        if (fillField(v.u, types.charAt(0)) != 0
-            || fillField(v.v, types.charAt(1)) != 0
-            || fillField(v.w, types.charAt(2)) != 0
-            || fillField(v.x, types.charAt(3)) != 0
-            || fillField(v.y, types.charAt(4)) != 0
-            || fillField(v.z, types.charAt(5)) != 0
-            || finishRecord() != 0) {
-          return sorry(g);
-        }
+        Gb.restoreStorage(g, (int) n, (int) m);
+        verts = g.vertices;
+        lastVert = (int) n;
+        arcs = g.arcBlocks().get(0);
+        lastArc = (int) m;
+        g.utilTypes = types;
+        return restoreGraphRecord(g, types);
+      } catch (RuntimeException e) {
+        sorry(g);
+        throw e;
       }
-      // section 17
-      if (!GbIo.string('\n').equals("* Arcs")) {
-        return panic(g, Gb.SYNTAX_ERROR + 4);
-      }
-      GbIo.newline();
-      for (int k = 0; k < lastArc; k++) {
-        Arc a = arcs[k];
-        if (fillField(tmp, 'V') != 0) {
-          return sorry(g);
-        }
-        a.tip = tmp.V();
-        if (fillField(tmp, 'A') != 0) {
-          return sorry(g);
-        }
-        a.next = tmp.A();
-        if (fillField(tmp, 'I') != 0) {
-          return sorry(g);
-        }
-        a.len = tmp.I;
-        if (fillField(a.a, types.charAt(6)) != 0
-            || fillField(a.b, types.charAt(7)) != 0
-            || finishRecord() != 0) {
-          return sorry(g);
-        }
-      }
-      // section 18
-      Matcher cm = CHECKSUM.matcher(GbIo.string('\n'));
-      if (!cm.find()) {
-        return panic(g, Gb.SYNTAX_ERROR + 5);
-      }
-      long s = Long.parseLong(cm.group(1));
-      if (GbIo.rawClose() != s && s >= 0) {
-        return panic(g, Gb.LATE_DATA_FAULT);
-      }
-      pairArcsByPosition(g); // ADR 0020
-      return g;
     } finally {
       verts = null;
       arcs = null;
     }
+  }
+
+  /** Parses the header's V/A counts; null if either fails to parse, is negative, or overflows. */
+  private static long[] parseCounts(String nText, String mText) {
+    long n;
+    long m;
+    try {
+      n = Long.parseLong(nText);
+      m = Long.parseLong(mText);
+    } catch (NumberFormatException e) {
+      return null;
+    }
+    long limit = Integer.MAX_VALUE - 8;
+    if (n < 0 || m < 0 || n > limit || m > limit) {
+      return null;
+    }
+    return new long[] {n, m};
+  }
+
+  /** Sections 15-18: reads the graph record, vertices and arcs into {@code g}, already sized. */
+  private static Graph restoreGraphRecord(Graph g, String types) {
+    GbIo.newline();
+    if (GbIo.ch() != '"') {
+      return panic(g, Gb.SYNTAX_ERROR + 1);
+    }
+    String id = GbIo.string('"');
+    if (id.length() >= 2 && id.endsWith("\\\n")) {
+      GbIo.newline();
+      id = id.substring(0, id.length() - 2) + GbIo.string('"');
+    }
+    g.id = id;
+    if (GbIo.ch() != '"') {
+      return panic(g, Gb.SYNTAX_ERROR + 2);
+    }
+    // section 15
+    Gb.panicCode = 0;
+    commaExpected = true;
+    Util tmp = new Util();
+    if (fillField(tmp, 'I') != 0) {
+      return sorry(g);
+    }
+    g.n = tmp.I;
+    if (fillField(tmp, 'I') != 0) {
+      return sorry(g);
+    }
+    g.m = tmp.I;
+    if (fillField(g.uu, types.charAt(8)) != 0
+        || fillField(g.vv, types.charAt(9)) != 0
+        || fillField(g.ww, types.charAt(10)) != 0
+        || fillField(g.xx, types.charAt(11)) != 0
+        || fillField(g.yy, types.charAt(12)) != 0
+        || fillField(g.zz, types.charAt(13)) != 0
+        || finishRecord() != 0) {
+      return sorry(g);
+    }
+    // section 16
+    if (!GbIo.string('\n').equals("* Vertices")) {
+      return panic(g, Gb.SYNTAX_ERROR + 3);
+    }
+    GbIo.newline();
+    for (int k = 0; k < lastVert; k++) {
+      Vertex v = verts[k];
+      if (fillField(tmp, 'S') != 0) {
+        return sorry(g);
+      }
+      v.name = tmp.S();
+      if (fillField(tmp, 'A') != 0) {
+        return sorry(g);
+      }
+      v.arcs = tmp.A();
+      if (fillField(v.u, types.charAt(0)) != 0
+          || fillField(v.v, types.charAt(1)) != 0
+          || fillField(v.w, types.charAt(2)) != 0
+          || fillField(v.x, types.charAt(3)) != 0
+          || fillField(v.y, types.charAt(4)) != 0
+          || fillField(v.z, types.charAt(5)) != 0
+          || finishRecord() != 0) {
+        return sorry(g);
+      }
+    }
+    // section 17
+    if (!GbIo.string('\n').equals("* Arcs")) {
+      return panic(g, Gb.SYNTAX_ERROR + 4);
+    }
+    GbIo.newline();
+    for (int k = 0; k < lastArc; k++) {
+      Arc a = arcs[k];
+      if (fillField(tmp, 'V') != 0) {
+        return sorry(g);
+      }
+      a.tip = tmp.V();
+      if (fillField(tmp, 'A') != 0) {
+        return sorry(g);
+      }
+      a.next = tmp.A();
+      if (fillField(tmp, 'I') != 0) {
+        return sorry(g);
+      }
+      a.len = tmp.I;
+      if (fillField(a.a, types.charAt(6)) != 0
+          || fillField(a.b, types.charAt(7)) != 0
+          || finishRecord() != 0) {
+        return sorry(g);
+      }
+    }
+    // section 18
+    Matcher cm = CHECKSUM.matcher(GbIo.string('\n'));
+    if (!cm.find()) {
+      return panic(g, Gb.SYNTAX_ERROR + 5);
+    }
+    long s = Long.parseLong(cm.group(1));
+    if (GbIo.rawClose() != s && s >= 0) {
+      return panic(g, Gb.LATE_DATA_FAULT);
+    }
+    pairArcsByPosition(g); // ADR 0020
+    return g;
   }
 
   private static Graph panic(Graph g, long code) {
