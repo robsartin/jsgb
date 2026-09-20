@@ -293,3 +293,19 @@ The Architecture tests section says the kernel packages `graph`, `io`, `flip`,
 draws random numbers from `gb_flip` for its two tie-breaking passes. The rule is
 now: `graph`, `io`, `flip` depend on no other jsgb package; `sort` depends only
 on `flip`. Found while porting `gb_sort` in increment 1.
+
+### 2026-09-19: Vertex.index is public
+
+The "Ordering without pointers" section says `Vertex` carries a package-private
+`index`. It is public: `save` needs `a.tip.index` to number vertices and the
+`basic` transformers need `newg.vertices[v.index]`. Found in the increment 1
+final review.
+
+### 2026-09-19: newGraph size guard differs from gb_alloc
+
+The C rejects a request when `n + extra_n <= 0` or when the vertex array would
+exceed the arena cap of 0xffff00 bytes (about 262,139 vertices) and returns
+NULL; it accepts a negative `n` whose total is positive. jsgb rejects any
+negative `n` and any total that does not fit a Java array, and otherwise
+accepts any size, since the arena is not ported. None of the oracles reach
+either limit. Recorded as a deliberate deviation.

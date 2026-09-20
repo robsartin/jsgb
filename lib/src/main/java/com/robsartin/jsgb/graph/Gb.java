@@ -68,7 +68,8 @@ public final class Gb {
   /**
    * {@code gb_new_graph(n)}: a new graph with {@code n + extra_n} vertices; becomes current. As in
    * C, an impossible request (negative {@code n}, or {@code n + extra_n} too large to allocate)
-   * yields {@code null} instead of a graph, leaves the previous current graph in place, and clears
+   * yields {@code null} instead of a graph and, mirroring the C's {@code NULL} return, makes the
+   * dummy graph current (so a subsequent {@link #newArc} throws), clears the arc cursor, and clears
    * {@link #troubleCode}.
    */
   public static Graph newGraph(long n) {
@@ -199,6 +200,11 @@ public final class Gb {
     curGraph.ww.ref = null;
   }
 
+  /**
+   * Clamps a negative {@code max} to the empty string, whereas C's {@code %.*s} with a negative
+   * precision prints the whole string. Unreachable in SGB, since {@code s1 + s2} never exceed 156
+   * characters.
+   */
   private static String prefix(String s, int max) {
     return s.length() <= max ? s : s.substring(0, Math.max(max, 0));
   }

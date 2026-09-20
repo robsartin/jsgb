@@ -114,8 +114,8 @@ class GraphTest {
   }
 
   @Test
-  @DisplayName("a rejected gb_new_graph leaves the previous current graph behind")
-  void shouldNotBecomeCurrentGraphWhenNewGraphRejected() {
+  @DisplayName("a rejected gb_new_graph makes the dummy graph current")
+  void shouldMakeDummyCurrentWhenNewGraphRejected() {
     Graph g = Gb.newGraph(1L);
     Gb.newGraph(-1L);
     assertThat(Gb.curGraph()).isNotSameAs(g);

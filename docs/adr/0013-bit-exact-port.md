@@ -4,7 +4,7 @@ date: "2026-09-19"
 topic: bit-exact-port
 tags: [project, fidelity]
 supersedes: []
-related: []
+related: [static-global-state, public-mutable-fields, null-plus-panic-code, ordering-without-pointers]
 ---
 # 13. Bit-exact port over behavioural equivalence
 

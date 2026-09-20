@@ -4,6 +4,7 @@
 
 - [13. Bit-exact port over behavioural equivalence](0013-bit-exact-port.md) — _Accepted_
   The Stanford GraphBase (SGB) is a benchmark platform, not just a graph library: its value comes from every implementation producing exactly the same output for the same inputs and seeds, so that results (including the published algorithm-performance numbers in Knuth's own work) are comparable across machines, compilers, and now languages.
+  Related: [14. Static global state over a context object](0014-static-global-state.md), [15. Public mutable fields on Graph, Vertex, Arc, and Util](0015-public-mutable-fields.md), [16. Null return plus Gb.panicCode over a PanicException](0016-null-plus-panic-code.md), [17. Explicit ordering stand-ins over pointer arithmetic](0017-ordering-without-pointers.md)
 - [14. Static global state over a context object](0014-static-global-state.md) — _Accepted_
   SGB's C implementation is built around global state: `panic_code`, `verbose`, `gb_trouble_code`, `extra_n`, `cur_graph`, the RNG array and cursor, `gb_sorted[]`, the open data file and `io_errors`, and several module-local globals such as the Dijkstra queue state, `chapters`/`chap_name[]`, and `risc_state[]`.
   Related: [16. Null return plus Gb.panicCode over a PanicException](0016-null-plus-panic-code.md)

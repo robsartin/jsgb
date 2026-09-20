@@ -20,10 +20,12 @@ arcs 102 at a time (`arcs_per_block`) and `save_graph` walks that block layout.
 
 ## Decision
 
-`Vertex` carries a package-private `index` field into its owning graph's vertex array, standing
-in for the address order that `newEdge` used in C. `Arc` carries an explicit `mate` reference,
+`Vertex` carries a public `index` field into its owning graph's vertex array, standing in for the
+address order that `newEdge` used in C. It is public, not package-private, because later
+increments need it outside this package: `save` reads `a.tip.index` to number vertices, and the
+`basic` transformers read `newg.vertices[v.index]`. `Arc` carries an explicit `mate` reference,
 set by `newEdge`, replacing pointer-arithmetic neighbor lookup. `Graph` keeps its arcs in fixed
-blocks of 102 (`arcsPerBlock`) in allocation order, and `save` enumerates arcs in that block
+blocks of 102 (`Gb.ARCS_PER_BLOCK`) in allocation order, and `save` enumerates arcs in that block
 order, including unused slots, so its numbering matches `test.correct` exactly.
 
 ## Alternatives considered
@@ -46,4 +48,7 @@ by address, which for sequential allocation happens to equal allocation order; j
 holds for the reference build and preserves order explicitly via block order rather than
 deriving it from anything address-like. `Vertex.index` and `Arc.mate` carry no semantic meaning
 to the algorithms themselves — they exist solely to reproduce this address-order-dependent
-output byte for byte.
+output byte for byte. `Arc.mate` is set only by `newEdge`: arcs created by `newArc`, or by a
+future `restore_graph`, have a null mate, whereas the C's `edge_trick` pairs arcs by slot parity
+regardless of how they were created; its only user is `miles_span -v` on a graph built purely
+with `newEdge`, so the narrower Java field is sufficient.

@@ -220,7 +220,11 @@ public final class GbIo {
     return a;
   }
 
-  /** {@code gb_string(p, c)}: the bytes up to (not including) {@code c} or the end of line. */
+  /**
+   * {@code gb_string(p, c)}: the bytes up to (not including) {@code c} or the end of line. When
+   * {@code c} is never found, the result includes the line's trailing {@code '\n'}, exactly as the
+   * C {@code gb_string}, because the terminator immediately follows the appended newline.
+   */
   public static String string(char c) {
     int start = curPos;
     while (curPos <= lineEnd && (buffer[curPos] & 0xff) != c) {
