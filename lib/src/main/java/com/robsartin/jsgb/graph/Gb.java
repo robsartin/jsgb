@@ -58,10 +58,29 @@ public final class Gb {
     return curGraph;
   }
 
-  /** {@code gb_new_graph(n)}: a new graph with {@code n + extra_n} vertices; becomes current. */
+  /**
+   * Largest vertex count {@link #newGraph} will attempt, leaving headroom below the JVM's
+   * array-size limit.
+   */
+  private static final long MAX_TOTAL_VERTICES = Integer.MAX_VALUE - 8L;
+
+  /**
+   * {@code gb_new_graph(n)}: a new graph with {@code n + extra_n} vertices; becomes current. As in
+   * C, an impossible request (negative {@code n}, or {@code n + extra_n} too large to allocate)
+   * yields {@code null} instead of a graph, leaves the previous current graph in place, and clears
+   * {@link #troubleCode}.
+   */
   public static Graph newGraph(long n) {
+    long total0 = n + extraN;
+    if (n < 0 || total0 > MAX_TOTAL_VERTICES) {
+      curGraph = DUMMY_GRAPH;
+      curBlock = null;
+      nextIndex = 0;
+      troubleCode = 0;
+      return null;
+    }
     Graph g = new Graph();
-    int total = (int) (n + extraN);
+    int total = (int) total0;
     g.vertices = new Vertex[total];
     for (int i = 0; i < total; i++) {
       g.vertices[i] = new Vertex(i);

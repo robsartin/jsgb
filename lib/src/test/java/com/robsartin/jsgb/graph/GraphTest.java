@@ -98,4 +98,26 @@ class GraphTest {
     assertThat(g.vertices).isNull();
     assertThat(g.arcBlocks()).isEmpty();
   }
+
+  @Test
+  @DisplayName("gb_new_graph returns null when n is negative, like the C's NULL return")
+  void shouldReturnNullWhenNIsNegative() {
+    assertThat(Gb.newGraph(-1L)).isNull();
+    assertThat(Gb.troubleCode).isZero();
+  }
+
+  @Test
+  @DisplayName("gb_new_graph returns null when n + extra_n cannot be allocated as an array")
+  void shouldReturnNullWhenNTooLargeForArray() {
+    assertThat(Gb.newGraph((long) Integer.MAX_VALUE)).isNull();
+    assertThat(Gb.troubleCode).isZero();
+  }
+
+  @Test
+  @DisplayName("a rejected gb_new_graph leaves the previous current graph behind")
+  void shouldNotBecomeCurrentGraphWhenNewGraphRejected() {
+    Graph g = Gb.newGraph(1L);
+    Gb.newGraph(-1L);
+    assertThat(Gb.curGraph()).isNotSameAs(g);
+  }
 }
