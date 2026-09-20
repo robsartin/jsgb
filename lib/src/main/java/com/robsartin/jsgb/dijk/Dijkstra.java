@@ -6,6 +6,7 @@ import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.function.ToLongFunction;
 
 /**
@@ -166,8 +167,7 @@ public final class Dijkstra {
     } while (t != p); // the loop stops with t == p == uu
     do {
       out.print(
-          String.format(java.util.Locale.ROOT, "%10d %s", dist(t) - hhVal(t) + hhVal(p), t.name)
-              + "\n");
+          String.format(Locale.ROOT, "%10d %s", dist(t) - hhVal(t) + hhVal(p), t.name) + "\n");
       t = backlink(t);
     } while (t != null);
     t = p;

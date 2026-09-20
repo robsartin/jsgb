@@ -754,6 +754,9 @@ public final class Plane {
    *
    * <p>Returns {@code null} and sets {@link Gb#panicCode} if {@code x_range} or {@code y_range}
    * exceeds 16384, if {@code n < 2}, or if graph allocation fails.
+   *
+   * <p>As in the C, a failure that occurs after {@code extend != 0} has already incremented {@link
+   * Gb#extraN} leaves {@link Gb#extraN} incremented; nothing on that path decrements it back.
    */
   public static Graph plane(long n, long xRange, long yRange, long extend, long prob, long seed) {
     Flip.initRand(seed);
@@ -843,6 +846,9 @@ public final class Plane {
    * y.I} its coordinates, {@code z.I} its index into {@code miles.dat}.
    *
    * <p>Returns {@code null} and sets {@link Gb#panicCode} exactly when {@link Miles#miles} does.
+   *
+   * <p>As in the C, a failure that occurs after {@code extend != 0} has already incremented {@link
+   * Gb#extraN} leaves {@link Gb#extraN} incremented; nothing on that path decrements it back.
    */
   public static Graph planeMiles(
       long n,

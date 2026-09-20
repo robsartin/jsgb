@@ -54,6 +54,14 @@ public final class Words {
 
   private Words() {}
 
+  /**
+   * Clears the hash tables left behind by {@link #words}, as if it had never been called. Tests
+   * only.
+   */
+  static void reset() {
+    htab = null;
+  }
+
   /** The C {@code node} struct: a qualifying word and its weight, linked into a sort stack. */
   private static final class Node implements Sortable {
     long key;
@@ -263,6 +271,9 @@ public final class Words {
    * @throws IllegalArgumentException if {@code q} has fewer than five characters
    */
   public static Vertex findWord(String q, Consumer<Vertex> f) {
+    if (htab == null) {
+      throw new IllegalStateException("find_word needs a words graph: call words first");
+    }
     if (q.length() < 5) {
       throw new IllegalArgumentException("find_word requires a five-letter word: \"" + q + "\"");
     }

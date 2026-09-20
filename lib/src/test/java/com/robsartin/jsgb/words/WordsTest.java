@@ -1,6 +1,7 @@
 package com.robsartin.jsgb.words;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.robsartin.jsgb.graph.Arc;
 import com.robsartin.jsgb.graph.Gb;
@@ -58,6 +59,15 @@ class WordsTest {
     List<String> near = new ArrayList<>();
     assertThat(Words.findWord("graph", v -> near.add(v.name))).isNotNull(); // present: no callbacks
     assertThat(near).isEmpty();
+  }
+
+  @Test
+  @DisplayName("find_word called before any words() call reports the missing graph, not a crash")
+  void shouldThrowWhenFindWordCalledBeforeWords() {
+    Words.reset();
+    assertThatThrownBy(() -> Words.findWord("words", null))
+        .isInstanceOf(IllegalStateException.class)
+        .hasMessage("find_word needs a words graph: call words first");
   }
 
   @Test

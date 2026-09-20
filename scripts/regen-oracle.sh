@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # Rebuild the C Stanford GraphBase in a scratch directory and regenerate the
-# increment-2 oracle files. Needs cweb (brew install cweb) and ~/code/sgb.
-# Archives a commit pinned to 88fac2f (not master), so the C oracles stay
-# reproducible even if ~/code/sgb's master moves on.
+# increment 2 and 3a oracle files. Needs cweb (brew install cweb) and
+# ~/code/sgb. Archives a commit pinned to 88fac2f (not master), so the C
+# oracles stay reproducible even if ~/code/sgb's master moves on. A later
+# increment's harness is added in the same pattern: copy its oracle_incNN.c
+# in, compile and run it, then copy its oracle_incNN.out to the matching
+# demos/src/test/resources/oracle/incNN directory.
 set -euo pipefail
 SGB="${SGB:-$HOME/code/sgb}"
 HERE="$(cd "$(dirname "$0")/.." && pwd)"

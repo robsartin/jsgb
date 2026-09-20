@@ -211,7 +211,8 @@ class TestSampleTest {
 
   @Test
   @DisplayName(
-      "the main sequence so far reproduces the header and stanzas 0 to 3 of sample.correct")
+      "the main sequence so far reproduces the header and stanzas 0-3, 8 and 10-15 of"
+          + " sample.correct")
   void shouldMatchSampleCorrectPrefixWhenMainRuns() {
     String expected =
         SampleCorrect.HEADER
