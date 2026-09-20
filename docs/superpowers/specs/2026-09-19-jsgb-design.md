@@ -283,3 +283,13 @@ Four increments, each its own plan from this design:
   as key and link.
 - Mem counts. `miles_span` and `assign_lisa` outputs include mem totals, so
   every `o`/`oo`/`ooo` in those two programs must be placed identically.
+
+## Amendments
+
+### 2026-09-19: `sort` depends on `flip`
+
+The Architecture tests section says the kernel packages `graph`, `io`, `flip`,
+`sort` depend on no other jsgb package. That is wrong for `sort`: `gb_linksort`
+draws random numbers from `gb_flip` for its two tie-breaking passes. The rule is
+now: `graph`, `io`, `flip` depend on no other jsgb package; `sort` depends only
+on `flip`. Found while porting `gb_sort` in increment 1.
