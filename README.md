@@ -32,8 +32,9 @@ extra test resource root declared in `lib/build.gradle.kts`, so
 
 ## Running the sample
 
-`./gradlew :demos:run --args=''` is not wired yet; for now `TestSample` is
-exercised by `./gradlew :demos:test`. Increment 4 adds the launcher.
+`./gradlew :demos:run` runs the sample sequence ported so far, writing
+`test.gb` in the working directory. It is also exercised by
+`./gradlew :demos:test`. The multi-demo launcher arrives in increment 4.
 
 ## Regenerating oracles
 

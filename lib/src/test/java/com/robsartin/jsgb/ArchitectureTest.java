@@ -67,7 +67,7 @@ class ArchitectureTest {
           .resideInAPackage(BASE + ".raman..")
           .should()
           .onlyDependOnClassesThat()
-          .resideInAnyPackage(BASE + ".raman..", BASE + ".graph..", BASE + ".flip..", "java..");
+          .resideInAnyPackage(BASE + ".raman..", BASE + ".graph..", "java..");
 
   @ArchTest
   static final ArchRule basicDependsOnlyOnKernel =
@@ -76,7 +76,7 @@ class ArchitectureTest {
           .resideInAPackage(BASE + ".basic..")
           .should()
           .onlyDependOnClassesThat()
-          .resideInAnyPackage(BASE + ".basic..", BASE + ".graph..", BASE + ".flip..", "java..");
+          .resideInAnyPackage(BASE + ".basic..", BASE + ".graph..", "java..");
 
   @ArchTest
   static final ArchRule randDependsOnlyOnKernel =

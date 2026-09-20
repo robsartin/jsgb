@@ -12,6 +12,10 @@ java {
     toolchain { languageVersion = JavaLanguageVersion.of(25) }
 }
 
+application {
+    mainClass = "com.robsartin.jsgb.demo.TestSample"
+}
+
 repositories { mavenCentral() }
 
 dependencies {

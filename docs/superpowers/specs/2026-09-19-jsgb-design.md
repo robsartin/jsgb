@@ -333,3 +333,11 @@ byte for byte under this rule.
 `index` is the position within their own block, so `newEdge` between a main
 and an extra vertex would order the two arcs differently from the C. No SGB
 code creates such an edge (`test_sample`'s stray vertex has none).
+
+### 2026-09-20: simplex and subsets with no free coordinate
+
+`gb_basic.w` section 33 reads `xx[-1]` when `d == 0` and the base case is
+feasible (for example `simplex(2,5,0,0,0,0,0)`), which is undefined
+behaviour and crashes the C build used for the oracles. jsgb returns the
+single feasible vertex instead; the guard lives in `Basic`'s shared
+enumeration helper (`advanceToNextSolution`) and is documented there.

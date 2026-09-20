@@ -34,7 +34,11 @@ public final class Graph {
 
   Graph() {}
 
-  /** The arc blocks in allocation order; each has {@link Gb#ARCS_PER_BLOCK} slots. */
+  /**
+   * The arc blocks in allocation order; blocks created by {@link Gb#newArc}/{@link Gb#newEdge} have
+   * {@link Gb#ARCS_PER_BLOCK} slots; blocks from {@link Gb#allocArcs}/{@link Gb#restoreStorage}
+   * have exactly the size requested.
+   */
   public List<Arc[]> arcBlocks() {
     return Collections.unmodifiableList(arcBlocks);
   }
