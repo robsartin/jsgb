@@ -7,9 +7,13 @@ import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Util;
 import com.robsartin.jsgb.graph.Vertex;
 import com.robsartin.jsgb.io.GbIo;
+import com.robsartin.jsgb.miles.Miles;
+import com.robsartin.jsgb.plane.Plane;
 import com.robsartin.jsgb.raman.Raman;
 import com.robsartin.jsgb.rand.Rand;
+import com.robsartin.jsgb.roget.Roget;
 import com.robsartin.jsgb.save.Save;
+import com.robsartin.jsgb.words.Words;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -58,7 +62,17 @@ public final class TestSample {
       Gb.recycle(g);
       Gb.recycle(gg);
     }
-    // Stanzas 4 to 15 are added in increments 3 and 4.
+    // Stanzas 4 to 7 (gates, book, econ, games) stay for increment 3b.
+    printSample(Miles.miles(50L, -500L, 100L, 1L, 500L, 5L, 314159L), 20, out);
+    // Stanza 9 (plane_lisa) stays for increment 3b.
+    printSample(Plane.planeMiles(50L, 500L, -100L, 1L, 1L, 40000L, 271818L), 14, out);
+    printSample(Rand.randomBigraph(300L, 3L, 1000L, -1L, null, dst, -500L, 500L, 666L), 3, out);
+    printSample(Roget.roget(1000L, 3L, 1009L, 1009L), 40, out);
+    long[] wt = {100, -80589, 50000, 18935, -18935, 18935, 18935, 18935, 18935};
+    printSample(Words.words(100L, wt, 70000000L, 69L), 5, out);
+    wt[1]++;
+    printSample(Words.words(100L, wt, 70000000L, 69L), 5, out);
+    printSample(Words.words(0L, null, 0L, 69L), 5555, out);
   }
 
   /**
@@ -96,6 +110,10 @@ public final class TestSample {
   private static void prVert(Vertex v, int l, String s, PrintStream out) {
     if (v == null) {
       out.print("NULL");
+      return;
+    }
+    if (v == Gb.ONE) {
+      out.print("ONE"); // gb_gates' boolean vertex
       return;
     }
     out.print("\"" + v.name + "\"");
@@ -144,11 +162,7 @@ public final class TestSample {
           return;
         }
         out.print("[");
-        if (u.ref == null && u.I == 1) {
-          out.print("ONE"); // gb_gates' boolean vertex; a V slot holding the value 1
-        } else {
-          prVert(u.V(), l, s, out);
-        }
+        prVert(u.V(), l, s, out);
         out.print("]");
       }
       default -> {}

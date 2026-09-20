@@ -1,0 +1,281 @@
+==words_top
+
+"words(50,0,1000,1)"
+50 vertices, 26 arcs, util_types IZZZZZIZZZZZZZ
+V3: "about"[59044]
+==words_equal
+
+"words(20,{1,1,1,1,1,1,1,1,1},0,7)"
+20 vertices, 8 arcs, util_types IZZZZZIZZZZZZZ
+V0: "which"[26592]
+==words_bad
+
+Ooops, we just ran into panic code 30!
+==find_word
+words
+|NULL
+|graph
+==roget_small
+
+"roget(100,2,500,3)"
+100 vertices, 49 arcs, util_types IZZZZZZZZZZZZZ
+V10: "agriculture"[379]
+==roget_full
+
+"roget(1022,0,0,0)"
+1022 vertices, 5075 arcs, util_types IZZZZZZZZZZZZZ
+V1000: "non-design"[636]
+   ->"intention"[635], 1
+   ->"good"[633], 1
+   ->"spontaneity"[626], 1
+   ->"necessity"[613], 1
+   ->"uncertainty"[486], 1
+   ->"possibility"[481], 1
+   ->"chance"[161], 1
+==roget_default
+
+"roget(1022,0,0,5)"
+1022 vertices, 5075 arcs, util_types IZZZZZZZZZZZZZ
+V0: "age"[133]
+   ->"veteran"[135], 1
+   ->"youth"[132], 1
+   ->"oldness"[129], 1
+==miles_span_default
+
+"miles(50,0,0,0,0,10,0)"
+50 vertices, 392 arcs, util_types ZZIIIIZZZZZZZZ
+V0: "Seminole, OK"[8590][2644][1276][52]
+   ->"Roswell, NM"[39676][1859][1002][15], 539
+   ->"Waco, TX"[101261][2598][724][98], 290
+   ->"Rochester, MN"[57890][3066][2595][10], 772
+   ->"Santa Fe, NM"[48953][1717][1344][41], 605
+   ->"Sterling, CO"[11385][1990][2085][65], 678
+   ->"Salida, CO"[44870][1712][1771][27], 678
+   ->"Wichita Falls, TX"[94201][2463][1077][114], 180
+   ->"Saint Louis, MO"[453085][3293][1785][24], 527
+   ->"Trinidad, CO"[9663][1861][1567][83], 549
+==miles_dist300
+
+"miles(128,0,0,0,300,127,0)"
+128 vertices, 1046 arcs, util_types ZZIIIIZZZZZZZZ
+V5: "Waycross, GA"[19371][4077][675][108]
+   ->"Sumter, SC"[24890][4277][1080][70], 265
+   ->"Valdosta, GA"[37596][3984][616][92], 63
+   ->"Swainsboro, GA"[7602][4078][882][71], 105
+   ->"Saint Augustine, FL"[11985][4180][475][19], 115
+   ->"Tampa, FL"[271523][4067][184][75], 264
+   ->"Tallahassee, FL"[81548][3884][559][74], 145
+   ->"Savannah, GA"[141634][4203][804][45], 109
+==miles_weighted
+
+"miles(30,100,100,1,0,3,2)"
+30 vertices, 56 arcs, util_types ZZIIIIZZZZZZZZ
+V2: "San Jose, CA"[629546][124][1593][38]
+   ->"Salinas, CA"[80479][147][1492][29], 58
+   ->"Stockton, CA"[149779][183][1686][68], 80
+   ->"San Francisco, CA"[678974][70][1659][37], 47
+==miles_distance=520
+
+"miles(10,0,0,0,0,9,4)"
+10 vertices, 90 arcs, util_types ZZIIIIZZZZZZZZ
+V1: "Springfield, OH"[72563][3931][1980][63]
+   ->"Youngstown, OH"[115436][4247][2157][127], 211
+   ->"Seminole, OK"[8590][2644][1276][52], 899
+   ->"Utica, NY"[75632][4789][2458][91], 565
+   ->"Watertown, NY"[27861][4720][2589][104], 568
+   ->"Traverse City, MI"[15516][3749][2706][81], 412
+   ->"Scottsbluff, NE"[14156][1946][2272][47], 1179
+   ->"Winston-Salem, NC"[131885][4287][1407][122], 448
+   ->"Tacoma, WA"[158501][69][3078][73], 2405
+   ->"Scranton, PA"[88117][4745][2203][48], 520
+==miles_bad
+
+Ooops, we just ran into panic code 30!
+==plane_small
+
+"plane(10,16384,16384,0,0,1)"
+10 vertices, 46 arcs, util_types ZZZIIIZZZZZZZZ
+V0: "0"[1389][14015][63752060]
+   ->"5"[14496][15107][54100305], 13468069
+   ->"3"[1982][381][1158976113], 13974415
+   ->"4"[8952][6339][539105144], 11034518
+   ->"2"[5590][14063][1989086352], 4302105
+==plane_inf
+
+"plane(20,100,100,1,0,5)"
+21 vertices, 114 arcs, util_types ZZZIIIZZZZZZZZ
+V20: "INF"[-1][-1][-1]
+   ->"18"[88][0][566155518], 268435456
+   ->"17"[99][18][1099967757], 268435456
+   ->"16"[21][92][1716233676], 268435456
+   ->"15"[2][24][127177075], 268435456
+   ->"14"[0][86][658090874], 268435456
+   ->"8"[86][93][356924868], 268435456
+   ->"1"[8][4][1936107761], 268435456
+==plane_prob
+
+"plane(30,500,500,1,300,7)"
+31 vertices, 170 arcs, util_types ZZZIIIZZZZZZZZ
+V3: "3"[147][387][112987623]
+   ->"29"[19][496][1498093379], 172157
+   ->"27"[196][494][734780787], 120510
+   ->"14"[183][390][1525683464], 36992
+   ->"12"[200][412][169019772], 60007
+   ->"11"[8][297][105465701], 169567
+   ->"8"[191][373][1652423348], 47282
+   ->"7"[185][282][1318294837], 114345
+   ->"15"[162][269][620268405], 121804
+==plane_bad
+
+Ooops, we just ran into panic code 40!
+==delaunay
+1-0
+INF-1
+0-INF
+INF-2
+0-2
+4-0
+5-2
+0-3
+2-3
+INF-4
+2-4
+1-4
+INF-5
+0-5
+3-5
+
+"plane(6,100,100,0,0,3)"
+6 vertices, 20 arcs, util_types ZZZIIIZZZZZZZZ
+V2: "2"[68][7][2128876214]
+   ->"4"[65][3][479913868], 5120
+   ->"3"[67][15][1196239281], 8256
+   ->"5"[87][84][620824115], 81213
+   ->"0"[52][14][292474956], 17883
+==plane_miles_small
+
+"plane_miles(20,0,0,0,0,0,1)"
+20 vertices, 104 arcs, util_types ZZIIIIZZZZZZZZ
+V0: "Wilmington, NC"[139238][4520][1128][119]
+   ->"Savannah, GA"[141634][4203][804][45], 277
+   ->"West Palm Beach, FL"[63305][4307][0][111], 718
+   ->"Staunton, VA"[21857][4405][1714][64], 350
+   ->"Richmond, VA"[219214][4567][1623][8], 247
+   ->"Williamson, WV"[5219][4084][1644][115], 452
+   ->"Waterbury, CT"[103266][5007][2224][102], 672
+==plane_miles_prob
+
+"plane_miles(40,0,0,0,1,20000,9)"
+41 vertices, 152 arcs, util_types ZZIIIIZZZZZZZZ
+V40: "INF"[0][-1][-1][-1]
+   ->"Tucson, AZ"[330537][1215][825][84], 268435456
+   ->"Regina, SK"[162613][1847][3555][3], 268435456
+   ->"West Palm Beach, FL"[63305][4307][0][111], 268435456
+==dijkstra_roget
+return=5
+         0 painting
+         1 ornamentation
+         2 vulgarity
+         3 painfulness
+         4 evil doer
+         5 benefactor
+==dijkstra_roget_far
+return=5
+         0 whole
+         1 importance
+         2 goodness
+         3 good
+         4 giving
+         5 transfer
+==dijkstra_128
+return=5
+         0 whole
+         1 importance
+         2 goodness
+         3 good
+         4 giving
+         5 transfer
+==dijkstra_unreachable
+return=-1
+Sorry, 0 is unreachable.
+==dijkstra_heuristic
+Distances from Wilmington, NC [1130]:
+ 277 to Savannah, GA [1050] via Wilmington, NC
+ 247 to Richmond, VA [1141] via Wilmington, NC
+ 350 to Staunton, VA [1101] via Wilmington, NC
+ 452 to Williamson, WV [1021] via Wilmington, NC
+ 357 to Washington, DC [1152] via Wilmington, NC
+ 656 to Tuscaloosa, AL [888] via Wilmington, NC
+ 637 to Youngstown, OH [1061] via Wilmington, NC
+ 567 to Williamsport, PA [1153] via Wilmington, NC
+ 742 to Sandusky, OH [1010] via Wilmington, NC
+return=742
+         0 Wilmington, NC
+       742 Sandusky, OH
+==dijkstra_verbose_plain
+Distances from Watertown, SD:
+ 210 to Saint Paul, MN via Watertown, SD
+ 393 to Wausau, WI via Watertown, SD
+ 545 to Rockford, IL via Watertown, SD
+ 787 to Seminole, OK via Watertown, SD
+ 860 to Trinidad, CO via Watertown, SD
+ 913 to Sandusky, OH via Watertown, SD
+ 1026 to Youngstown, OH via Watertown, SD
+ 1155 to Williamson, WV via Watertown, SD
+ 1207 to Tuscaloosa, AL via Watertown, SD
+ 1233 to Rochester, NY via Watertown, SD
+ 1263 to Williamsport, PA via Watertown, SD
+ 1297 to Staunton, VA via Watertown, SD
+return=1297
+         0 Watertown, SD
+      1297 Staunton, VA
+==find_word_neighbours
+words cords lords fords |NULL
+|NULL
+==roget_neg_mindist
+
+"roget(1022,18446744073709551615,0,0)"
+1022 vertices, 0 arcs, util_types IZZZZZZZZZZZZZ
+V0: "painting"[568]
+==roget_neg_n
+
+"roget(1022,0,0,0)"
+1022 vertices, 5075 arcs, util_types IZZZZZZZZZZZZZ
+V0: "painting"[568]
+   ->"ornamentation"[864], 1
+   ->"representation"[566], 1
+   ->"colour"[437], 1
+   ->"light"[429], 1
+   ->"resin"[364], 1
+==miles_neg_degree
+
+"miles(10,0,0,0,0,9,1)"
+10 vertices, 90 arcs, util_types ZZIIIIZZZZZZZZ
+V0: "Wilmington, NC"[139238][4520][1128][119]
+   ->"Rockford, IL"[139712][3402][2332][12], 1033
+   ->"West Palm Beach, FL"[63305][4307][0][111], 718
+   ->"Staunton, VA"[21857][4405][1714][64], 350
+   ->"Youngstown, OH"[115436][4247][2157][127], 637
+   ->"Richmond, VA"[219214][4567][1623][8], 247
+   ->"Williamsport, PA"[33401][4612][2179][116], 567
+   ->"Watertown, SD"[15649][2601][2727][105], 1572
+   ->"Waterbury, CT"[103266][5007][2224][102], 672
+   ->"Rochester, NY"[241741][4551][2466][11], 733
+==plane_neg_range
+
+Ooops, we just ran into panic code 30!
+==words_neg_n
+
+"words(5757,0,0,69)"
+5757 vertices, 28270 arcs, util_types IZZZZZIZZZZZZZ
+V5555: "laded"[0]
+   ->"lades"[0], 1[4]
+   ->"laden"[204], 1[4]
+   ->"laved"[0], 1[2]
+   ->"lased"[0], 1[2]
+   ->"lazed"[2], 1[2]
+   ->"lamed"[112], 1[2]
+   ->"laced"[168], 1[2]
+   ->"jaded"[110], 1[0]
+   ->"waded"[240], 1[0]
+   ->"faded"[430], 1[0]

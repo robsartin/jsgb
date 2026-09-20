@@ -95,4 +95,66 @@ class ArchitectureTest {
           .should()
           .onlyDependOnClassesThat()
           .resideInAnyPackage(BASE + ".save..", BASE + ".graph..", BASE + ".io..", "java..");
+
+  // Generators added in increment 3a: words and miles also use sort (for gb_linksort); roget stays
+  // on the plain kernel; plane additionally depends on miles (plane_miles reduces to it); dijk is
+  // an algorithm module over graph alone.
+  @ArchTest
+  static final ArchRule wordsDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".words..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(
+              BASE + ".words..",
+              BASE + ".graph..",
+              BASE + ".io..",
+              BASE + ".flip..",
+              BASE + ".sort..",
+              "java..");
+
+  @ArchTest
+  static final ArchRule rogetDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".roget..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(
+              BASE + ".roget..", BASE + ".graph..", BASE + ".io..", BASE + ".flip..", "java..");
+
+  @ArchTest
+  static final ArchRule milesDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".miles..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(
+              BASE + ".miles..",
+              BASE + ".graph..",
+              BASE + ".io..",
+              BASE + ".flip..",
+              BASE + ".sort..",
+              "java..");
+
+  @ArchTest
+  static final ArchRule planeDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".plane..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(
+              BASE + ".plane..", BASE + ".graph..", BASE + ".flip..", BASE + ".miles..", "java..");
+
+  @ArchTest
+  static final ArchRule dijkDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".dijk..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(BASE + ".dijk..", BASE + ".graph..", "java..");
 }

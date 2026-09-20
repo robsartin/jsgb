@@ -254,8 +254,19 @@ public final class GbIo {
     return GbIo.class.getResourceAsStream("/sgb/" + f);
   }
 
-  /** {@code gb_raw_open(f)}: opens {@code f} without header checks; sets {@link #ioErrors}. */
+  /**
+   * {@code gb_raw_open(f)}: opens {@code f} without header checks; sets {@link #ioErrors}. Unlike
+   * the C, which overwrites {@code cur_file} and leaks the previous file descriptor, this closes
+   * any file still open from a previous call first.
+   */
   public static void rawOpen(String f) {
+    if (curFile != null) {
+      try {
+        curFile.close();
+      } catch (IOException ignored) {
+        // nothing sensible to do
+      }
+    }
     InputStream in = locate(f);
     curFile = in == null ? null : new java.io.BufferedInputStream(in);
     if (curFile != null) {

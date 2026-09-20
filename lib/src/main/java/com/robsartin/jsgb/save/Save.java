@@ -22,8 +22,9 @@ import java.util.regex.Pattern;
  * numbers vertices and arcs by their position in the graph's storage blocks, so a graph restored
  * from a file has the same structure, though string identity is not preserved.
  *
- * <p>Boolean vertex slots: a {@code V}-typed slot with {@code ref == null} and {@code I == 1} (the
- * {@code gb_gates} constant ONE) is written as {@code 1} and read back the same way.
+ * <p>Boolean vertex slots: an {@link Arc#tip} or a {@code V}-typed slot holding {@link Gb#ONE} (the
+ * {@code gb_gates} constant, the C's pointer value 1) is written as {@code 1} and read back as
+ * {@link Gb#ONE}.
  */
 public final class Save {
 
@@ -267,7 +268,7 @@ public final class Save {
     int tcat;
     switch (t) {
       case 'V' -> {
-        if (ref == null && i == 1) {
+        if (ref == Gb.ONE) {
           return; // the boolean ONE
         }
         tcat = VRT;
@@ -333,7 +334,7 @@ public final class Save {
         return;
       }
       case 'V' -> {
-        if (ref == null && i == 1) {
+        if (ref == Gb.ONE) {
           itemBuf = "1";
           moveItem();
           return;
@@ -697,9 +698,12 @@ public final class Save {
           } else {
             l.ref = verts[(int) k];
           }
-        } else if (c == '0' || c == '1') {
-          l.I = c - '0';
+        } else if (c == '1') {
+          l.ref = Gb.ONE;
+          l.I = 0;
+        } else if (c == '0') {
           l.ref = null;
+          l.I = 0;
         } else {
           Gb.panicCode = Gb.SYNTAX_ERROR - 3;
         }

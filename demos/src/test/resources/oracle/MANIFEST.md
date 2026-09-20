@@ -11,6 +11,10 @@ built on macOS with clang as `scripts/regen-oracle.sh` does.
 | `inc2/oracle_inc2.out` | stdout of `scripts/oracle/oracle_inc2.c` linked against `libgb.a` |
 | `inc2/oracle_board.gb` | `save_graph(board(2,2,0,0,1,0,0), ...)` written by the same harness |
 | `inc2/oracle_lines.gb` | `save_graph` of `lines(board(3,0,0,0,1,0,0),0)` with util_types[0..1] forced to `Z`, same harness |
+| `inc3a/oracle_inc3a.out` | stdout of `scripts/oracle/oracle_inc3a.c` linked against `libgb.a` |
 
-`oracle_inc2.out` is a sequence of cases; each begins with a line `==name` (or
-`==name=returnvalue`) followed by exactly what `print_sample` printed.
+`oracle_inc2.out` and `inc3a/oracle_inc3a.out` are each a sequence of cases; every case begins
+with a line `==name` (or `==name=returnvalue`) followed by exactly what `print_sample` printed for
+that case, except that `oracle_inc3a.out`'s `find_word`, `delaunay` and `dijkstra_*` cases are
+printed by custom code in the harness instead of `print_sample`, and the `dijkstra_heuristic` and
+`dijkstra_verbose_plain` cases toggle `verbose` on around the call.

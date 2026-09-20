@@ -6,9 +6,13 @@ import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
+import com.robsartin.jsgb.miles.Miles;
+import com.robsartin.jsgb.plane.Plane;
 import com.robsartin.jsgb.raman.Raman;
 import com.robsartin.jsgb.rand.Rand;
+import com.robsartin.jsgb.roget.Roget;
 import com.robsartin.jsgb.save.Save;
+import com.robsartin.jsgb.words.Words;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -78,7 +82,7 @@ class TestSampleTest {
     g.utilTypes = "VSAZZZZZZZZZZZ";
     g.vertices[0].name = "a";
     g.vertices[1].name = "b";
-    g.vertices[1].u.I = 1; // a V slot holding the value 1 is gb_gates' ONE
+    g.vertices[1].u.V(Gb.ONE); // gb_gates' boolean ONE
     g.vertices[1].v.S("s");
     Gb.newArc(g.vertices[0], g.vertices[1], 5L);
     g.vertices[1].w.A(g.vertices[0].arcs);
@@ -207,15 +211,97 @@ class TestSampleTest {
 
   @Test
   @DisplayName(
-      "the main sequence so far reproduces the header and stanzas 0 to 3 of sample.correct")
+      "the main sequence so far reproduces the header and stanzas 0-3, 8 and 10-15 of"
+          + " sample.correct")
   void shouldMatchSampleCorrectPrefixWhenMainRuns() {
     String expected =
         SampleCorrect.HEADER
             + SampleCorrect.stanza(0)
             + SampleCorrect.stanza(1)
             + SampleCorrect.stanza(2)
-            + SampleCorrect.stanza(3);
+            + SampleCorrect.stanza(3)
+            + SampleCorrect.stanza(8)
+            + SampleCorrect.stanza(10)
+            + SampleCorrect.stanza(11)
+            + SampleCorrect.stanza(12)
+            + SampleCorrect.stanza(13)
+            + SampleCorrect.stanza(14)
+            + SampleCorrect.stanza(15);
     assertThat(Oracle.capture(ps -> TestSample.run(ps, dir))).isEqualTo(expected);
     assertThat(dir.resolve("test.gb")).exists();
+  }
+
+  @Test
+  @DisplayName("print_sample prints ONE for a boolean arc tip and a boolean V slot")
+  void shouldPrintOneWhenTipOrSlotIsBoolean() {
+    Graph g = Gb.newGraph(1L);
+    g.id = "one";
+    g.utilTypes = "VZZZZZZZZZZZZZ";
+    g.vertices[0].name = "a";
+    g.vertices[0].u.V(Gb.ONE);
+    Gb.newArc(g.vertices[0], Gb.ONE, 2L);
+    assertThat(Oracle.capture(ps -> TestSample.printSample(g, 0, ps)))
+        .isEqualTo(
+            "\n\"one\"\n1 vertices, 1 arcs, util_types VZZZZZZZZZZZZZ\nV0: \"a\"[ONE]\n   ->ONE, 2\n");
+  }
+
+  @Test
+  @DisplayName("oracle_inc3a.out cases are addressable by name")
+  void shouldExtractInc3aCasesWhenReadingOracleFile() {
+    assertThat(Oracle.inc3a("words_top"))
+        .startsWith("\n\"words(50,0,1000,1)\"\n50 vertices, 26 arcs");
+    assertThat(Oracle.inc3aReturn("miles_distance")).isEqualTo(520L);
+    assertThat(Oracle.inc3a("find_word")).isEqualTo("words\n|NULL\n|graph\n");
+    assertThat(Oracle.inc3a("dijkstra_unreachable"))
+        .isEqualTo("return=-1\nSorry, 0 is unreachable.\n");
+  }
+
+  @Test
+  @DisplayName("stanzas 13 to 15: the three words calls of test_sample")
+  void shouldMatchSampleCorrectWhenWordsStanzasPrinted() {
+    long[] wt = {100, -80589, 50000, 18935, -18935, 18935, 18935, 18935, 18935};
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Words.words(100L, wt, 70000000L, 69L), 5, ps)))
+        .isEqualTo(SampleCorrect.stanza(13));
+    wt[1]++;
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Words.words(100L, wt, 70000000L, 69L), 5, ps)))
+        .isEqualTo(SampleCorrect.stanza(14));
+    assertThat(
+            Oracle.capture(ps -> TestSample.printSample(Words.words(0L, null, 0L, 69L), 5555, ps)))
+        .isEqualTo(SampleCorrect.stanza(15));
+  }
+
+  @Test
+  @DisplayName("stanza 12: roget(1000,3,1009,1009) at vertex 40")
+  void shouldMatchSampleCorrectWhenRogetStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Roget.roget(1000L, 3L, 1009L, 1009L), 40, ps)))
+        .isEqualTo(SampleCorrect.stanza(12));
+  }
+
+  @Test
+  @DisplayName("stanza 8: miles(50,-500,100,1,500,5,314159) at vertex 20")
+  void shouldMatchSampleCorrectWhenMilesStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Miles.miles(50L, -500L, 100L, 1L, 500L, 5L, 314159L), 20, ps)))
+        .isEqualTo(SampleCorrect.stanza(8));
+  }
+
+  @Test
+  @DisplayName("stanza 10: plane_miles(50,500,-100,1,1,40000,271818) at vertex 14")
+  void shouldMatchSampleCorrectWhenPlaneMilesStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Plane.planeMiles(50L, 500L, -100L, 1L, 1L, 40000L, 271818L), 14, ps)))
+        .isEqualTo(SampleCorrect.stanza(10));
   }
 }

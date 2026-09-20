@@ -318,4 +318,33 @@ class GbTest {
     assertThat(g.arcBlocks().get(1)).hasSize(Gb.ARCS_PER_BLOCK);
     assertThat(g.vertices[0].arcs).isSameAs(g.arcBlocks().get(1)[0]);
   }
+
+  @Test
+  @DisplayName("ONE is a single sentinel vertex that no graph owns")
+  void shouldExposeSentinelWhenOneUsed() {
+    assertThat(Gb.ONE).isSameAs(Gb.ONE);
+    assertThat(Gb.ONE.name).isEqualTo("ONE");
+    assertThat(Gb.ONE.index).isEqualTo(-1);
+    assertThat(Gb.isBoolean(Gb.ONE)).isTrue();
+    assertThat(Gb.isBoolean(Gb.newGraph(1L).vertices[0])).isFalse();
+  }
+
+  @Test
+  @DisplayName("allocAuxVertices returns indexed vertices registered on no graph")
+  void shouldNotRegisterBlockWhenAuxVerticesAllocated() {
+    Graph g = Gb.newGraph(1L);
+    Vertex[] aux = Gb.allocAuxVertices(3);
+    assertThat(aux).hasSize(3);
+    assertThat(aux[2].index).isEqualTo(2);
+    assertThat(aux[0].name).isSameAs(Gb.NULL_STRING);
+    assertThat(g.extraVertexBlocks()).isEmpty();
+  }
+
+  @Test
+  @DisplayName("prefix is the C's %.*s: truncate only when longer")
+  void shouldTruncateOnlyWhenLongerWhenPrefixCalled() {
+    assertThat(Gb.prefix("abcdef", 3)).isEqualTo("abc");
+    assertThat(Gb.prefix("ab", 3)).isEqualTo("ab");
+    assertThat(Gb.prefix("ab", -1)).isEmpty();
+  }
 }
