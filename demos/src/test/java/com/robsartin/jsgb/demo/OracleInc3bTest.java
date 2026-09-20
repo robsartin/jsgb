@@ -3,6 +3,7 @@ package com.robsartin.jsgb.demo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.robsartin.jsgb.books.Books;
+import com.robsartin.jsgb.econ.Econ;
 import com.robsartin.jsgb.graph.Graph;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -58,5 +59,21 @@ class OracleInc3bTest {
               TestSample.printSample(g, 0, ps);
             });
     assertThat(out).isEqualTo(Oracle.inc3b("book_chapters"));
+  }
+
+  @Test
+  @DisplayName(
+      "econ prints exactly as the C for the full, omitted, greedy, users and default cases")
+  void shouldMatchOracleWhenEconPrinted() {
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Econ.econ(81L, 0L, 0L, 1L), 0, ps)))
+        .isEqualTo(Oracle.inc3b("econ_full"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Econ.econ(40L, 2L, 1000L, 5L), 5, ps)))
+        .isEqualTo(Oracle.inc3b("econ_omit2"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Econ.econ(10L, 1L, 0L, 0L), 2, ps)))
+        .isEqualTo(Oracle.inc3b("econ_greedy"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Econ.econ(20L, 0L, 0L, 7L), 19, ps)))
+        .isEqualTo(Oracle.inc3b("econ_users"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Econ.econ(0L, 0L, 0L, 0L), 80, ps)))
+        .isEqualTo(Oracle.inc3b("econ_default"));
   }
 }

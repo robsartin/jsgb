@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.books.Books;
+import com.robsartin.jsgb.econ.Econ;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
@@ -323,5 +324,13 @@ class TestSampleTest {
     assertThat(Oracle.inc3b("book_bad")).isEqualTo("\nOoops, we just ran into panic code 30!\n");
     assertThat(Oracle.inc3bReturn("risc2_eval")).isZero();
     assertThat(Oracle.inc3b("risc2_eval")).isEqualTo("0000000000000001\n");
+  }
+
+  @Test
+  @DisplayName("stanza 6: econ(40,0,400,-111) at vertex 11")
+  void shouldMatchSampleCorrectWhenEconStanzaPrinted() {
+    assertThat(
+            Oracle.capture(ps -> TestSample.printSample(Econ.econ(40L, 0L, 400L, -111L), 11, ps)))
+        .isEqualTo(SampleCorrect.stanza(6));
   }
 }
