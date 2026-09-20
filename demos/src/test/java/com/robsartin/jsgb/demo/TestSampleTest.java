@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
+import com.robsartin.jsgb.raman.Raman;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -99,6 +100,13 @@ class TestSampleTest {
     assertThat(SampleCorrect.stanza(0)).startsWith("\n\"raman(31,3,3,4)\"\n12 vertices, 96 arcs");
     assertThat(SampleCorrect.stanza(13)).isEqualTo("\nOoops, we just ran into panic code 30!\n");
     assertThat(SampleCorrect.stanza(15)).endsWith("->\"faded\"[430], 1[0]\n");
+  }
+
+  @Test
+  @DisplayName("stanza 0: raman(31,3,0,4) at vertex 4")
+  void shouldMatchSampleCorrectWhenRamanStanzaPrinted() {
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Raman.raman(31L, 3L, 0L, 4L), 4, ps)))
+        .isEqualTo(SampleCorrect.stanza(0));
   }
 
   @Test
