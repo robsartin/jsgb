@@ -11,7 +11,7 @@ class BasicSetOpsTest {
 
   @Test
   @DisplayName("complement of a path with copy=1 and self=1 keeps only the original edges")
-  void shouldCopyEdgesAndAddLoopsWhenComplementCopiesWithSelf() {
+  void shouldKeepOnlyOriginalEdgesWhenComplementCopiesWithSelf() {
     Graph g = Basic.complement(Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 0L), 1L, 1L, 0L);
     assertThat(g.id).isEqualTo("complement(board(3,0,0,0,1,0,0),1,1,0)");
     assertThat(g.n).isEqualTo(3L);
@@ -52,5 +52,24 @@ class BasicSetOpsTest {
     assertThat(g.m).isEqualTo(6L);
     assertThat(g.vertices[1].v.I).isZero();
     assertThat(g.vertices[1].w.I).isZero();
+  }
+
+  @Test
+  @DisplayName(
+      "intersection with a multigraph on the right keeps the smallest maximum for a repeated"
+          + " pair")
+  void shouldKeepSmallestMaximumWhenRightOperandRepeatsAnEdge() {
+    Graph g = Basic.board(2L, 0L, 0L, 0L, 1L, 0L, 0L); // one edge 0-1 of length 1
+    Graph gg = Gb.newGraph(2L);
+    gg.id = "multi";
+    gg.vertices[0].name = "0";
+    gg.vertices[1].name = "1";
+    Gb.newEdge(gg.vertices[0], gg.vertices[1], 3L);
+    Gb.newEdge(gg.vertices[0], gg.vertices[1], 5L);
+    Graph r = Basic.intersection(g, gg, 0L, 0L);
+    assertThat(r.m).isEqualTo(2L); // one edge, two arcs
+    assertThat(r.vertices[0].arcs.len).isEqualTo(3L);
+    assertThat(r.vertices[0].arcs.mate.len).isEqualTo(3L);
+    assertThat(r.vertices[0].arcs.next).isNull();
   }
 }
