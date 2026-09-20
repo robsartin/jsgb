@@ -1,0 +1,23 @@
+jsgb is a Java re-implementation of the Stanford GraphBase. The Java source
+code is original work licensed under the MIT licence (see LICENSE).
+
+The data files under lib/src/main/resources/sgb/, the test fixture test.dat,
+and the reference outputs sample.correct and test.correct (added in later
+increments) are unmodified files from the Stanford GraphBase and carry the
+following notice:
+
+    The Stanford GraphBase is copyright 1993 by Stanford University
+
+    These files may be freely copied and distributed, provided that
+    no changes whatsoever are made. All users are asked to help keep
+    the Stanford GraphBase sources consistent and ``uncorrupted,''
+    identical everywhere in the world. Changes are permissible only
+    if the changed file is given a new name, different from the names of
+    existing files listed below, and only if the changed file is
+    clearly identified as not being part of the Stanford GraphBase.
+    The author has tried his best to produce correct and useful programs,
+    in order to help promote computer science research, but no warranty
+    of any kind should be assumed.
+
+Reference: Stanford GraphBase release 2025-12-28, as mirrored at
+https://github.com/ascherer/sgb commit 88fac2f051f445d68521dbe6cb756a43e5d53e8a.
