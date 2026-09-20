@@ -231,4 +231,65 @@ public final class Gb {
               + s3;
     }
   }
+
+  private static final long HASH_MULT = 314159;
+  private static final long HASH_PRIME = 516595003;
+
+  /** The bucket index of {@code s} in the current graph (C section 45). Tests only. */
+  static int hashBucket(String s) {
+    long h = 0;
+    for (byte t : s.getBytes(java.nio.charset.StandardCharsets.ISO_8859_1)) {
+      h += (h ^ (h >> 1)) + HASH_MULT * (t & 0xff);
+      while (h >= HASH_PRIME) {
+        h -= HASH_PRIME;
+      }
+    }
+    return (int) (h % curGraph.n);
+  }
+
+  /** {@code hash_in(v)}: inserts {@code v} into the current graph's name table. */
+  public static void hashIn(Vertex v) {
+    Vertex u = curGraph.vertices[hashBucket(v.name)];
+    v.u.V(u.v.V());
+    u.v.V(v);
+  }
+
+  /** {@code hash_out(s)}: the vertex of the current graph named {@code s}, or null. */
+  public static Vertex hashOut(String s) {
+    Vertex u = curGraph.vertices[hashBucket(s)];
+    for (u = u.v.V(); u != null; u = u.u.V()) {
+      if (s.equals(u.name)) {
+        return u;
+      }
+    }
+    return null;
+  }
+
+  /** {@code hash_setup(g)}: builds the name table of {@code g} in slots {@code u} and {@code v}. */
+  public static void hashSetup(Graph g) {
+    if (g != null && g.n > 0) {
+      Graph saved = curGraph;
+      curGraph = g;
+      for (int i = 0; i < g.n; i++) {
+        g.vertices[i].v.V(null);
+      }
+      for (int i = 0; i < g.n; i++) {
+        hashIn(g.vertices[i]);
+      }
+      g.utilTypes = "VV" + g.utilTypes.substring(2);
+      curGraph = saved;
+    }
+  }
+
+  /** {@code hash_lookup(s, g)}: the vertex of {@code g} named {@code s}, or null. */
+  public static Vertex hashLookup(String s, Graph g) {
+    if (g != null && g.n > 0) {
+      Graph saved = curGraph;
+      curGraph = g;
+      Vertex v = hashOut(s);
+      curGraph = saved;
+      return v;
+    }
+    return null;
+  }
 }
