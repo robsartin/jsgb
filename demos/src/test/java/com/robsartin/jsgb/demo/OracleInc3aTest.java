@@ -3,6 +3,7 @@ package com.robsartin.jsgb.demo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.robsartin.jsgb.graph.Vertex;
+import com.robsartin.jsgb.miles.Miles;
 import com.robsartin.jsgb.roget.Roget;
 import com.robsartin.jsgb.words.Words;
 import java.util.function.Consumer;
@@ -73,5 +74,31 @@ class OracleInc3aTest {
         .isEqualTo(Oracle.inc3a("roget_full"));
     assertThat(Oracle.capture(ps -> TestSample.printSample(Roget.roget(0L, 0L, 0L, 5L), 0, ps)))
         .isEqualTo(Oracle.inc3a("roget_default"));
+  }
+
+  @Test
+  @DisplayName("miles graphs print exactly as the C")
+  void shouldMatchOracleWhenMilesPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Miles.miles(50L, 0L, 0L, 0L, 0L, 10L, 0L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("miles_span_default"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Miles.miles(128L, 0L, 0L, 0L, 300L, 0L, 0L), 5, ps)))
+        .isEqualTo(Oracle.inc3a("miles_dist300"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Miles.miles(30L, 100L, 100L, 1L, 0L, 3L, 2L), 2, ps)))
+        .isEqualTo(Oracle.inc3a("miles_weighted"));
+    com.robsartin.jsgb.graph.Graph g = Miles.miles(10L, 0L, 0L, 0L, 0L, 0L, 4L);
+    assertThat(Miles.milesDistance(g.vertices[0], g.vertices[1]))
+        .isEqualTo(Oracle.inc3aReturn("miles_distance"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(g, 1, ps)))
+        .isEqualTo(Oracle.inc3a("miles_distance"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Miles.miles(10L, 200000L, 0L, 0L, 0L, 0L, 1L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("miles_bad"));
   }
 }

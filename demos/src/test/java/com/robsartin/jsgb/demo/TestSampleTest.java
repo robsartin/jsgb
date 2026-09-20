@@ -6,6 +6,7 @@ import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
+import com.robsartin.jsgb.miles.Miles;
 import com.robsartin.jsgb.raman.Raman;
 import com.robsartin.jsgb.rand.Rand;
 import com.robsartin.jsgb.roget.Roget;
@@ -271,5 +272,16 @@ class TestSampleTest {
             Oracle.capture(
                 ps -> TestSample.printSample(Roget.roget(1000L, 3L, 1009L, 1009L), 40, ps)))
         .isEqualTo(SampleCorrect.stanza(12));
+  }
+
+  @Test
+  @DisplayName("stanza 8: miles(50,-500,100,1,500,5,314159) at vertex 20")
+  void shouldMatchSampleCorrectWhenMilesStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Miles.miles(50L, -500L, 100L, 1L, 500L, 5L, 314159L), 20, ps)))
+        .isEqualTo(SampleCorrect.stanza(8));
   }
 }
