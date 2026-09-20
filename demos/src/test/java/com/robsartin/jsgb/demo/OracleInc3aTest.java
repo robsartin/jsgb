@@ -3,6 +3,7 @@ package com.robsartin.jsgb.demo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.robsartin.jsgb.graph.Vertex;
+import com.robsartin.jsgb.roget.Roget;
 import com.robsartin.jsgb.words.Words;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.DisplayName;
@@ -59,5 +60,18 @@ class OracleInc3aTest {
               ps.print("|" + (v == null ? "NULL" : v.name) + "\n");
             });
     assertThat(out).isEqualTo(Oracle.inc3a("find_word_neighbours"));
+  }
+
+  @Test
+  @DisplayName("roget graphs print exactly as the C")
+  void shouldMatchOracleWhenRogetPrinted() {
+    assertThat(
+            Oracle.capture(ps -> TestSample.printSample(Roget.roget(100L, 2L, 500L, 3L), 10, ps)))
+        .isEqualTo(Oracle.inc3a("roget_small"));
+    assertThat(
+            Oracle.capture(ps -> TestSample.printSample(Roget.roget(1022L, 0L, 0L, 0L), 1000, ps)))
+        .isEqualTo(Oracle.inc3a("roget_full"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Roget.roget(0L, 0L, 0L, 5L), 0, ps)))
+        .isEqualTo(Oracle.inc3a("roget_default"));
   }
 }

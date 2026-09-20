@@ -8,6 +8,7 @@ import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
 import com.robsartin.jsgb.raman.Raman;
 import com.robsartin.jsgb.rand.Rand;
+import com.robsartin.jsgb.roget.Roget;
 import com.robsartin.jsgb.save.Save;
 import com.robsartin.jsgb.words.Words;
 import java.nio.charset.StandardCharsets;
@@ -261,5 +262,14 @@ class TestSampleTest {
     assertThat(
             Oracle.capture(ps -> TestSample.printSample(Words.words(0L, null, 0L, 69L), 5555, ps)))
         .isEqualTo(SampleCorrect.stanza(15));
+  }
+
+  @Test
+  @DisplayName("stanza 12: roget(1000,3,1009,1009) at vertex 40")
+  void shouldMatchSampleCorrectWhenRogetStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Roget.roget(1000L, 3L, 1009L, 1009L), 40, ps)))
+        .isEqualTo(SampleCorrect.stanza(12));
   }
 }
