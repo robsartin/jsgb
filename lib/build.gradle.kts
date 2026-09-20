@@ -20,6 +20,13 @@ dependencies {
     testRuntimeOnly(libs.junit.platform.launcher)
 }
 
+sourceSets {
+    // The oracle fixtures under demos/src/test/resources/oracle are the single canonical copy
+    // (see demos/src/test/resources/oracle/MANIFEST.md); lib's tests read them from here instead
+    // of keeping a second copy in lib/src/test/resources.
+    test { resources { srcDir("../demos/src/test/resources") } }
+}
+
 tasks.test {
     useJUnitPlatform()
     // SGB is a single-threaded library with global state; never run tests in parallel.
