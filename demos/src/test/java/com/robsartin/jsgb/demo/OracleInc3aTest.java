@@ -2,11 +2,17 @@ package com.robsartin.jsgb.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.robsartin.jsgb.basic.Basic;
+import com.robsartin.jsgb.dijk.Buckets128;
+import com.robsartin.jsgb.dijk.DList;
+import com.robsartin.jsgb.dijk.Dijkstra;
+import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Vertex;
 import com.robsartin.jsgb.miles.Miles;
 import com.robsartin.jsgb.plane.Plane;
 import com.robsartin.jsgb.roget.Roget;
 import com.robsartin.jsgb.words.Words;
+import java.io.PrintStream;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -147,5 +153,82 @@ class OracleInc3aTest {
                     TestSample.printSample(
                         Plane.planeMiles(40L, 0L, 0L, 0L, 1L, 20000L, 9L), 40, ps)))
         .isEqualTo(Oracle.inc3a("plane_miles_prob"));
+  }
+
+  private static String dijkstraCase(Runnable body) {
+    PrintStream saved = Dijkstra.out;
+    try {
+      return Oracle.capture(
+          ps -> {
+            Dijkstra.out = ps;
+            body.run();
+          });
+    } finally {
+      Dijkstra.out = saved;
+      Dijkstra.queue = new DList();
+      Gb.verbose = 0;
+    }
+  }
+
+  @Test
+  @DisplayName("dijkstra and print_dijkstra_result print exactly as the C")
+  void shouldMatchOracleWhenShortestPathsPrinted() {
+    com.robsartin.jsgb.graph.Graph roget = Roget.roget(1022L, 0L, 0L, 0L);
+    assertThat(
+            dijkstraCase(
+                () -> {
+                  long d = Dijkstra.dijkstra(roget.vertices[0], roget.vertices[2], roget, null);
+                  Dijkstra.out.print("return=" + d + "\n");
+                  Dijkstra.printDijkstraResult(roget.vertices[2]);
+                }))
+        .isEqualTo(Oracle.inc3a("dijkstra_roget"));
+    assertThat(
+            dijkstraCase(
+                () -> {
+                  long d = Dijkstra.dijkstra(roget.vertices[4], roget.vertices[900], roget, null);
+                  Dijkstra.out.print("return=" + d + "\n");
+                  Dijkstra.printDijkstraResult(roget.vertices[900]);
+                }))
+        .isEqualTo(Oracle.inc3a("dijkstra_roget_far"));
+    assertThat(
+            dijkstraCase(
+                () -> {
+                  Dijkstra.queue = new Buckets128();
+                  long d = Dijkstra.dijkstra(roget.vertices[4], roget.vertices[900], roget, null);
+                  Dijkstra.out.print("return=" + d + "\n");
+                  Dijkstra.printDijkstraResult(roget.vertices[900]);
+                }))
+        .isEqualTo(Oracle.inc3a("dijkstra_128"));
+    com.robsartin.jsgb.graph.Graph path = Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 1L);
+    assertThat(
+            dijkstraCase(
+                () -> {
+                  long d = Dijkstra.dijkstra(path.vertices[2], path.vertices[0], path, null);
+                  Dijkstra.out.print("return=" + d + "\n");
+                  Dijkstra.printDijkstraResult(path.vertices[0]);
+                }))
+        .isEqualTo(Oracle.inc3a("dijkstra_unreachable"));
+    com.robsartin.jsgb.graph.Graph m1 = Miles.miles(20L, 0L, 0L, 0L, 0L, 0L, 1L);
+    assertThat(
+            dijkstraCase(
+                () -> {
+                  Gb.verbose = 1;
+                  long d = Dijkstra.dijkstra(m1.vertices[0], m1.vertices[19], m1, v -> v.x.I / 4);
+                  Gb.verbose = 0;
+                  Dijkstra.out.print("return=" + d + "\n");
+                  Dijkstra.printDijkstraResult(m1.vertices[19]);
+                }))
+        .isEqualTo(Oracle.inc3a("dijkstra_heuristic"));
+    com.robsartin.jsgb.graph.Graph m2 = Miles.miles(20L, 0L, 0L, 0L, 0L, 0L, 1L);
+    assertThat(
+            dijkstraCase(
+                () -> {
+                  Gb.verbose = 1;
+                  long d = Dijkstra.dijkstra(m2.vertices[3], m2.vertices[7], m2, null);
+                  Gb.verbose = 0;
+                  Dijkstra.out.print("return=" + d + "\n");
+                  Dijkstra.printDijkstraResult(m2.vertices[7]);
+                }))
+        .isEqualTo(Oracle.inc3a("dijkstra_verbose_plain"));
   }
 }
