@@ -4,7 +4,7 @@ date: "2026-09-19"
 topic: null-plus-panic-code
 tags: [project, error-handling]
 supersedes: []
-related: [static-global-state]
+related: [static-global-state, java-conventions]
 ---
 # 16. Null return plus Gb.panicCode over a PanicException
 

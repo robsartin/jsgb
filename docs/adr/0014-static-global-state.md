@@ -20,13 +20,14 @@ C prototype) requires deciding how this global state is represented in Java.
 
 ## Decision
 
-Each C global is kept as static state in the Java class that owns it, matching the design
-spec's global-to-Java-home mapping: `Gb` in package `graph` owns `panicCode`, `verbose`, and
-`curGraph`; `Flip` owns the RNG array and cursor; `GbIo` owns the open file, `ioErrors`, and
-`strBuf`; `LinkSort` owns `sorted[]`; `Dijkstra.queue` owns the priority-queue globals; `Books`
-owns `chapters`/`chapName[]`; `Gates` owns `riscState[]`. Each static holder exposes a
-package-private reset method that tests use to restore a clean starting state between cases.
-JUnit runs single-threaded for this project.
+Each C global is kept as static state in the Java class for the module that owns the
+corresponding C source file, rather than in one shared holder or threaded as a parameter. For
+example, `Gb` in package `graph` owns `panicCode` (the C `panic_code`) and `curGraph`; `Flip`
+owns the RNG array and cursor. The full mapping from each C global to its Java home is the
+design spec's Global state table; that table, and ultimately the code itself, is the authority
+for which class owns which global, not this ADR. Each static holder exposes a package-private
+reset method that tests use to restore a clean starting state between cases. JUnit runs
+single-threaded for this project.
 
 ## Alternatives considered
 

@@ -12,7 +12,7 @@
   Related: [11. Java language conventions](0011-java-conventions.md)
 - [16. Null return plus Gb.panicCode over a PanicException](0016-null-plus-panic-code.md) — _Accepted_
   SGB generators in C signal failure by setting the global `panic_code` and returning `NULL`; callers, including `test_sample`, inspect `panic_code` to decide what happened and print it as part of the program's normal, oracle-checked output.
-  Related: [14. Static global state over a context object](0014-static-global-state.md)
+  Related: [14. Static global state over a context object](0014-static-global-state.md), [11. Java language conventions](0011-java-conventions.md)
 - [17. Explicit ordering stand-ins over pointer arithmetic](0017-ordering-without-pointers.md) — _Accepted_
   Three C behaviours depend on memory addresses that Java has no equivalent for.
 - [18. Javadoc as the literate layer, not CWEB for Java](0018-javadoc-as-literate-layer.md) — _Accepted_
