@@ -204,4 +204,18 @@ class TestSampleTest {
     assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.gunion(g, gg, 1L, 0L), 2, ps)))
         .isEqualTo(SampleCorrect.stanza(3));
   }
+
+  @Test
+  @DisplayName(
+      "the main sequence so far reproduces the header and stanzas 0 to 3 of sample.correct")
+  void shouldMatchSampleCorrectPrefixWhenMainRuns() {
+    String expected =
+        SampleCorrect.HEADER
+            + SampleCorrect.stanza(0)
+            + SampleCorrect.stanza(1)
+            + SampleCorrect.stanza(2)
+            + SampleCorrect.stanza(3);
+    assertThat(Oracle.capture(ps -> TestSample.run(ps, dir))).isEqualTo(expected);
+    assertThat(dir.resolve("test.gb")).exists();
+  }
 }

@@ -309,3 +309,27 @@ NULL; it accepts a negative `n` whose total is positive. jsgb rejects any
 negative `n` and any total that does not fit a Java array, and otherwise
 accepts any size, since the arena is not ported. None of the oracles reach
 either limit. Recorded as a deliberate deviation.
+
+### 2026-09-20: names of perms and binary vertices
+
+`gb_basic` sections 52 and 71 write vertex names into a static buffer without
+a terminator, so in a long-running C process those names can carry trailing
+bytes from an earlier generator. jsgb produces the names a fresh C process
+produces (exactly `n` and `d+1` characters). No oracle or demo depends on the
+other behaviour.
+
+### 2026-09-20: block numbering in save_graph
+
+The Risks section assumed the C numbers arc blocks in allocation order.
+Confirmed from `gb_save.w` sections 23 and 32: blocks are sorted by address
+and numbered from the lowest address up, which is allocation order for every
+`calloc` the reference outputs were produced with; the main vertex block is
+numbered first regardless. `test.correct` and `oracle_board.gb` reproduce
+byte for byte under this rule.
+
+### 2026-09-20: extra vertex blocks
+
+`Gb.allocVertices` registers vertex blocks beyond the main array; their
+`index` is the position within their own block, so `newEdge` between a main
+and an extra vertex would order the two arcs differently from the C. No SGB
+code creates such an edge (`test_sample`'s stray vertex has none).
