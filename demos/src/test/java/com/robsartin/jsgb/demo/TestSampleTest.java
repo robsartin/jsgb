@@ -2,6 +2,8 @@ package com.robsartin.jsgb.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.robsartin.jsgb.graph.Gb;
+import com.robsartin.jsgb.graph.Graph;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +33,63 @@ class TestSampleTest {
     assertThat(out)
         .isEqualTo(
             "\n\"hand\"\n2 vertices, 2 arcs, util_types IZZZZZZAZZZZZZ\nV0: \"a\"[7]\n   ->\"b\"[0], 3[->\"a\"[7]]\n");
+  }
+
+  @Test
+  @DisplayName(
+      "print_sample prints V, S and A slots at every depth exactly as the C, including (null) and NULL")
+  void shouldPrintSlotVariantsWhenGraphUsesSeveralUtilTypes() {
+    Graph g = Gb.newGraph(2L);
+    g.id = "slots";
+    g.utilTypes = "VSAZZZZZVIZZZZ"; // u=V v=S w=A; uu=V vv=I
+    g.vertices[0].name = "a";
+    g.vertices[1].name = "b";
+    g.vertices[0].u.V(g.vertices[1]);
+    g.vertices[1].v.S("s");
+    Gb.newArc(g.vertices[0], g.vertices[1], 5L);
+    g.vertices[1].w.A(g.vertices[0].arcs);
+    g.uu.V(g.vertices[0]);
+    g.vv.I = 9;
+    String out = Oracle.capture(ps -> TestSample.printSample(g, 0, ps));
+    assertThat(out)
+        .isEqualTo(
+            "\n\"slots\"\n2 vertices, 1 arcs, util_types VSAZZZZZVIZZZZ[\"a\"[\"(null)\"]][9]\nV0: \"a\"[\"b\"[\"s\"]][\"(null)\"][NULL]\n   ->\"b\"[\"s\"], 5\n");
+  }
+
+  @Test
+  @DisplayName(
+      "print_sample prints the boolean ONE, an arc-valued slot, a null tip and an out-of-range index")
+  void shouldPrintOneAndNullTipWhenPresent() {
+    Graph g = Gb.newGraph(2L);
+    g.id = "one";
+    g.utilTypes = "VSAZZZZZZZZZZZ";
+    g.vertices[0].name = "a";
+    g.vertices[1].name = "b";
+    g.vertices[1].u.I = 1; // a V slot holding the value 1 is gb_gates' ONE
+    g.vertices[1].v.S("s");
+    Gb.newArc(g.vertices[0], g.vertices[1], 5L);
+    g.vertices[1].w.A(g.vertices[0].arcs);
+    Gb.newArc(g.vertices[1], null, 7L); // an arc with no tip prints NULL
+    String out = Oracle.capture(ps -> TestSample.printSample(g, 1, ps));
+    assertThat(out)
+        .isEqualTo(
+            "\n\"one\"\n2 vertices, 2 arcs, util_types VSAZZZZZZZZZZZ\nV1: \"b\"[ONE][\"s\"][->\"b\"[\"s\"]]\n   ->NULL, 7\n");
+    Graph h = Gb.newGraph(1L);
+    h.id = "h";
+    assertThat(Oracle.capture(ps -> TestSample.printSample(h, 5, ps)))
+        .isEqualTo(
+            "\n\"h\"\n1 vertices, 0 arcs, util_types ZZZZZZZZZZZZZZ\nV5: index is out of range!\n");
+  }
+
+  @Test
+  @DisplayName("print_sample reports the I/O error code in hex after a panic when one is set")
+  void shouldPrintIoErrorWhenPanicWithIoErrors() {
+    com.robsartin.jsgb.graph.Gb.panicCode = 20;
+    com.robsartin.jsgb.io.GbIo.ioErrors = 0x4;
+    String out = Oracle.capture(ps -> TestSample.printSample(null, 0, ps));
+    com.robsartin.jsgb.io.GbIo.ioErrors = 0;
+    assertThat(out)
+        .isEqualTo("\nOoops, we just ran into panic code 20!\n(The I/O error code is 0x4)\n");
   }
 
   @Test
