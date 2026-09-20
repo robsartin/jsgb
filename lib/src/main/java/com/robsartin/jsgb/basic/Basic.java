@@ -1,5 +1,6 @@
 package com.robsartin.jsgb.basic;
 
+import com.robsartin.jsgb.graph.Arc;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
@@ -8,8 +9,8 @@ import com.robsartin.jsgb.graph.Vertex;
  * Port of {@code gb_basic}: six subroutines that generate standard graphs of various types (boards,
  * simplexes, subsets, permutations, partitions, binary trees), together with six routines that
  * combine or transform existing graphs. This class grows across several tasks; this port currently
- * provides {@link #board}, {@link #simplex}, {@link #subsets}, {@link #perms}, {@link #parts} and
- * {@link #binary}.
+ * provides {@link #board}, {@link #simplex}, {@link #subsets}, {@link #perms}, {@link #parts},
+ * {@link #binary}, {@link #complement}, {@link #gunion} and {@link #intersection}.
  *
  * <p>Several generators share a handful of C-global scratch arrays, translated here as {@code
  * private static} fields exactly as in the C (single-threaded, reused across calls): {@code nn}
@@ -1132,6 +1133,312 @@ public final class Basic {
       return null;
     }
     return newGraph;
+  }
+
+  /**
+   * {@code complement(g,copy,self,directed)}: a graph with the same vertices as {@code g} but
+   * complemented arcs &mdash; {@code u} and {@code v} are adjacent in the result exactly when they
+   * were not adjacent in {@code g}. If {@code self} is nonzero, a vertex gets a self-loop in the
+   * result exactly when it lacked one in {@code g} (and never otherwise). If {@code copy} is
+   * nonzero, a double complement is done instead: the result reproduces {@code g}'s own adjacency
+   * (arcs and, if {@code self} allows it, self-loops), with duplicate arcs removed and lengths
+   * reset to 1. If {@code directed} is nonzero, the result is directed; otherwise {@code g} is
+   * assumed undirected and the result is too. Returns {@code null} and sets {@link Gb#panicCode} on
+   * failure ({@code g} missing, or out of memory).
+   */
+  public static Graph complement(Graph g, long copy, long self, long directed) {
+    if (g == null) {
+      Gb.panicCode = Gb.MISSING_OPERAND;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    Graph newGraph = copyVertexNames(g);
+    if (newGraph == null) {
+      return null;
+    }
+    Gb.makeCompoundId(
+        newGraph,
+        "complement(",
+        g,
+        "," + flag(copy) + "," + flag(self) + "," + flag(directed) + ")");
+
+    // Section 76: insert complementary arcs or edges.
+    int n = (int) g.n;
+    Vertex[] newVerts = newGraph.vertices;
+    Vertex[] gVerts = g.vertices;
+    for (int i = 0; i < n; i++) {
+      Vertex v = gVerts[i];
+      Vertex u = newVerts[i];
+      for (Arc a = v.arcs; a != null; a = a.next) {
+        newVerts[a.tip.index].u.V(u);
+      }
+      if (directed != 0) {
+        for (int j = 0; j < n; j++) {
+          Vertex vv = newVerts[j];
+          if ((vv.u.V() == u && copy != 0) || (vv.u.V() != u && copy == 0)) {
+            if (vv != u || self != 0) {
+              Gb.newArc(u, vv, 1L);
+            }
+          }
+        }
+      } else {
+        for (int j = (self != 0 ? i : i + 1); j < n; j++) {
+          Vertex vv = newVerts[j];
+          if ((vv.u.V() == u && copy != 0) || (vv.u.V() != u && copy == 0)) {
+            Gb.newEdge(u, vv, 1L);
+          }
+        }
+      }
+    }
+    for (int i = 0; i < n; i++) {
+      newVerts[i].u.V(null);
+    }
+
+    if (Gb.troubleCode != 0) {
+      Gb.recycle(newGraph);
+      Gb.panicCode = Gb.ALLOC_FAULT;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    return newGraph;
+  }
+
+  /**
+   * {@code gunion(g,gg,multi,directed)}: a graph with the vertices and arcs of {@code g} together
+   * with the arcs of {@code gg}. {@code gg} is assumed to have the same vertices as {@code g}
+   * (matched by position); if {@code gg} has more vertices, the extras and every arc touching them
+   * are ignored. Both inputs are assumed undirected unless {@code directed} is nonzero. If {@code
+   * multi} is nonzero, multiple arcs between the same pair are all reproduced (with their original
+   * lengths); otherwise at most one survives (the shortest). Returns {@code null} and sets {@link
+   * Gb#panicCode} on failure ({@code g} or {@code gg} missing, or out of memory).
+   */
+  public static Graph gunion(Graph g, Graph gg, long multi, long directed) {
+    if (g == null || gg == null) {
+      Gb.panicCode = Gb.MISSING_OPERAND;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    Graph newGraph = copyVertexNames(g);
+    if (newGraph == null) {
+      return null;
+    }
+    Gb.makeDoubleCompoundId(
+        newGraph, "gunion(", g, ",", gg, "," + flag(multi) + "," + flag(directed) + ")");
+
+    // Sections 79-80: insert arcs or edges present in either g or gg.
+    int n = (int) g.n;
+    int ggN = (int) gg.n;
+    Vertex[] newVerts = newGraph.vertices;
+    Vertex[] gVerts = g.vertices;
+    Vertex[] ggVerts = gg.vertices;
+    for (int i = 0; i < n; i++) {
+      Vertex v = gVerts[i];
+      Vertex vv = newVerts[i];
+      for (Arc a = v.arcs; a != null; a = a.next) {
+        Vertex u = newVerts[a.tip.index];
+        a = unionArc(vv, u, a, multi, directed);
+      }
+      if (i < ggN) {
+        Vertex vvv = ggVerts[i];
+        for (Arc a = vvv.arcs; a != null; a = a.next) {
+          if (a.tip.index < n) {
+            Vertex u = newVerts[a.tip.index];
+            a = unionArc(vv, u, a, multi, directed);
+          }
+        }
+      }
+    }
+    for (int i = 0; i < n; i++) {
+      newVerts[i].u.V(null);
+      newVerts[i].z.A(null);
+    }
+
+    if (Gb.troubleCode != 0) {
+      Gb.recycle(newGraph);
+      Gb.panicCode = Gb.ALLOC_FAULT;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    return newGraph;
+  }
+
+  /**
+   * {@code intersection(g,gg,multi,directed)}: a graph with the vertices of {@code g} but only the
+   * arcs that appear in both {@code g} and {@code gg} (matched by vertex position; extra vertices
+   * of {@code gg} beyond {@code g}'s count, and arcs touching them, are ignored). Both inputs are
+   * assumed undirected unless {@code directed} is nonzero. If {@code multi} is nonzero, the result
+   * may have multiple arcs between a pair &mdash; the smaller of the two inputs' multiplicities,
+   * each arc's length the larger of the two sides' minimum lengths; otherwise at most one survives
+   * (the smallest such maximum). Returns {@code null} and sets {@link Gb#panicCode} on failure
+   * ({@code g} or {@code gg} missing, or out of memory).
+   */
+  public static Graph intersection(Graph g, Graph gg, long multi, long directed) {
+    if (g == null || gg == null) {
+      Gb.panicCode = Gb.MISSING_OPERAND;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    Graph newGraph = copyVertexNames(g);
+    if (newGraph == null) {
+      return null;
+    }
+    Gb.makeDoubleCompoundId(
+        newGraph, "intersection(", g, ",", gg, "," + flag(multi) + "," + flag(directed) + ")");
+
+    // Sections 82-86: insert arcs or edges present in both g and gg.
+    int n = (int) g.n;
+    int ggN = (int) gg.n;
+    Vertex[] newVerts = newGraph.vertices;
+    Vertex[] gVerts = g.vertices;
+    Vertex[] ggVerts = gg.vertices;
+    for (int i = 0; i < n; i++) {
+      if (i >= ggN) {
+        continue;
+      }
+      Vertex v = gVerts[i];
+      Vertex vv = newVerts[i];
+      Vertex vvv = ggVerts[i];
+
+      // Section 85: take note of all arcs from v.
+      for (Arc a = v.arcs; a != null; a = a.next) {
+        Vertex u = newVerts[a.tip.index];
+        if (u.u.V() == vv) {
+          u.v.I++;
+          if (a.len < u.w.I) {
+            u.w.I = a.len;
+          }
+        } else {
+          u.u.V(vv);
+          u.v.I = 0;
+          u.w.I = a.len;
+        }
+        if (u == vv && directed == 0 && Gb.isFirstOfSelfLoop(a)) {
+          a = a.mate;
+        }
+      }
+
+      for (Arc a = vvv.arcs; a != null; a = a.next) {
+        if (a.tip.index >= n) {
+          continue;
+        }
+        Vertex u = newVerts[a.tip.index];
+        if (u.u.V() != vv) {
+          continue;
+        }
+        long l = u.w.I;
+        if (a.len > l) {
+          l = a.len;
+        }
+        if (u.v.I < 0) {
+          // Section 84: update the minimum of multiple maxima.
+          Arc b = u.z.A();
+          if (l < b.len) {
+            b.len = l;
+            if (directed == 0) {
+              b.mate.len = l;
+            }
+          }
+        } else {
+          // Section 83: generate a new arc or edge for the intersection.
+          if (directed != 0) {
+            Gb.newArc(vv, u, l);
+          } else {
+            if (vv.index <= u.index) {
+              Gb.newEdge(vv, u, l);
+            }
+            if (vv == u && Gb.isFirstOfSelfLoop(a)) {
+              a = a.mate;
+            }
+          }
+          if (multi == 0) {
+            u.z.A(vv.arcs);
+            u.v.I = -1;
+          } else if (u.v.I == 0) {
+            u.u.V(null);
+          } else {
+            u.v.I--;
+          }
+        }
+      }
+    }
+
+    // Section 86: clear out the temporary utility fields.
+    for (int i = 0; i < n; i++) {
+      Vertex nv = newVerts[i];
+      nv.u.V(null);
+      nv.z.A(null);
+      nv.v.I = 0;
+      nv.w.I = 0;
+    }
+
+    if (Gb.troubleCode != 0) {
+      Gb.recycle(newGraph);
+      Gb.panicCode = Gb.ALLOC_FAULT;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    return newGraph;
+  }
+
+  /**
+   * Section 75, shared by {@link #complement}, {@link #gunion} and {@link #intersection}: a new
+   * graph with {@code g.n} vertices, named after {@code g}'s. Returns {@code null} and sets {@link
+   * Gb#panicCode} to {@link Gb#NO_ROOM} on allocation failure.
+   */
+  private static Graph copyVertexNames(Graph g) {
+    Graph newGraph = Gb.newGraph(g.n);
+    if (newGraph == null) {
+      Gb.panicCode = Gb.NO_ROOM;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    int n = (int) g.n;
+    for (int i = 0; i < n; i++) {
+      newGraph.vertices[i].name = Gb.saveString(g.vertices[i].name);
+    }
+    return newGraph;
+  }
+
+  /**
+   * Section 80, used by {@link #gunion} for both {@code g}'s and {@code gg}'s arcs: inserts a union
+   * arc or edge from {@code vv} to {@code u} (the tip of {@code a}, already mapped into the new
+   * graph), respecting {@code multi} and {@code directed}, and returns {@code a} unchanged or (in
+   * the undirected self-loop case) advanced past the second half of the loop.
+   */
+  private static Arc unionArc(Vertex vv, Vertex u, Arc a, long multi, long directed) {
+    if (directed != 0) {
+      if (multi != 0 || u.u.V() != vv) {
+        Gb.newArc(vv, u, a.len);
+      } else {
+        Arc b = u.z.A();
+        if (a.len < b.len) {
+          b.len = a.len;
+        }
+      }
+      u.u.V(vv);
+      u.z.A(vv.arcs);
+    } else if (u.index >= vv.index) {
+      if (multi != 0 || u.u.V() != vv) {
+        Gb.newEdge(vv, u, a.len);
+      } else {
+        Arc b = u.z.A();
+        if (a.len < b.len) {
+          b.len = a.len;
+          b.mate.len = a.len;
+        }
+      }
+      u.u.V(vv);
+      u.z.A(vv.arcs);
+      if (u == vv && Gb.isFirstOfSelfLoop(a)) {
+        a = a.mate;
+      }
+    }
+    return a;
+  }
+
+  /** {@code flag(x)}: {@code "1"} if {@code x} is nonzero, else {@code "0"}, for id strings. */
+  private static String flag(long x) {
+    return x != 0 ? "1" : "0";
   }
 
   /**

@@ -124,4 +124,53 @@ class OracleInc2Test {
     assertThat(Oracle.capture(ps -> TestSample.printSample(Basic.binary(20L, 6L, 0L), 100, ps)))
         .isEqualTo(Oracle.inc2("binary_big"));
   }
+
+  @Test
+  @DisplayName("complement, gunion and intersection print exactly as the C")
+  void shouldMatchOracleWhenSetOperationsPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.complement(Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 1L), 0L, 0L, 1L),
+                        1,
+                        ps)))
+        .isEqualTo(Oracle.inc2("complement_dir"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.gunion(
+                            Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 1L),
+                            Basic.board(3L, 0L, 0L, 0L, -2L, 0L, 1L),
+                            0L,
+                            1L),
+                        0,
+                        ps)))
+        .isEqualTo(Oracle.inc2("gunion_dir"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.intersection(
+                            Basic.board(3L, 3L, 0L, 0L, -1L, 0L, 0L),
+                            Basic.board(3L, 3L, 0L, 0L, -2L, 0L, 0L),
+                            0L,
+                            0L),
+                        4,
+                        ps)))
+        .isEqualTo(Oracle.inc2("intersection"));
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Basic.intersection(
+                            Basic.board(3L, 0L, 0L, 0L, -2L, 0L, 1L),
+                            Basic.board(3L, 0L, 0L, 0L, 1L, 0L, 1L),
+                            1L,
+                            1L),
+                        1,
+                        ps)))
+        .isEqualTo(Oracle.inc2("intersection_dir"));
+  }
 }
