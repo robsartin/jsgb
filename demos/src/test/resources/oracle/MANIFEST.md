@@ -26,3 +26,13 @@ printed by custom code in the harness instead of `print_sample`, and the `dijkst
 and `risc2_gates` are printed entirely by custom harness code instead of `print_sample`; `prod22`
 and `partial_prod33`/`partial_risc_stanza4` print custom text (`print_gates`, or a
 `partial_gates`-filled buffer) before their `print_sample` output.
+
+## Demo captures (`demos/`)
+
+`demos/<demo>/` holds one case per program invocation of the C demo of that name, produced by
+`scripts/oracle/capture-demos.sh` (which `scripts/regen-oracle.sh` runs after building the demos).
+The script's header comment defines the per-case files (`.args`, `.in`, `.out`, `.err`, `.exit`,
+`.file.<name>`, `.seed.<name>`); the script itself is the record of every command line and stdin.
+The programs run with `argv[0]` equal to the bare demo name, so usage messages read exactly as the
+Java launcher prints them, and exit statuses are the C return values as the shell saw them
+(modulo 256).

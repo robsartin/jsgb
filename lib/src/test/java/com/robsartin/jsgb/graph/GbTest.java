@@ -341,6 +341,16 @@ class GbTest {
   }
 
   @Test
+  @DisplayName("allocAuxArcs returns indexed arcs registered on no graph")
+  void shouldNotRegisterBlockWhenAuxArcsAllocated() {
+    Graph g = Gb.newGraph(1L);
+    Arc[] aux = Gb.allocAuxArcs(3);
+    assertThat(aux).hasSize(3);
+    assertThat(aux[2].index).isEqualTo(2);
+    assertThat(g.arcBlocks()).isEmpty();
+  }
+
+  @Test
   @DisplayName("prefix is the C's %.*s: truncate only when longer")
   void shouldTruncateOnlyWhenLongerWhenPrefixCalled() {
     assertThat(Gb.prefix("abcdef", 3)).isEqualTo("abc");

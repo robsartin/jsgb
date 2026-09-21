@@ -163,6 +163,20 @@ public final class Gb {
   }
 
   /**
+   * {@code gb_typed_alloc(count, Arc, g->aux_data)}: fresh scratch arcs registered on no graph, so
+   * {@code save_graph} never numbers them. Used by {@code miles_span} to give every vertex an extra
+   * arc of its own, whose otherwise-unused fields hold the Fibonacci heap's {@code parent}/{@code
+   * child} pointers and, later, the Cheriton/Tarjan/Karp pairing heap's per-vertex queue header.
+   */
+  public static Arc[] allocAuxArcs(int count) {
+    Arc[] block = new Arc[count];
+    for (int i = 0; i < count; i++) {
+      block[i] = new Arc(i);
+    }
+    return block;
+  }
+
+  /**
    * {@code is_boolean(v)}'s ONE case: whether {@code v} is the sentinel {@link #ONE}. The C macro
    * is {@code (unsigned long) v <= 1}, true for both {@code NULL} and {@code (Vertex*) 1}; callers
    * that also need to treat {@code null} as boolean test that themselves.

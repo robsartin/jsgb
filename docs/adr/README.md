@@ -33,6 +33,9 @@
 - [23. reduce compares vertex indexes under a no-XOR-with-latches invariant](0023-reduce-index-comparison-invariant.md) — _Accepted_
   `Gates.reduce` ports the C's `u < v` on a latch's `alt` as a `Vertex.index` comparison, which is only meaningful because no SGB gate graph has both XOR gates and latches in one `reduce` pass; ADR 1 forbids amending ADR 21, so the invariant gets its own record.
   Related: [21. Boolean vertex and auxiliary vertices for gb_gates](0021-boolean-vertex-and-aux-vertices.md)
+- [24. Demo programs are run bodies returning the C's value, behind a file-convention golden harness](0024-demo-run-body-golden-harness.md) — _Accepted_
+  Each of the twelve demos is a C `main` reproduced as `run(args, in, out, err, workDir)` returning the C's raw value (masked to an exit status once, in the launcher), reusing ADR 14's static-globals and ADR 22's swappable-stream patterns for process-fresh state, and checked case by case against `oracle/demos/<demo>/<case>.*` by a data-driven `@TestFactory`.
+  Related: [14. Static global state over a context object](0014-static-global-state.md), [19. Hand-rolled demo argument parsing over picocli](0019-hand-rolled-demo-arguments.md), [22. Library output goes through a per-module swappable PrintStream](0022-swappable-per-module-print-stream.md)
 
 ## Universal
 

@@ -13,7 +13,8 @@ java {
 }
 
 application {
-    mainClass = "com.robsartin.jsgb.demo.TestSample"
+    mainClass = "com.robsartin.jsgb.demo.Jsgb"
+    applicationName = "jsgb"
 }
 
 repositories { mavenCentral() }
@@ -24,6 +25,8 @@ dependencies {
     testImplementation(libs.assertj)
     testRuntimeOnly(libs.junit.platform.launcher)
 }
+
+tasks.named<JavaExec>("run") { standardInput = System.`in` }
 
 tasks.test {
     useJUnitPlatform()

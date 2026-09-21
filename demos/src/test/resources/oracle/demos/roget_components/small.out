@@ -1,0 +1,122 @@
+Reachability analysis of roget(100,2,5000,3)
+
+Strong component `369 killing'
+Strong component `167 destruction'
+Strong component `59 component'
+Strong component `427 hearing'
+Strong component `272 quiescence'
+Strong component `738 pacification' also includes:
+ 736 peace (from 905 friendship; ..to 738 pacification)
+ 905 friendship (from 729 concord; ..to 738 pacification)
+ 729 concord (from 738 pacification; ..to 738 pacification)
+Strong component `937 forgiveness'
+Strong component `620 tergiversation'
+Strong component `232 investment'
+Strong component `77 focus'
+Strong component `415 roll'
+Strong component `544 news'
+Strong component `327 levity'
+Strong component `379 agriculture'
+Strong component `158 cause'
+Strong component `691 undertaking'
+Strong component `23 copy' also includes:
+ 557 deception (from 23 copy; ..to 23 copy)
+Strong component `928 philanthropy'
+Strong component `643 mid-course' also includes:
+ 31 mean (from 643 mid-course; ..to 643 mid-course)
+Strong component `632 plea'
+Strong component `870 ridiculousness'
+Strong component `859 wit' also includes:
+ 532 equivocalness (from 859 wit; ..to 859 wit)
+Strong component `869 fashion' also includes:
+ 890 repute (from 869 fashion; ..to 869 fashion)
+Strong component `854 dejection' also includes:
+ 858 weariness (from 854 dejection; ..to 854 dejection)
+Strong component `570 engraving'
+Strong component `172 posterity'
+Strong component `728 dissension' also includes:
+ 471 inquiry (from 728 dissension; ..to 728 dissension)
+Strong component `311 shortcoming'
+Strong component `331 softness'
+Strong component `631 dissuasion'
+Strong component `553 learner'
+Strong component `96 triplication'
+Strong component `57 composition'
+Strong component `761 servant'
+Strong component `97 trisection'
+Strong component `370 corpse'
+Strong component `591 inelegance'
+Strong component `832 cheapness'
+Strong component `217 summit'
+Strong component `112 period'
+Strong component `110 time'
+Strong component `824 payment'
+Strong component `778 offer' also includes:
+ 801 giving (from 778 offer; ..to 778 offer)
+Strong component `653 waste'
+Strong component `552 teacher'
+Strong component `483 probability'
+Strong component `260 sharpness'
+Strong component `52 decomposition'
+Strong component `690 essay'
+Strong component `75 assemblage'
+Strong component `584 conciseness' also includes:
+ 608 compendium (from 208 shortness; ..to 208 shortness)
+ 208 shortness (from 584 conciseness; ..to 584 conciseness)
+Strong component `39 addition' also includes:
+ 91 accompaniment (from 39 addition; ..to 39 addition)
+Strong component `365 organization'
+Strong component `744 completion'
+Strong component `794 exemption'
+Strong component `481 possibility'
+Strong component `784 release'
+Strong component `328 density'
+Strong component `43 decrement'
+Strong component `678 bane'
+Strong component `364 resin'
+Strong component `493 misjudgment'
+Strong component `498 credulity'
+Strong component `466 incuriosity'
+Strong component `1017 churchdom'
+Strong component `291 propulsion'
+Strong component `363 oil'
+Strong component `42 remainder'
+Strong component `860 dulness'
+Strong component `127 preterition'
+Strong component `378 cicuration'
+Strong component `477 measurement'
+Strong component `947 non-ownership'
+Strong component `48 vinculum'
+Strong component `923 divorce'
+Strong component `439 whiteness'
+Strong component `403 unsavouriness'
+Strong component `224 obliquity'
+Strong component `29 equality'
+Strong component `920 endearment'
+Strong component `36 inferiority'
+Strong component `827 receipt'
+Strong component `248 amorphism'
+Strong component `453 spectator'
+Strong component `805 borrowing'
+Strong component `1004 theology'
+Strong component `360 bubble'
+
+Links between components:
+947 non-ownership -> 937 forgiveness (e.g., 947 non-ownership -> 937 forgiveness)
+477 measurement -> 643 mid-course (e.g., 477 measurement -> 31 mean)
+378 cicuration -> 369 killing (e.g., 378 cicuration -> 369 killing)
+860 dulness -> 854 dejection (e.g., 860 dulness -> 854 dejection)
+498 credulity -> 23 copy (e.g., 498 credulity -> 557 deception)
+498 credulity -> 493 misjudgment (e.g., 498 credulity -> 493 misjudgment)
+584 conciseness -> 75 assemblage (e.g., 608 compendium -> 75 assemblage)
+778 offer -> 832 cheapness (e.g., 801 giving -> 832 cheapness)
+778 offer -> 824 payment (e.g., 801 giving -> 824 payment)
+110 time -> 112 period (e.g., 110 time -> 112 period)
+57 composition -> 59 component (e.g., 57 composition -> 59 component)
+869 fashion -> 232 investment (e.g., 869 fashion -> 232 investment)
+859 wit -> 870 ridiculousness (e.g., 859 wit -> 870 ridiculousness)
+632 plea -> 23 copy (e.g., 632 plea -> 557 deception)
+691 undertaking -> 158 cause (e.g., 691 undertaking -> 158 cause)
+937 forgiveness -> 738 pacification (e.g., 937 forgiveness -> 738 pacification)
+738 pacification -> 272 quiescence (e.g., 736 peace -> 272 quiescence)
+167 destruction -> 369 killing (e.g., 167 destruction -> 369 killing)

@@ -1,0 +1,65 @@
+Ordering the sectors of econ(10,2,0,0), using seed 1:
+ (Steepest descent method)
+(The amount of feed-forward must be at least 447772.)
+
+Initial permutation:
+ Facilities
+ Construction
+ Specialized manufactured goods
+ Commercial services
+ Personal services
+ Natural resources
+ Organic products
+ Financial services
+ Wholesale and retail trade
+ General inorganic products
+ 1166212 after step 0
+Now move Construction to the right, past
+    Specialized manufactured goods (-25508)
+    Commercial services (-51950)
+    Personal services (1675)
+    Natural resources (1947)
+    Organic products (-44887)
+    Financial services (20134)
+    Wholesale and retail trade (-32940)
+    General inorganic products (-76869)
+  957814 after step 1
+Now move Specialized manufactured goods to the right, past
+    Commercial services (-22091)
+    Personal services (7739)
+    Natural resources (6486)
+    Organic products (-41742)
+    Financial services (-14992)
+    Wholesale and retail trade (-31350)
+    General inorganic products (-87263)
+  774601 after step 2
+Now move Personal services to the right, past
+    Natural resources (-1466)
+    Organic products (-64420)
+    Financial services (-54794)
+    Wholesale and retail trade (1182)
+    General inorganic products (-18488)
+    Specialized manufactured goods (-7739)
+    Construction (-1675)
+  627201 after step 3
+Now move Organic products to the right, past
+    Financial services (-5750)
+    Wholesale and retail trade (-18766)
+    General inorganic products (-36620)
+  566065 after step 4
+Now move Natural resources to the right, past
+    Financial services (-27320)
+    Wholesale and retail trade (-8985)
+
+Local minimum feed-forward is 529760, found after 5 steps.
+The corresponding economic order is:
+ Facilities
+ Commercial services
+ Financial services
+ Wholesale and retail trade
+ Natural resources
+ General inorganic products
+ Organic products
+ Specialized manufactured goods
+ Construction
+ Personal services

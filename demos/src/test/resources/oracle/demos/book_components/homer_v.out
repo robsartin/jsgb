@@ -1,0 +1,1360 @@
+Biconnectivity analysis of book("homer",561,0,1,24,1,1,0)
+
+ZE=Zeus (Jove/Jupiter)
+AP=Apollo
+HT=Hector
+AT=Athene (Minerva)
+GS=Greek soldiers
+AJ=Great Ajax
+ME=Menelaus
+TS=Trojan soldiers
+AG=Agamemnon
+ID=Idomeneus
+OD=Odysseus (Ulysses)
+AC=Achilles
+HE=Hera (Juno)
+AX=Little Ajax
+OG=Olympian gods
+DI=Diomedes
+NE=Nestor
+PO=Poseidon (Neptune)
+MR=Meriones
+AE=Aeneas
+PA=Patroclus
+AL=Antilochus
+PS=Paris (Alexander)
+AF=Aphrodite (Venus)
+AM=Artemis (Cynthia/Diana)
+IR=Iris
+EO=Eos (Aurora)
+PR=Priam
+HR=Heracles (Hercules)
+PD=Polydamus
+AR=Ares (Mars)
+HP=Hephaestus (Vulcan)
+PE=Peleus
+TH=Thetis
+EP=Eurypylus
+GL=Glaucus
+AO=Agenor
+HD=Hades (Pluto)
+BR=Briseis
+TM=Thrasymedes
+SA=Sarpedon
+HM=Hermes (Mercury)
+MG=Meges
+TU=Teucer
+9K=Thoas
+ST=Sthenelus
+TA=Talthybius
+1K=Laomedon
+2W=Cebriones
+AD=Automedon
+PB=Peneleos
+XB=Xanthus and Balius
+HN=Helenus
+02=Acamas
+HL=Helen
+LT=Leitus
+3V=Asteropaeus
+NO=Notus
+ZF=Zephyr
+SF=Strife
+LE=Leto (Latona)
+LY=Lycaon
+95=Machaon
+CN=Chiron
+EU=Eurus
+MU=Muses
+AI=Anchises
+8R=Tydeus
+8W=Alastor
+94=Polypoetes
+7U=Eurystheus
+01=Archelochus
+AN=Antenor
+IA=Idaeus
+03=Adrestus
+AH=Andromache
+EA=Euryalus
+82=Oeneus
+98=Medon
+PN=Pandarus
+DP=Deiphobus
+6M=Mecisteus
+BO=Boreas
+PL=Polites
+MO=Moira
+HC=Hecuba
+MT=Menestheus
+9X=Ascalaphus
+7R=Lycomedes
+2I=Eetion
+PX=Phoenix
+EB=Eurybates
+0C=Pylaemenes
+8I=Euneus
+ER=Erinnyes (Furies)
+OC=Oceanus
+06=Asius
+EM=Eurymedon
+XA=Xanthus
+34=Antiphus
+3Z=Thoon
+9A=Eumelus
+HA=Hours (Horae)
+1F=Tros
+4A=Cassandra
+1L=Hesione
+96=Podaleirius
+14=Theano
+93=Leonteus
+40=Oenomaus
+0R=Hicetaon
+J1=Euphorbus
+9Y=Clonius
+GR=Graces
+09=Peirous
+RA=Axius
+2J=Scamandrius
+0Q=Clytius
+62=Alcmene
+7T=Aphareus
+79=Tithonus
+0P=Lampus
+4H=Phalces
+04=Amphius
+TI=Themis
+97=Asclepius
+0G=Ennomus
+0B=Pyraechmes
+TL=Tlepolemus
+3W=Adamas
+6S=Menoetius
+0D=Odius
+6Y=Hecamede
+I2=Laothoe
+9B=Podarces
+7L=Amyntor
+07=Hippothous
+SL=Sleep
+W1=Polydorus
+9O=Amphimachus
+5E=Alcimedon
+CS=Chryseis
+9W=Ialmenus
+0J=Mesthles
+4U=Hyperenor
+7S=Deipyrus
+CM=Chimera
+3B=Coon
+HB=Hebe
+3T=Alcathous
+9S=Elephenor
+9M=Diores
+1G=Ganymede
+8J=Alcimus
+9U=Schedius
+RH=Rhea
+0F=Chromius
+5A=Moliones
+PP=Persephone (Proserpina)
+DT=Dionysus (Bacchus)
+6O=Stichius
+AZ=Aegaeon
+0H=Phorcys
+CA=Calchas
+3S=Apisaon
+6D=Hypsipyle
+TR=Thersites
+9C=Protesilaus
+66=Minos
+H2=Eetion
+2D=Hippolochus
+8G=Orsilochus
+86=Clysonomus
+5K=Eudorus
+WI=Aeolus
+RU=Rumor
+63=Clytomedes
+2U=Melanippus
+2S=Lycophontes
+C0=Areilycus
+1D=Echemmon
+39=Iphidamus
+P1=Podes
+8L=Deipylus
+6N=Hypsenor
+DM=Demeter (Ceres)
+U2=Pammon
+7N=Iphianassa
+8K=Melanippus
+2L=Archeptolemus
+B1=Autonous
+51=Melas
+G1=Elasus
+31=Polybus
+0X=Democoon
+4Q=Mermerus
+6G=Dracius
+5T=Lycophron
+5S=Schedius
+G2=Areithous
+6R=Thootes
+26=Elatus
+8U=Haemon
+8E=Anchialus
+54=Oedipus
+F2=Rhigmus
+0K=Antiphus
+5B=Leiocritus
+29=Anteia
+5I=Echecles
+W2=Hippothous
+7W=Ereuthalion
+H0=Amisodarus
+15=Pedaeus
+6W=Neleus
+60=Areilycus
+3Y=Orestes
+30=Mestor
+7C=Autolycus
+1Y=Opheltius
+6P=Alcmaon
+4R=Hippotion
+6Z=Hipponous
+AA=Aethra
+35=Isus
+9T=Epistrophus
+58=Laodocus
+9F=Antiphus
+9P=Agapenor
+3I=Thoon
+LA=Laodice
+Z0=Laogonus
+7K=Clytia
+2G=Amazons
+9D=Epistrophus
+P2=Thrasius
+46=Iamenus
+Y1=Demuchus
+7A=Molus
+Z1=Loagonus
+CI=Charis
+7D=Iphis
+11=Phaestus
+99=Philoctetes
+7M=Odius
+1B=Xanthus
+CL=Clymene
+9J=Astyocheia
+S0=Echius
+5V=Iasus
+C1=Echeclus
+0Z=Idaeus
+S1=Erichtonius
+7F=Marpessa
+24=Aretaon
+5Q=Copreus
+3D=Molion
+PU=Polydeuces (Pollux)
+0N=Panthous
+FD=False Dream
+L2=Thersilochus
+7E=Diomede
+5L=Borus
+42=Pylon
+4M=Morys
+72=Agelaus
+1U=Acamas
+6A=Peirithous
+4C=Hippodameia
+13=Phereclus
+57=Actor
+4N=Satnius
+4J=Polyphetes
+TY=Thyestes
+5U=Deiochus
+74=Dolops
+M0=Thestor
+5M=Polydorus
+52=Agrius
+7I=Althea
+9I=Licymnius
+K0=Erymas
+69=Dia
+73=Opheltius
+2A=Iobates
+21=Bucolion
+81=Menesthius
+80=Eioneus
+75=Opites
+4G=Harpalion
+78=Cinyras
+4S=Prothoon
+9Z=Arcesilaus
+P0=Amphoterus
+87=Lycurgus
+76=Autonous
+B0=Melanippus
+2N=Orsilochus
+17=Astynous
+2R=Chromius
+6B=Noemon
+8P=Eteocles
+12=Scamandrius
+55=Mecisteus
+3P=Lysander
+0I=Ascanius
+AS=Atreus
+F0=Atymnius
+3L=Charops
+6Q=Pandion
+37=Peisander
+1N=Alastor
+47=Epicles
+88=Periphas
+E1=Epistor
+8V=Chromius
+7Z=Iphinous
+2Q=Daetor
+0Y=Phegeus
+RO=Robots
+R1=Assaracus
+44=Antiphates
+4T=Periphetes
+4W=Cleitus
+91=Prothous
+3A=Cisses
+AB=Abarbarea
+2T=Amopaon
+1W=Calysius
+5G=Eileithyia
+23=Pidytes
+TT=Tethys
+2O=Ormenus
+65=Rhadamanthus
+3R=Pylartes
+5X=Phyleus
+0W=Simoeisius
+05=Merops
+48=Imbrius
+NI=Night
+D0=Thoas
+18=Hypeiron
+0A=Euphemus
+J2=Pelegon
+4X=Astynous
+2P=Ophelestes
+0E=Epistrophus
+5N=Polydora
+32=Bienor
+6J=Pheidas
+89=Oresbius
+B2=Tros
+V0=Evippus
+4Y=Laodamas
+U0=Ipheus
+8F=Menesthes
+1H=Deicoon
+2Y=Rhesus
+2V=Gorgythion
+DE=Death
+5R=Otus
+90=Eurynome
+1T=Pelagon
+8X=Pelagon
+5Z=Promachus
+O0=Erymas
+8M=Leucus
+1J=Amphius
+5C=Bathycles
+2H=Trojan noblewomen
+3G=Agastrophus
+1O=Chromius
+38=Hippolochus
+1Q=Halius
+9R=Erechtheus
+EF=Ephialtes
+3C=Thymbraeus
+6L=Euchenor
+2E=Laodameia
+43=Ormenus
+7O=Laodice
+10=Dares
+M1=Deisenor
+6V=Agamede
+2B=Philonoe
+AU=Augeias
+CR=Cronus (Saturn)
+3U=Troilus
+BL=Bellerophon
+A0=Dolops
+0T=Otreus
+J0=Lycon
+6X=Itymoneus
+19=Abas
+S2=Altes
+3N=Doryclus
+CH=Chryses
+1V=Axylus
+K2=Periboea
+R0=Tlepolemus
+08=Pylaeus
+0O=Thymoetes
+92=Guneus
+Q0=Epaltes
+6C=Echepolus
+9Q=Thamyris
+4B=Othryoneus
+22=Astyalus
+8Z=Ariadne
+2F=Solymi
+1P=Alcandrus
+4K=Palmys
+3X=Iamenus
+2X=Dolon
+8Q=Polyneices
+3E=Hippodamus
+L1=Thersilochus
+59=Coeranus
+E0=Amphiclus
+70=Orus
+7V=Echius
+1R=Noemon
+6H=Amphion
+R2=Ophelestes
+2Z=Hippocoon
+56=Epeius
+V2=Antiphonus
+U1=Demoleon
+0V=Echepolus
+D1=Perimus
+CT=Castor
+6U=Mulius
+1X=Dresus
+X1=Dryops
+K1=Medon
+0M=Amphimachus
+1S=Prytanis
+8O=Maeon
+PH=Podarge
+1Z=Aesepus
+FY=Phylus
+7P=Chrysothemis
+7J=Meleager
+8D=Teuthras
+3F=Hypeirochus
+9H=Nireus
+83=Proetus
+68=Danae
+3M=Socus
+4F=Peisander
+64=Europa
+HO=Homer
+X2=Dius
+25=Ablerus
+6E=Janos
+EE=Eeriboea
+SP=Spercheius
+45=Menon
+4O=Ilioneus
+1E=Chromius
+2K=Eniopeus
+9V=Astyoche
+T1=Iphition
+2C=Isander
+4I=Orthaeus
+Q2=Aenius
+6I=Bias
+MC=Ate
+85=Sisyphus
+TE=Telamon
+PC=Pelops
+8T=Bias
+DN=Dione
+3H=Deiopites
+36=Antimachus
+F1=Melanippus
+16=Hypsenor
+3K=Chersidamas
+SE=Semele
+4Z=Croesmus
+8C=Orestes
+N1=Apisaon
+V1=Hippodamus
+SI=Simoeis
+0U=Mygdon
+8N=Popyphontes
+6K=Polyidus
+5Y=Iphiclus
+28=Melanthius
+5W=Archesilaus
+W0=Polymelus
+E2=Deucalion
+2M=Agelaus
+7Y=Areithous
+X0=Thrasymelus
+5H=Phylas
+1M=Coeranus
+A2=Dardanus
+84=Glaucus
+D2=Echeclus
+9E=Mynes
+I1=Pylartes
+0L=Nastes
+1I=Mydon
+N2=Astypylus
+N0=Euryalus
+T0=Pyris
+0S=Ucalegon
+61=Ancaeus
+5J=Polymele
+49=Medesicaste
+O1=Aretus
+33=Oileus
+77=Asaeus
+4V=Caletor
+1C=Thoon
+Y0=Sthenelaus
+8Y=Daedalus
+EN=Enyo (Bellona)
+4L=Ascanius
+71=Aesymnus
+67=Perseus
+9L=Polyxeinus
+20=Pedasus
+5O=Menestheus
+3Q=Pyrasus
+Q1=Ilus
+27=Phylacus
+I0=Cleobolus
+OT=Otus
+7B=Amphidamas
+7X=Lycurgus
+7Q=Orestes
+7H=Cleopatra
+NR=Nereids
+8H=Crethon
+C2=Mulius
+7G=Idas
+6F=Deipyle
+5D=Epeigeus
+41=Damasus
+5P=Periphetes
+G0=Maris
+53=Niobe
+H1=Mulius
+A1=Adrestus
+M2=Mydon
+6T=Moliones
+8A=Helenus
+1A=Polyeidus
+3O=Pandocus
+9N=Thalpius
+4P=Hyrtius
+3J=Ennomus
+PT=Prothoenor
+O2=Mnesus
+8B=Trechus
+9G=Pheidippus
+5F=Peisander
+L0=Pronous
+T2=Agathon
+
+Bicomponent H2
+ and articulation point 8I
+Bicomponent 6E also includes:
+ 6D (from 6E; ..to 8I)
+ and articulation point 8I
+Bicomponent 9T
+ and articulation point 9U
+Bicomponent 6B
+ and articulation point ME
+Bicomponent 57
+ and articulation point 5A
+Bicomponent 5M also includes:
+ 5X (from 5M; ..to NE)
+ and articulation point NE
+Bicomponent 5Y
+ and articulation point NE
+Bicomponent 61
+ and articulation point NE
+Bicomponent 63
+ and articulation point NE
+Bicomponent K0
+ and articulation point ID
+Bicomponent G0
+ and articulation point TM
+Bicomponent 6C
+ and articulation point AG
+Bicomponent J0
+ and articulation point PB
+Bicomponent 4O
+ and articulation point PB
+Bicomponent Z0
+ and articulation point MR
+Bicomponent 4R
+ and articulation point MR
+Bicomponent 4M
+ and articulation point MR
+Bicomponent 4W
+ and articulation point TU
+Bicomponent 4T
+ and articulation point TU
+Bicomponent 4S
+ and articulation point TU
+Bicomponent 49
+ and articulation point 48
+Bicomponent NI
+ and articulation point SL
+Bicomponent SI
+ and articulation point XA
+Bicomponent K2 also includes:
+ RA (from K2; ..to J2)
+ and articulation point J2
+Bicomponent J2
+ and articulation point 3V
+Bicomponent 0K
+ and articulation point 0J
+Bicomponent 5C
+ and articulation point GL
+Bicomponent 7Z
+ and articulation point GL
+Bicomponent 88
+ and articulation point AR
+Bicomponent 6F
+ and articulation point 8R
+Bicomponent 8Q
+ and articulation point 8R
+Bicomponent 52 also includes:
+ 51 (from 52; ..to 82)
+ and articulation point 82
+Bicomponent 2G
+ and articulation point BL
+Bicomponent H0
+ and articulation point CM
+Bicomponent CM
+ and articulation point BL
+Bicomponent WI
+ and articulation point 85
+Bicomponent 85
+ and articulation point 84
+Bicomponent 84
+ and articulation point BL
+Bicomponent 7H
+ and articulation point 7J
+Bicomponent 7A
+ and articulation point 7B
+Bicomponent 7B
+ and articulation point 7C
+Bicomponent 7C
+ and articulation point 7L
+Bicomponent 3M
+ and articulation point OD
+Bicomponent 3L
+ and articulation point OD
+Bicomponent 3K
+ and articulation point OD
+Bicomponent 3J
+ and articulation point OD
+Bicomponent 3I
+ and articulation point OD
+Bicomponent 3H
+ and articulation point OD
+Bicomponent 3F
+ and articulation point OD
+Bicomponent 3E
+ and articulation point OD
+Bicomponent 3S
+ and articulation point EP
+Bicomponent 28
+ and articulation point EP
+Bicomponent 16
+ and articulation point EP
+Bicomponent 46
+ and articulation point 93
+Bicomponent 45
+ and articulation point 93
+Bicomponent 44
+ and articulation point 93
+Bicomponent 43
+ and articulation point 94
+Bicomponent 42
+ and articulation point 94
+Bicomponent 41
+ and articulation point 94
+Bicomponent 22
+ and articulation point 94
+Bicomponent 9C
+ and articulation point 9B
+Bicomponent 23
+ and articulation point OD
+Bicomponent 1S
+ and articulation point OD
+Bicomponent 1R
+ and articulation point OD
+Bicomponent 1Q
+ and articulation point OD
+Bicomponent 1P
+ and articulation point OD
+Bicomponent 1O
+ and articulation point OD
+Bicomponent 1N
+ and articulation point OD
+Bicomponent 1M
+ and articulation point OD
+Bicomponent 0X
+ and articulation point OD
+Bicomponent S1
+ and articulation point BO
+Bicomponent 1L
+ and articulation point HR
+Bicomponent 9J
+ and articulation point HR
+Bicomponent FY
+ and articulation point AU
+Bicomponent AU
+ and articulation point HR
+Bicomponent RU
+ and articulation point GS
+Bicomponent OT also includes:
+ EF (from OT; ..to AR)
+ and articulation point AR
+Bicomponent 08
+ and articulation point 07
+Bicomponent 0I
+ and articulation point 0H
+Bicomponent 6P
+ and articulation point SA
+Bicomponent 1T
+ and articulation point SA
+Bicomponent 9I
+ and articulation point TL
+Bicomponent TL
+ and articulation point SA
+Bicomponent 2V
+ and articulation point TU
+Bicomponent TE
+ and articulation point TU
+Bicomponent 2U
+ and articulation point TU
+Bicomponent 2T
+ and articulation point TU
+Bicomponent 2S
+ and articulation point TU
+Bicomponent 2R
+ and articulation point TU
+Bicomponent 2Q
+ and articulation point TU
+Bicomponent 2P
+ and articulation point TU
+Bicomponent 2O
+ and articulation point TU
+Bicomponent 2N
+ and articulation point TU
+Bicomponent 24
+ and articulation point TU
+Bicomponent 27
+ and articulation point LT
+Bicomponent 7V
+ and articulation point PL
+Bicomponent 5U
+ and articulation point PS
+Bicomponent 6K
+ and articulation point 6L
+Bicomponent 6L
+ and articulation point PS
+Bicomponent 36
+ and articulation point PS
+Bicomponent 81
+ and articulation point PS
+Bicomponent 5Z
+ and articulation point 02
+Bicomponent 5R
+ and articulation point PD
+Bicomponent 4X
+ and articulation point PD
+Bicomponent 60
+ and articulation point PD
+Bicomponent 38 also includes:
+ 37 (from 38; ..to AG)
+ and articulation point AG
+Bicomponent 33
+ and articulation point AG
+Bicomponent 32
+ and articulation point AG
+Bicomponent 78
+ and articulation point AG
+Bicomponent 26
+ and articulation point AG
+Bicomponent 1H
+ and articulation point AG
+Bicomponent 0E
+ and articulation point 0D
+Bicomponent 0D
+ and articulation point AG
+Bicomponent 8L
+ and articulation point ST
+Bicomponent 56
+ and articulation point EA
+Bicomponent 20 also includes:
+ 1Z (from AB; ..to EA)
+ AB (from 21; ..to EA)
+ 21 (from 20; ..to EA)
+ and articulation point EA
+Bicomponent 1Y
+ and articulation point EA
+Bicomponent 1X
+ and articulation point EA
+Bicomponent N1
+ and articulation point 7R
+Bicomponent E0
+ and articulation point MG
+Bicomponent 4Z
+ and articulation point MG
+Bicomponent 6H also includes:
+ 6G (from 6H; ..to MG)
+ and articulation point MG
+Bicomponent 11
+ and articulation point ID
+Bicomponent 5G
+ and articulation point 5K
+Bicomponent 6T
+ and articulation point NE
+Bicomponent 6V
+ and articulation point 6U
+Bicomponent 6U
+ and articulation point NE
+Bicomponent 6X
+ and articulation point NE
+Bicomponent D0
+ and articulation point ME
+Bicomponent 4U
+ and articulation point ME
+Bicomponent 4F
+ and articulation point ME
+Bicomponent 4Y
+ and articulation point AJ
+Bicomponent 4V
+ and articulation point AJ
+Bicomponent 4P
+ and articulation point AJ
+Bicomponent 47
+ and articulation point AJ
+Bicomponent 3R
+ and articulation point AJ
+Bicomponent 3Q
+ and articulation point AJ
+Bicomponent 3P
+ and articulation point AJ
+Bicomponent 3O
+ and articulation point AJ
+Bicomponent 3N
+ and articulation point AJ
+Bicomponent 1U
+ and articulation point AJ
+Bicomponent 1J
+ and articulation point AJ
+Bicomponent 0W
+ and articulation point AJ
+Bicomponent 58
+ and articulation point AL
+Bicomponent F0
+ and articulation point AL
+Bicomponent 4Q
+ and articulation point AL
+Bicomponent 25
+ and articulation point AL
+Bicomponent 3G
+ and articulation point DI
+Bicomponent 2Y
+ and articulation point DI
+Bicomponent 2M
+ and articulation point DI
+Bicomponent 1W also includes:
+ 1V (from 1W; ..to DI)
+ and articulation point DI
+Bicomponent 1E also includes:
+ 1D (from 1E; ..to DI)
+ and articulation point DI
+Bicomponent 1C also includes:
+ 1B (from 1C; ..to DI)
+ and articulation point DI
+Bicomponent 1A also includes:
+ 19 (from 1A; ..to DI)
+ and articulation point DI
+Bicomponent 18
+ and articulation point DI
+Bicomponent 17
+ and articulation point DI
+Bicomponent 86
+ and articulation point PA
+Bicomponent I1
+ and articulation point PA
+Bicomponent H1
+ and articulation point PA
+Bicomponent G1
+ and articulation point PA
+Bicomponent F1
+ and articulation point PA
+Bicomponent E1
+ and articulation point PA
+Bicomponent D1
+ and articulation point PA
+Bicomponent C1
+ and articulation point PA
+Bicomponent B1
+ and articulation point PA
+Bicomponent A1
+ and articulation point PA
+Bicomponent Y0
+ and articulation point PA
+Bicomponent X0
+ and articulation point PA
+Bicomponent W0
+ and articulation point PA
+Bicomponent V0
+ and articulation point PA
+Bicomponent U0
+ and articulation point PA
+Bicomponent T0
+ and articulation point PA
+Bicomponent S0
+ and articulation point PA
+Bicomponent R0
+ and articulation point PA
+Bicomponent Q0
+ and articulation point PA
+Bicomponent P0
+ and articulation point PA
+Bicomponent O0
+ and articulation point PA
+Bicomponent N0
+ and articulation point PA
+Bicomponent M0
+ and articulation point PA
+Bicomponent L0
+ and articulation point PA
+Bicomponent C0
+ and articulation point PA
+Bicomponent 0B
+ and articulation point PA
+Bicomponent 97
+ and articulation point CN
+Bicomponent 7D
+ and articulation point PA
+Bicomponent 5B
+ and articulation point AE
+Bicomponent 5V
+ and articulation point AE
+Bicomponent I0
+ and articulation point AX
+Bicomponent 4N
+ and articulation point AX
+Bicomponent R2 also includes:
+ L2 (from M2; ..to AC)
+ M2 (from N2; ..to AC)
+ N2 (from O2; ..to AC)
+ O2 (from P2; ..to AC)
+ P2 (from Q2; ..to AC)
+ Q2 (from R2; ..to AC)
+ and articulation point AC
+Bicomponent G2 also includes:
+ F2 (from G2; ..to AC)
+ and articulation point AC
+Bicomponent E2
+ and articulation point AC
+Bicomponent D2
+ and articulation point AC
+Bicomponent C2
+ and articulation point AC
+Bicomponent B2
+ and articulation point AC
+Bicomponent A2 also includes:
+ Z1 (from A2; ..to AC)
+ and articulation point AC
+Bicomponent Y1
+ and articulation point AC
+Bicomponent X1
+ and articulation point AC
+Bicomponent V1 also includes:
+ U1 (from V1; ..to AC)
+ and articulation point AC
+Bicomponent T1
+ and articulation point AC
+Bicomponent 7E
+ and articulation point AC
+Bicomponent 0L
+ and articulation point 0M
+Bicomponent 0M
+ and articulation point AC
+Bicomponent 9D also includes:
+ 9E (from 9D; ..to AC)
+ and articulation point AC
+Bicomponent 2Z
+ and articulation point AP
+Bicomponent 7F also includes:
+ 7G (from 7F; ..to AP)
+ and articulation point AP
+Bicomponent NR
+ and articulation point TH
+Bicomponent 9R
+ and articulation point AT
+Bicomponent DN
+ and articulation point AF
+Bicomponent EE
+ and articulation point HM
+Bicomponent 3U also includes:
+ 30 (from 3U; ..to HT)
+ and articulation point HT
+Bicomponent 5P
+ and articulation point HT
+Bicomponent 5S
+ and articulation point HT
+Bicomponent 5W
+ and articulation point HT
+Bicomponent 6Z
+ and articulation point HT
+Bicomponent 70
+ and articulation point HT
+Bicomponent 71
+ and articulation point HT
+Bicomponent 72
+ and articulation point HT
+Bicomponent 73
+ and articulation point HT
+Bicomponent 74
+ and articulation point HT
+Bicomponent 75
+ and articulation point HT
+Bicomponent 76
+ and articulation point HT
+Bicomponent 77
+ and articulation point HT
+Bicomponent 2L
+ and articulation point HT
+Bicomponent 80
+ and articulation point HT
+Bicomponent 89
+ and articulation point HT
+Bicomponent 8A
+ and articulation point HT
+Bicomponent 8B
+ and articulation point HT
+Bicomponent 8C
+ and articulation point HT
+Bicomponent 8D
+ and articulation point HT
+Bicomponent 8F also includes:
+ 8E (from 8F; ..to HT)
+ and articulation point HT
+Bicomponent 0U also includes:
+ 0T (from 0U; ..to PR)
+ and articulation point PR
+Bicomponent PR also includes:
+ LA (from HT; ..to HC)
+ 2J (from HT; ..to AH)
+ SE (from DT; ..to ZE)
+ DT (from 87; ..to ZE)
+ 87 (from OG; ..to ZE)
+ 1F (from Q1; ..to ZE)
+ Q1 (from R1; ..to ZE)
+ R1 (from 1G; ..to ZE)
+ 1G (from OG; ..to ZE)
+ 2I (from AC; ..to AH)
+ 5L (from 5N; ..to PE)
+ SP (from 5O; ..to 5N)
+ CN (from PA; ..to PE)
+ 2K (from DI; ..to HT)
+ B0 (from AL; ..to HT)
+ 5T (from AJ; ..to HT)
+ 12 (from ME; ..to AM)
+ 8G (from 8H; ..to AE)
+ 8H (from ME; ..to AE)
+ J1 (from ME; ..to PA)
+ P1 (from ME; ..to HT)
+ 5I (from 5J; ..to 5H)
+ 5J (from 5H; ..to HM)
+ 5H (from 5K; ..to HM)
+ 5K (from 5F; ..to HM)
+ 5F (from PX; ..to HM)
+ 4B (from ID; ..to PR)
+ A0 (from MG; ..to ME)
+ FD (from AG; ..to ZE)
+ PC (from AS; ..to HM)
+ AS (from TY; ..to HM)
+ TY (from AG; ..to HM)
+ EA (from ST; ..to DI)
+ EM (from ST; ..to DI)
+ ST (from AG; ..to AT)
+ 04 (from 05; ..to DI)
+ 05 (from 03; ..to DI)
+ 03 (from AG; ..to DI)
+ 8M (from 34; ..to AJ)
+ 34 (from 35; ..to AC)
+ 35 (from AG; ..to AC)
+ 01 (from 02; ..to AE)
+ 13 (from MR; ..to AT)
+ 2W (from 4H; ..to HT)
+ 4H (from 4I; ..to HT)
+ 4I (from 4J; ..to HT)
+ 4J (from 4K; ..to HT)
+ 4K (from 4L; ..to HT)
+ 4L (from PS; ..to HT)
+ 0V (from 9S; ..to AL)
+ 9S (from AO; ..to AL)
+ 31 (from AO; ..to HT)
+ AI (from 4C; ..to AF)
+ 4C (from 3T; ..to AF)
+ 3T (from AO; ..to AF)
+ 8X (from 8V; ..to NE)
+ 8V (from 8U; ..to NE)
+ 8U (from 8T; ..to NE)
+ 8T (from 8W; ..to NE)
+ 6M (from 6N; ..to AL)
+ 6N (from 8W; ..to AL)
+ 8W (from TU; ..to AL)
+ HA (from HE; ..to AT)
+ TI (from HE; ..to ZE)
+ MC (from HE; ..to ZE)
+ 0Y (from 10; ..to DI)
+ 10 (from 0Z; ..to DI)
+ 0Z (from HP; ..to DI)
+ CI (from HP; ..to TH)
+ 90 (from HP; ..to TH)
+ RO (from HP; ..to TH)
+ HP (from XA; ..to ZE)
+ 9W (from 7T; ..to 7R)
+ 7T (from 9X; ..to AE)
+ 9X (from 9V; ..to AE)
+ 9V (from AR; ..to AE)
+ CA (from GS; ..to AC)
+ PH (from ZF; ..to XB)
+ ZF (from NO; ..to AC)
+ NO (from BO; ..to AC)
+ BO (from EU; ..to AC)
+ EU (from IR; ..to TS)
+ IR (from HL; ..to ZE)
+ HL (from AA; ..to ZE)
+ AA (from CL; ..to ZE)
+ CL (from 0N; ..to ZE)
+ 0N (from 0O; ..to ZE)
+ 0O (from 0P; ..to ZE)
+ 0P (from 0S; ..to ZE)
+ 0S (from AN; ..to ZE)
+ CS (from CH; ..to HT)
+ CH (from OD; ..to HT)
+ TR (from OD; ..to AC)
+ 6R (from MT; ..to AX)
+ 6Q (from MT; ..to AJ)
+ 6O (from 6J; ..to HT)
+ 6J (from 6I; ..to HT)
+ 6I (from MT; ..to HT)
+ MT (from 9B; ..to TS)
+ 9B (from 98; ..to TS)
+ 98 (from 96; ..to TS)
+ 96 (from 94; ..to TS)
+ 06 (from 94; ..to AL)
+ 94 (from 3W; ..to TS)
+ 3W (from 3X; ..to TS)
+ 3X (from 3Y; ..to TS)
+ 3Y (from 3Z; ..to TS)
+ 3Z (from 40; ..to TS)
+ 40 (from 93; ..to TS)
+ 93 (from 92; ..to TS)
+ 92 (from EP; ..to TS)
+ AZ (from EP; ..to ZE)
+ EP (from OD; ..to ZE)
+ EB (from 7M; ..to AC)
+ 7M (from OD; ..to AC)
+ 2X (from OD; ..to HT)
+ 3C (from 3D; ..to DI)
+ 3D (from OD; ..to DI)
+ 6S (from OD; ..to AC)
+ OD (from AN; ..to ZE)
+ 2H (from 14; ..to HC)
+ 14 (from 15; ..to HC)
+ 15 (from AN; ..to HC)
+ AN (from 0Q; ..to ZE)
+ 0Q (from 79; ..to ZE)
+ 79 (from 0R; ..to ZE)
+ 0R (from 1K; ..to ZE)
+ 1K (from HR; ..to ZE)
+ 6W (from HR; ..to NE)
+ 5Q (from HR; ..to 7U)
+ HR (from 62; ..to ZE)
+ 62 (from 7U; ..to ZE)
+ 7U (from HD; ..to ZE)
+ 7K (from 7L; ..to PX)
+ 7L (from PP; ..to PX)
+ 83 (from 29; ..to ZE)
+ 29 (from BL; ..to ZE)
+ 2A (from 2B; ..to EO)
+ 2B (from BL; ..to 2D)
+ BL (from 82; ..to ZE)
+ 8P (from 8O; ..to AT)
+ 8O (from 8N; ..to AT)
+ 8N (from 8R; ..to AT)
+ 8R (from 82; ..to AT)
+ 82 (from 7J; ..to ZE)
+ 7J (from 7I; ..to ZE)
+ 7I (from PP; ..to ZE)
+ DM (from PP; ..to ZE)
+ PP (from ER; ..to ZE)
+ MO (from ER; ..to ZE)
+ ER (from HD; ..to ZE)
+ 39 (from 3A; ..to AG)
+ 3A (from 3B; ..to AG)
+ 3B (from HD; ..to AG)
+ HD (from CR; ..to ZE)
+ CR (from RH; ..to ZE)
+ RH (from TT; ..to ZE)
+ TT (from OC; ..to ZE)
+ OC (from EO; ..to ZE)
+ EO (from GS; ..to ZE)
+ GS (from SF; ..to ZE)
+ SF (from AR; ..to ZE)
+ EN (from AR; ..to TS)
+ HB (from AR; ..to OG)
+ 7W (from 7X; ..to NE)
+ 7X (from 7Y; ..to NE)
+ 7Y (from AR; ..to NE)
+ AR (from 2F; ..to ZE)
+ 2F (from 2C; ..to ZE)
+ 2C (from 2E; ..to ZE)
+ 2E (from 2D; ..to ZE)
+ 2D (from GL; ..to ZE)
+ 0J (from GL; ..to HT)
+ GL (from K1; ..to ZE)
+ K1 (from L1; ..to ZE)
+ L1 (from M1; ..to ZE)
+ M1 (from 07; ..to ZE)
+ 07 (from 0H; ..to ZE)
+ 0H (from 0F; ..to ZE)
+ O1 (from 0F; ..to HT)
+ 0F (from 3V; ..to ZE)
+ 3V (from XA; ..to ZE)
+ XA (from HE; ..to ZE)
+ HE (from SL; ..to ZE)
+ GR (from SL; ..to AF)
+ SL (from DE; ..to ZE)
+ DE (from SA; ..to ZE)
+ SA (from TU; ..to ZE)
+ 48 (from TU; ..to PR)
+ 9N (from 9M; ..to 9O)
+ 0A (from 09; ..to 02)
+ 09 (from 9M; ..to 9K)
+ 9M (from 9L; ..to 9K)
+ 9L (from 9O; ..to 9K)
+ 9O (from TU; ..to HT)
+ TU (from 7S; ..to ZE)
+ 7S (from LT; ..to ZE)
+ LT (from 9Z; ..to ZE)
+ 9Z (from PT; ..to ZE)
+ PT (from 9Y; ..to ZE)
+ 9Y (from AO; ..to ZE)
+ AO (from HN; ..to ZE)
+ HN (from T2; ..to ZE)
+ T2 (from U2; ..to ZE)
+ U2 (from PL; ..to ZE)
+ PL (from V2; ..to ZE)
+ V2 (from DP; ..to ZE)
+ DP (from W2; ..to ZE)
+ W2 (from X2; ..to ZE)
+ X2 (from PS; ..to ZE)
+ PS (from 4G; ..to ZE)
+ 1I (from 0C; ..to AL)
+ 0C (from 4G; ..to AL)
+ 4G (from MR; ..to ZE)
+ MR (from 02; ..to ZE)
+ 02 (from PB; ..to ZE)
+ PB (from PD; ..to ZE)
+ PD (from AG; ..to ZE)
+ AG (from TM; ..to ZE)
+ TM (from 9K; ..to ZE)
+ 9K (from 7R; ..to ZE)
+ 7R (from 8K; ..to ZE)
+ 8K (from BR; ..to ZE)
+ BR (from MG; ..to ZE)
+ MG (from ID; ..to ZE)
+ 59 (from ID; ..to HT)
+ ID (from PX; ..to ZE)
+ PX (from NE; ..to ZE)
+ 5A (from NE; ..to PO)
+ NE (from 6Y; ..to ZE)
+ 6Y (from 95; ..to ZE)
+ 95 (from TA; ..to ZE)
+ TA (from ME; ..to ZE)
+ ME (from 0G; ..to ZE)
+ 0G (from AJ; ..to ZE)
+ 9U (from AJ; ..to HT)
+ AJ (from AL; ..to ZE)
+ AL (from DI; ..to ZE)
+ DI (from PN; ..to ZE)
+ PN (from LY; ..to ZE)
+ 8I (from LY; ..to AC)
+ W1 (from I2; ..to PR)
+ S2 (from I2; ..to PR)
+ I2 (from LY; ..to PR)
+ LY (from PA; ..to ZE)
+ PA (from AE; ..to ZE)
+ AE (from AX; ..to ZE)
+ AX (from AD; ..to ZE)
+ AD (from 5E; ..to ZE)
+ 5E (from 5O; ..to ZE)
+ 5O (from 5N; ..to ZE)
+ 5N (from PE; ..to ZE)
+ 5D (from PE; ..to HT)
+ PE (from PO; ..to ZE)
+ PO (from XB; ..to ZE)
+ XB (from 8J; ..to ZE)
+ 8J (from AC; ..to ZE)
+ AC (from 9A; ..to ZE)
+ 9A (from AM; ..to ZE)
+ AM (from 53; ..to ZE)
+ 53 (from AP; ..to ZE)
+ AP (from OG; ..to ZE)
+ OG (from TH; ..to ZE)
+ TH (from AT; ..to ZE)
+ AT (from AF; ..to ZE)
+ AF (from LE; ..to ZE)
+ LE (from HM; ..to ZE)
+ HM (from HT; ..to ZE)
+ HT (from 4A; ..to ZE)
+ 4A (from TS; ..to ZE)
+ TS (from HC; ..to ZE)
+ HC (from IA; ..to ZE)
+ IA (from AH; ..to ZE)
+ AH (from PR; ..to ZE)
+ and articulation point ZE
+Bicomponent 66 also includes:
+ 65 (from 64; ..to ZE)
+ 64 (from 66; ..to ZE)
+ and articulation point ZE
+Bicomponent 67 also includes:
+ 68 (from 67; ..to ZE)
+ and articulation point ZE
+Bicomponent 6A also includes:
+ 69 (from 6A; ..to ZE)
+ and ZE (this ends a connected component of the graph)
+Bicomponent 9Q
+ and articulation point MU
+Bicomponent HO
+ and MU (this ends a connected component of the graph)
+Bicomponent 7O also includes:
+ 7P (from 7O; ..to 7N)
+ and 7N (this ends a connected component of the graph)
+Bicomponent 55
+ and 54 (this ends a connected component of the graph)
+Bicomponent 9G
+ and 9F (this ends a connected component of the graph)
+Isolated vertex 9P
+Isolated vertex 99
+Bicomponent CT
+ and PU (this ends a connected component of the graph)
+Isolated vertex 91
+Bicomponent 8Y
+ and 8Z (this ends a connected component of the graph)
+Isolated vertex 9H
+Isolated vertex 7Q

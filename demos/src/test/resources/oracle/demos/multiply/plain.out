@@ -1,0 +1,10 @@
+Here I am, ready to multiply 2-bit numbers by 3-bit numbers.
+(I'm simulating a logic circuit with 23 gates, depth 5.)
+
+Number, please? Another? 2x3=6.
+
+Number, please? Another? (Sorry, 7 has more than 2 bits.)
+
+Number, please? Another? 3x5=15.
+
+Number, please? 

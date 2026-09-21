@@ -1,0 +1,49 @@
+Assignment problem for lisa(8,5,255,0,360,0,250,0,22950000), complemented
+ 149 148 175 164 162
+ 154 155 140 213 149
+ 206 213 195 227 207
+ 203 209 131 229 203
+ 221 225 197 240 238
+ 233 239 243 247 247
+ 237 211 225 239 245
+ 240 233 237 240 245
+Temporarily transposing rows and columns...
+ matching col 7==row 0
+ matching col 5==row 1
+  node 0: unmatched row 2
+  node 1: unmatched row 3
+  node 2: unmatched row 4
+ After 130 mems I've matched 2 rows.
+  node 3: row 1==col 5--row 2
+ Decreasing uncovered elements by 2 produces zero at [4,6]
+ Breakthrough at node 4 of 4!
+ rematching col 6==row 4
+  node 0: unmatched row 2
+  node 1: unmatched row 3
+ After 325 mems I've matched 3 rows.
+  node 2: row 1==col 5--row 2
+ Decreasing uncovered elements by 4 produces zero at [2,7]
+  node 3: row 0==col 7--row 2
+ Decreasing uncovered elements by 1 produces zero at [3,4]
+ Breakthrough at node 4 of 4!
+ rematching col 4==row 3
+  node 0: unmatched row 2
+ After 553 mems I've matched 4 rows.
+  node 1: row 1==col 5--row 2
+  node 2: row 0==col 7--row 2
+ Decreasing uncovered elements by 2 produces zero at [0,6]
+  node 3: row 4==col 6--row 0
+ Decreasing uncovered elements by 5 produces zero at [1,4]
+  node 4: row 3==col 4--row 1
+ Decreasing uncovered elements by 11 produces zero at [3,3]
+ Breakthrough at node 5 of 5!
+ rematching col 3==row 3
+ rematching col 4==row 1
+ rematching col 5==row 2
+The following entries produce an optimum assignment:
+ [7,0]
+ [4,1]
+ [5,2]
+ [3,3]
+ [6,4]
+Solved in 837 mems.

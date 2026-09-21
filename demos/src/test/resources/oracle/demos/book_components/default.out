@@ -1,0 +1,169 @@
+Biconnectivity analysis of book("anna",138,0,1,239,1,1,0)
+
+Bicomponent SQ
+ and articulation point KE
+Bicomponent TB
+ and articulation point LK
+Bicomponent LK
+ and articulation point YK
+Bicomponent CB
+ and articulation point YK
+Bicomponent SA
+ and articulation point MI
+Bicomponent ND
+ and articulation point SE
+Bicomponent KU also includes:
+ CO (from MH; ..to VR)
+ MH (from KU; ..to VR)
+ and articulation point VR
+Bicomponent MC
+ and articulation point AN
+Bicomponent PP
+ and articulation point ST
+Bicomponent BN
+ and articulation point ST
+Bicomponent PC
+ and articulation point ST
+Bicomponent VG
+ and articulation point ST
+Bicomponent MT
+ and articulation point ST
+Bicomponent MR
+ and articulation point ST
+Bicomponent MD
+ and articulation point KI
+Bicomponent NV
+ and articulation point PR
+Bicomponent KV also includes:
+ MO (from KT; ..to LE)
+ NS (from KI; ..to LE)
+ ML (from KI; ..to LE)
+ PV (from AP; ..to PR)
+ AP (from KI; ..to PR)
+ BE (from KI; ..to PR)
+ MQ (from AG; ..to LE)
+ MS (from VK; ..to PR)
+ MZ (from NT; ..to LE)
+ NT (from SV; ..to LE)
+ MP (from SN; ..to LE)
+ SN (from SV; ..to LE)
+ MM (from DO; ..to LE)
+ RT (from PS; ..to PR)
+ MN (from KR; ..to LE)
+ KR (from NI; ..to LE)
+ NI (from PS; ..to LE)
+ NN (from GV; ..to LE)
+ GV (from ST; ..to LE)
+ RY (from ST; ..to LE)
+ CA (from ST; ..to LE)
+ TC (from ST; ..to LE)
+ SL (from AN; ..to AL)
+ XV (from VR; ..to AN)
+ ME (from SE; ..to AN)
+ ED (from SE; ..to AL)
+ LI (from SE; ..to KV)
+ SE (from EF; ..to KV)
+ EF (from KY; ..to KV)
+ KY (from KP; ..to KV)
+ KP (from VR; ..to KV)
+ GO (from MI; ..to AN)
+ MI (from VR; ..to AN)
+ PO (from VR; ..to TU)
+ MY (from BT; ..to ST)
+ MX (from BT; ..to TU)
+ BT (from SS; ..to TU)
+ SS (from VS; ..to TU)
+ VS (from PK; ..to TU)
+ PK (from LM; ..to TU)
+ LM (from SM; ..to TU)
+ SM (from VR; ..to TU)
+ BA (from VP; ..to DO)
+ VP (from VR; ..to VV)
+ MB (from VR; ..to PR)
+ VO (from HA; ..to LE)
+ HA (from VR; ..to LE)
+ SH (from KA; ..to VR)
+ KA (from PT; ..to VR)
+ LV (from NA; ..to LE)
+ YK (from CN; ..to KI)
+ CN (from NA; ..to LE)
+ NA (from KE; ..to LE)
+ VA (from CV; ..to VR)
+ CV (from SO; ..to KO)
+ SO (from KE; ..to KO)
+ KZ (from KE; ..to LE)
+ KE (from VE; ..to LE)
+ VE (from PT; ..to LE)
+ PT (from CD; ..to LE)
+ CD (from SP; ..to LE)
+ SP (from YV; ..to LE)
+ PE (from YS; ..to LE)
+ YS (from MA; ..to LE)
+ MA (from TV; ..to LE)
+ TV (from GA; ..to LE)
+ GA (from VI; ..to LE)
+ VI (from YV; ..to LE)
+ YV (from VY; ..to LE)
+ VY (from VR; ..to LE)
+ VR (from AA; ..to LE)
+ AA (from PX; ..to LE)
+ PX (from FC; ..to LE)
+ FC (from AN; ..to LE)
+ AN (from SI; ..to LE)
+ SI (from AL; ..to LE)
+ AL (from JL; ..to LE)
+ JL (from ST; ..to LE)
+ ST (from MV; ..to LE)
+ MV (from PS; ..to LE)
+ LP (from PS; ..to LE)
+ PS (from PD; ..to LE)
+ PD (from DO; ..to LE)
+ DO (from AO; ..to LE)
+ AO (from LL; ..to LE)
+ LL (from PH; ..to LE)
+ PH (from HO; ..to LE)
+ HO (from NL; ..to LE)
+ NL (from TA; ..to LE)
+ TA (from KO; ..to LE)
+ KO (from NY; ..to LE)
+ NY (from SV; ..to LE)
+ SV (from TU; ..to LE)
+ TU (from VV; ..to LE)
+ VV (from VK; ..to LE)
+ VK (from AG; ..to LE)
+ AG (from BD; ..to LE)
+ BD (from KI; ..to LE)
+ KI (from KT; ..to LE)
+ KT (from GR; ..to LE)
+ GR (from MJ; ..to LE)
+ MJ (from PR; ..to LE)
+ PR (from KV; ..to LE)
+ and articulation point LE
+Bicomponent IW
+ and articulation point LE
+Bicomponent FY
+ and articulation point LE
+Bicomponent BO
+ and articulation point LE
+Bicomponent BL
+ and articulation point LE
+Bicomponent YG
+ and articulation point LE
+Bicomponent SU
+ and articulation point LE
+Bicomponent FR
+ and articulation point LE
+Bicomponent IV
+ and articulation point LE
+Bicomponent PA
+ and articulation point LE
+Bicomponent PY also includes:
+ MK (from PY; ..to LE)
+ and articulation point LE
+Bicomponent TT
+ and articulation point LE
+Bicomponent SY also includes:
+ VF (from SY; ..to LE)
+ and articulation point LE
+Bicomponent IG
+ and LE (this ends a connected component of the graph)

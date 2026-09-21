@@ -1,0 +1,11 @@
+Assignment problem for lisa(6,6,255,0,360,0,250,0,22950000)
+ The heuristic has cost 108 mems.
+ After 221 mems I've matched 2 rows.
+ Breakthrough at node 4 of 5!
+ After 383 mems I've matched 3 rows.
+ Breakthrough at node 4 of 4!
+ After 536 mems I've matched 4 rows.
+ Breakthrough at node 4 of 4!
+ After 723 mems I've matched 5 rows.
+ Breakthrough at node 4 of 4!
+Solved in 890 mems with square-matrix heuristic.
