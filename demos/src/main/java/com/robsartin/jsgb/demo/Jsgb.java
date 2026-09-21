@@ -27,6 +27,9 @@ public final class Jsgb {
     DEMOS.put("book_components", BookComponents::run);
     DEMOS.put("econ_order", EconOrder::run);
     DEMOS.put("miles_span", MilesSpan::run);
+    DEMOS.put("girth", Girth::run);
+    DEMOS.put("multiply", Multiply::run);
+    DEMOS.put("take_risc", TakeRisc::run);
     DEMOS.put(
         "test_sample",
         (args, in, out, err, workDir) -> {

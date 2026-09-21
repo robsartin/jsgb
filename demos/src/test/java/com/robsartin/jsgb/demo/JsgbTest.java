@@ -42,6 +42,9 @@ class JsgbTest {
                 + "  book_components\n"
                 + "  econ_order\n"
                 + "  miles_span\n"
+                + "  girth\n"
+                + "  multiply\n"
+                + "  take_risc\n"
                 + "  test_sample\n");
   }
 
