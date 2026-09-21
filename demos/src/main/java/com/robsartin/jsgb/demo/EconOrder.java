@@ -166,7 +166,7 @@ public final class EconOrder {
       }
 
       if (Gb.verbose != 0) {
-        out.print(String.format(Locale.ROOT, "%8d after step %d\n", (int) score, (int) steps));
+        out.print(String.format(Locale.ROOT, "%8d after step %d\n", score, steps));
       } else if (steps % 1000 == 0 && steps > 0) {
         out.print(".");
       }
@@ -210,8 +210,8 @@ public final class EconOrder {
             Locale.ROOT,
             "\n%s is %d, found after %d step%s.\n",
             bestScore == INF ? "Local minimum feed-forward" : "Another local minimum",
-            (int) score,
-            (int) steps,
+            score,
+            steps,
             steps == 1 ? "" : "s"));
     if (Gb.verbose != 0 || score < bestScore) {
       out.print("The corresponding economic order is:\n");
