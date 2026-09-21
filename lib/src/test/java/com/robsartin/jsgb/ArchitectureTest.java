@@ -160,7 +160,7 @@ class ArchitectureTest {
 
   // Generators added in increment 3b: books and games also use sort (for gb_linksort); econ stays
   // on the plain kernel plus flip; lisa is a plain-kernel generator; gates additionally depends on
-  // flip (for the risc simulator's memory area).
+  // flip (for partial_gates' gb_init_rand/gb_next_rand).
   @ArchTest
   static final ArchRule booksDependsOnlyOnKernel =
       classes()

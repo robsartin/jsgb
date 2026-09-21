@@ -341,3 +341,24 @@ feasible (for example `simplex(2,5,0,0,0,0,0)`), which is undefined
 behaviour and crashes the C build used for the oracles. jsgb returns the
 single feasible vertex instead; the guard lives in `Basic`'s shared
 enumeration helper (`advanceToNextSolution`) and is documented there.
+
+### 2026-09-20: Global state table omits `lisa_id` and the printing modules' streams
+
+The Global state table above lists `Gb`, `Flip`, `GbIo`, `LinkSort`,
+`Dijkstra.queue`, `Books`, and `Gates.riscState`, but omits two globals added
+while porting increment 3b: `lisa`'s C-format id string, `lisa_id`, kept as
+`Lisa.lisaId`; and the swappable output streams `dijk` and `gates` each
+print through, `Dijkstra.out` and `Gates.out` (see ADR 0022). Found in the
+whole-branch review of increment 3b.
+
+### 2026-09-20: newGraph size guard difference has a second instance in lisa
+
+The amendment above records that `Gb.newGraph`'s size guard is a deliberate
+deviation from `gb_alloc`'s arena cap. `Lisa.allocateMatrix` has the same
+deviation for a second allocation: the C's `lisa` calls
+`gb_typed_alloc(m*n, long, working_storage)`, which fails above the arena
+cap of 0xffff00 bytes (2,097,120 `long`s) and sets `panic_code` to
+`no_room+1`; `Lisa.allocateMatrix` accepts any matrix up to
+`Integer.MAX_VALUE` longs, since the arena is not ported. No oracle or demo
+reaches either limit. Code unchanged; recorded as the same deliberate
+deviation as the `newGraph` case above.

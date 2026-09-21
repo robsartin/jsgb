@@ -11,10 +11,11 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 /**
- * Reads the C oracle files {@code oracle_inc2.out} and {@code oracle_inc3a.out}: each is a sequence
- * of cases, headed by a line {@code ==name} or {@code ==name=returnvalue}, followed by exactly what
- * {@code print_sample} (or, for a few inc3a cases, a custom printer) printed. Also captures a
- * printer's output the same way the C harnesses produced it.
+ * Reads the C oracle files {@code oracle_inc2.out}, {@code oracle_inc3a.out} and {@code
+ * oracle_inc3b.out}: each is a sequence of cases, headed by a line {@code ==name} or {@code
+ * ==name=returnvalue}, followed by exactly what {@code print_sample} (or, for a few inc3a and inc3b
+ * cases, a custom printer) printed. Also captures a printer's output the same way the C harnesses
+ * produced it.
  */
 final class Oracle {
 

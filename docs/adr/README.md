@@ -27,6 +27,9 @@
 - [21. Boolean vertex and auxiliary vertices for gb_gates](0021-boolean-vertex-and-aux-vertices.md) — _Accepted_
   `gb_gates` stores a boolean constant, the C's `(Vertex*) 1`, in both `Arc.tip` and `V`-typed util slots, and allocates scratch vertices in a separate arena that `save_graph` never numbers; increment 2's slot-only `I == 1` encoding could not represent the arc-tip case.
   Related: [17. Explicit ordering stand-ins over pointer arithmetic](0017-ordering-without-pointers.md), [20. Mates by position for restored graphs](0020-mates-by-position-for-restored-graphs.md)
+- [22. Library output goes through a per-module swappable PrintStream](0022-swappable-per-module-print-stream.md) — _Accepted_
+  `dijk` and `gates` each print straight to `stdout` in C; a test capturing that output byte for byte needs to redirect it without touching the JVM-global `System.out` or its default charset.
+  Related: [13. Bit-exact port over behavioural equivalence](0013-bit-exact-port.md), [18. Javadoc as the literate layer, not CWEB for Java](0018-javadoc-as-literate-layer.md)
 
 ## Universal
 

@@ -29,8 +29,8 @@ import java.util.Locale;
  * generator, so names (and hence {@link #printGates}'s and {@code print_sample}'s output) line up
  * with the oracle byte for byte. The shared builder state ({@link #verts}, {@link #nextVert},
  * {@link #prefix}, {@link #count}) plays the role of the C's file-scope {@code next_vert}, {@code
- * prefix} and {@code count}; a later increment adds {@code prod} and {@code partial_gates} to this
- * same class, reusing that state and these helpers.
+ * prefix} and {@code count}; {@link #prod} and {@link #partialGates} reuse that same state and
+ * these helpers.
  */
 public final class Gates {
 
@@ -44,14 +44,19 @@ public final class Gates {
   private static final char NOT = '~';
 
   /**
-   * {@code XOR}: a gate whose value is the logical XOR of its arcs' tips (never built directly).
+   * {@code XOR}: a gate whose value is the logical XOR of its arcs' tips; {@link #risc} never
+   * builds one directly (only via {@link #makeXor}'s AND/OR/NOT expansion), but {@link #prod}
+   * builds XOR gates directly (sections 73 and 74).
    */
   private static final char XOR = '^';
 
   /** {@code DELAY}: the arc length {@link #make2}..{@link #make5} give every gate input. */
   private static final long DELAY = 100L;
 
-  /** {@code util_types} every {@link #risc} graph is stamped with. */
+  /**
+   * {@code util_types} every {@link #risc}, {@link #prod} and {@link #reduce} output is stamped
+   * with.
+   */
   private static final String UTIL_TYPES = "ZZZIIVZZZZZZZA";
 
   /** The C's {@code next_vert}'s target array: the graph currently being built. */
@@ -797,7 +802,9 @@ public final class Gates {
     }
   }
 
-  /** The value latched into the ten-bit field ending at (and including) vertex {@code top}. */
+  /**
+   * The value latched into the {@code bits}-bit field ending at (and including) vertex {@code top}.
+   */
   private static long latchedField(Graph g, int top, int bits) {
     long m = 0;
     Vertex v = g.vertices[top];
@@ -1285,8 +1292,8 @@ public final class Gates {
           Arc b = v.arcs;
           if (v.y.I == 'L') {
             Vertex u = v.z.V();
-            // In risc there are no XOR gates and in prod no latches, so an aux vertex (only ever
-            // created by reduceXor) never reaches this comparison; it is always a main-array index.
+            // See ADR 0021's amendment for why comparing Vertex.index here is well-defined only
+            // under an invariant, not in general.
             if (u.index < v.index) {
               n++;
             }

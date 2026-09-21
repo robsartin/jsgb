@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Port `gb_books`, `gb_econ`, `gb_games`, `gb_lisa`, and `gb_gates` bit-exactly, then complete `TestSample.run` so the entire `sample.correct` reproduces byte for byte, gated by stanzas 4–7 and 9 and thirty-five C-generated oracle cases.
+**Goal:** Port `gb_books`, `gb_econ`, `gb_games`, `gb_lisa`, and `gb_gates` bit-exactly, then complete `TestSample.run` so the entire `sample.correct` reproduces byte for byte, gated by stanzas 4–7 and 9 and thirty-two C-generated oracle cases.
 
 **Architecture:** As increments 1–3a: one package per SGB module (`books`, `econ`, `games`, `lisa`, `gates`) of static methods with the C names; util slots by convention; the C is the authority. `gates` is the only module whose vertices' `y.I` slot holds a *type character* and whose graph slot `zz.A` holds an output-arc list; it uses `Gb.ONE` (ADR 0021) for the boolean constant in arc tips and `Gb.allocAuxVertices` for the scratch vertices of `reduce`. Library output (`print_gates`, `run_risc`) goes through a swappable `PrintStream`, as `dijk` does.
 

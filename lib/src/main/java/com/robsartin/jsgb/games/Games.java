@@ -17,10 +17,12 @@ import java.util.List;
  * UPI poll rankings), with an arc for each side of every game played between two selected teams on
  * a day in {@code [firstDay, lastDay]}.
  *
- * <p>Each pair of arcs for one game is created back to back by {@link Gb#newArc}, home first (never
- * by {@link Gb#newEdge}, so {@link Arc#mate} is left null); {@link Arc#len} carries the scoring
- * team's own score, {@code a.I} ({@code venue}) is {@link #HOME}, {@link #NEUTRAL} or {@link
- * #AWAY}, and {@code b.I} ({@code date}) is the day of the season the game was played.
+ * <p>Each pair of arcs for one game is created back to back by {@link Gb#newArc}, the lower-indexed
+ * of the two teams' vertex first (with {@code venue} remapped to match, so it still reads correctly
+ * from each side); never by {@link Gb#newEdge}, so {@link Arc#mate} is left null. {@link Arc#len}
+ * carries the scoring team's own score, {@code a.I} ({@code venue}) is {@link #HOME}, {@link
+ * #NEUTRAL} or {@link #AWAY}, and {@code b.I} ({@code date}) is the day of the season the game was
+ * played.
  *
  * <p>Vertex slot {@code u.I} ({@code ap}) and {@code v.I} ({@code upi}) each pack a team's final
  * (high 16 bits) and pre-bowl (low 16 bits) poll rank, 0 if unranked; {@code x.S} ({@code abbr}) is
@@ -88,8 +90,8 @@ public final class Games {
    * the {@code n} highest-weighted of the season's 120 teams, weight being {@code ap0Weight} times
    * the team's final AP rank plus {@code upi0Weight} times its final UPI rank plus {@code
    * ap1Weight}/{@code upi1Weight} times its pre-bowl AP/UPI ranks (each rank counted as 0 if the
-   * team went unranked), joined by two arcs — one per team, home team's arc first — for every game
-   * both teams played on a day in {@code [firstDay, lastDay]}.
+   * team went unranked), joined by two arcs — one per team, the lower-indexed team's arc first —
+   * for every game both teams played on a day in {@code [firstDay, lastDay]}.
    *
    * <p>{@code n} is unsigned; 0 or a value over 120 becomes 120. {@code firstDay} below 0 becomes
    * 0; {@code lastDay} 0 or over 128 becomes 128. Returns {@code null} and sets {@link
