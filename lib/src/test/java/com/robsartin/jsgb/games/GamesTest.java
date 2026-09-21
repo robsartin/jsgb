@@ -60,4 +60,14 @@ class GamesTest {
     assertThat(Games.games(5L, 200000L, 0L, 0L, 0L, 0L, 0L, 1L)).isNull();
     assertThat(Gb.panicCode).isEqualTo(Gb.BAD_SPECS);
   }
+
+  @Test
+  @DisplayName("the two arcs of one game are mates of each other, as football needs")
+  void shouldPairArcsAsMatesWhenGameRecorded() {
+    Graph g = Games.games(120L, 0L, 0L, 0L, 0L, 0L, 0L, 1L);
+    Vertex u = g.vertices[0];
+    Arc a = u.arcs;
+    assertThat(a.mate.tip).isEqualTo(u);
+    assertThat(a.mate.mate).isEqualTo(a);
+  }
 }

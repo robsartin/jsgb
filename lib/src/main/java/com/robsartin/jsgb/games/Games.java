@@ -19,10 +19,10 @@ import java.util.List;
  *
  * <p>Each pair of arcs for one game is created back to back by {@link Gb#newArc}, the lower-indexed
  * of the two teams' vertex first (with {@code venue} remapped to match, so it still reads correctly
- * from each side); never by {@link Gb#newEdge}, so {@link Arc#mate} is left null. {@link Arc#len}
- * carries the scoring team's own score, {@code a.I} ({@code venue}) is {@link #HOME}, {@link
- * #NEUTRAL} or {@link #AWAY}, and {@code b.I} ({@code date}) is the day of the season the game was
- * played.
+ * from each side); never by {@link Gb#newEdge}, so the two arcs are paired as mates by position
+ * (ADR 0020) rather than by {@link Gb#newEdge}'s own bookkeeping. {@link Arc#len} carries the
+ * scoring team's own score, {@code a.I} ({@code venue}) is {@link #HOME}, {@link #NEUTRAL} or
+ * {@link #AWAY}, and {@code b.I} ({@code date}) is the day of the season the game was played.
  *
  * <p>Vertex slot {@code u.I} ({@code ap}) and {@code v.I} ({@code upi}) each pack a team's final
  * (high 16 bits) and pre-bowl (low 16 bits) poll rank, 0 if unranked; {@code x.S} ({@code abbr}) is
@@ -339,6 +339,10 @@ public final class Games {
           Gb.troubleCode = 0;
           return null;
         }
+        // ADR 0020: the C addresses this pair as a and a+1; pair them by position since
+        // gb_new_arc (unlike gb_new_edge) leaves Arc.mate null.
+        a.mate = v.arcs;
+        v.arcs.mate = a;
         a.a.I = ven;
         v.arcs.a.I = HOME + AWAY - ven;
         a.b.I = today;
