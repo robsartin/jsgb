@@ -38,6 +38,7 @@ class JsgbTest {
                 + "  queen\n"
                 + "  word_components\n"
                 + "  roget_components\n"
+                + "  ladders\n"
                 + "  test_sample\n");
   }
 
