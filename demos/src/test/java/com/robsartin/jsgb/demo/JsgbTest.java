@@ -41,6 +41,7 @@ class JsgbTest {
                 + "  ladders\n"
                 + "  book_components\n"
                 + "  econ_order\n"
+                + "  miles_span\n"
                 + "  test_sample\n");
   }
 
