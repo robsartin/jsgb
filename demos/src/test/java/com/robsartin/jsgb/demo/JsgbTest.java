@@ -33,7 +33,12 @@ class JsgbTest {
 
     assertThat(code).isEqualTo(1);
     assertThat(errBytes.toString(StandardCharsets.ISO_8859_1))
-        .isEqualTo("Usage: jsgb <demo> [arguments]\n  queen\n  test_sample\n");
+        .isEqualTo(
+            "Usage: jsgb <demo> [arguments]\n"
+                + "  queen\n"
+                + "  word_components\n"
+                + "  roget_components\n"
+                + "  test_sample\n");
   }
 
   @Test
