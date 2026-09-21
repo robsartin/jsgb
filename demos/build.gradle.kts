@@ -13,7 +13,8 @@ java {
 }
 
 application {
-    mainClass = "com.robsartin.jsgb.demo.TestSample"
+    mainClass = "com.robsartin.jsgb.demo.Jsgb"
+    applicationName = "jsgb"
 }
 
 repositories { mavenCentral() }
