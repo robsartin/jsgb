@@ -1,0 +1,2080 @@
+==book_anna
+
+"book("anna",50,10,1,10,1,1,1)"
+40 vertices, 6 arcs, util_types IZZIISIZZZZZZZ
+V3: "Nikolay Ivanovitch Sviazhsky"[1039][13][0]["landowner"]
+==book_david
+
+"book("david",30,5,1,64,1,1,5)"
+25 vertices, 154 arcs, util_types IZZIISIZZZZZZZ
+V0: "Richard Babley (Mr. Dick)"[479][0][18]["weak-minded prot\'eg\'e of BT"]
+   ->"Uriah Heep"[1097][0][10]["articled to lawyer WW"], 1[52]
+   ->"Wilkins Micawber"[1174][0][13]["debtor who waits"], 1[49]
+   ->"Annie Strong"[388][0][7]["beautiful young wife of DS"], 1[42]
+   ->"Mrs. Crupp"[459][0][6]["landlady to DC"], 1[34]
+   ->"Dr. Strong"[496][0][8]["schoolmaster at Dover"], 1[17]
+   ->"Edward Murdstone"[517][0][9]["second husband of CC"], 1[14]
+   ->"Jane Murdstone"[706][0][10]["sister of ED"], 1[14]
+==bi_book_jean
+
+"bi_book("jean",80,0,1,5,1,1,2)"
+85 vertices, 32 arcs, util_types IZZIISIZIZZZZZ[80]
+V82: "1.1.3"[0][0][1][""]
+   ->"Monsieur Charles Fran\c{c}ois Bienvenu Myriel"[826][14][5]["Bishop of D--"], 1[0]
+==bi_book_homer
+
+"bi_book("homer",100,0,10,20,1,1,3)"
+111 vertices, 634 arcs, util_types IZZIISIZIZZZZZ[100]
+V105: "15"[0][21][34][""]
+   ->"Eurystheus"[282][1][2]["king of Mycenae, made HR labor"], 1[0]
+   ->"Antilochus"[381][4][7]["son of NE"], 1[0]
+   ->"Menelaus"[806][9][8]["brother of AG, king of Sparta"], 1[0]
+   ->"Teucer"[1074][2][4]["half brother of AJ"], 1[0]
+   ->"Eurypylus"[529][5][3]["leader of forty ships from Thessaly"], 1[0]
+   ->"Patroclus"[910][4][7]["righthand man of AC"], 1[0]
+   ->"Nestor"[842][8][5]["venerable king of Pylus and Dorium"], 1[0]
+   ->"Paris (Alexander)"[928][6][4]["son of PR and friend of AF"], 1[0]
+   ->"Agenor"[384][2][5]["heir of AN, assists AE"], 1[0]
+   ->"Polites"[921][1][2]["son of PR"], 1[0]
+   ->"Mecisteus"[238][1][2]["companion of AL, killed by PD"], 1[0]
+   ->"Polydamus"[913][0][8]["Trojan prince, son of 0N"], 1[0]
+   ->"Medon"[332][1][2]["step-brother of AX, replaced 99 as leader of Thessalian contingent"], 1[0]
+   ->"Aeneas"[374][3][9]["leader of Dardanians"], 1[0]
+   ->"Hephaestus (Vulcan)"[637][4][4]["crippled son of ZE and HE, favors Greeks"], 1[0]
+   ->"Meges"[808][2][4]["son of FY, flotilla leader from western islands"], 1[0]
+   ->"Eurus"[534][2][2]["the east wind"], 1[0]
+   ->"Idomeneus"[661][8][7]["king of Crete"], 1[0]
+   ->"Great Ajax"[379][9][9]["king of Salamis"], 1[0]
+   ->"Thoas"[344][3][3]["leader of Aetolians"], 1[0]
+   ->"Erinnyes (Furies)"[531][1][2]["goddesses of vengeance"], 1[0]
+   ->"Hades (Pluto)"[625][4][3]["king of the underworld"], 1[0]
+   ->"Iris"[675][6][3]["golden-winged Olympian messenger"], 1[0]
+   ->"Apollo"[385][11][9]["son of ZE and LE, roots for Trojans"], 1[0]
+   ->"Athene (Minerva)"[389][11][8]["daughter of ZE, favors Greeks"], 1[0]
+   ->"Ares (Mars)"[387][6][2]["son of ZE, roots for Trojans"], 1[0]
+   ->"Olympian gods"[880][8][6]["collectively"], 1[0]
+   ->"Heracles (Hercules)"[639][3][5]["heroic strong man"], 1[0]
+   ->"Hector"[641][10][10]["eldest son of PR and HC, brilliant commander of Trojan army"], 1[0]
+   ->"Trojan soldiers"[1072][9][7]["collectively"], 1[0]
+   ->"Greek soldiers"[604][10][8]["collectively"], 1[0]
+   ->"Poseidon (Neptune)"[924][6][6]["king of the sea, favors Greeks"], 1[0]
+   ->"Hera (Juno)"[626][7][7]["wife of ZE, favors Greeks"], 1[0]
+   ->"Zeus (Jove/Jupiter)"[1274][11][9]["king of the gods"], 1[0]
+==book_bad
+
+Ooops, we just ran into panic code 30!
+==book_chapters
+chapters=43 first=1 last=43
+
+"book("huck",20,0,1,43,1,1,4)"
+20 vertices, 146 arcs, util_types IZZIISIZZZZZZZ
+V0: "Huckleberry Finn"[627][0][43]["free spirit and narrator"]
+   ->"Aunt Polly"[385][0][3]["aunt who raises TS"], 1[42]
+   ->"Nat"[857][0][3]["slave of SP who feeds JM"], 1[34]
+   ->"Silas Phelps"[1033][0][7]["cotton farmer married to AS"], 1[32]
+   ->"Lize"[774][0][3]["slave to AS"], 1[32]
+   ->"Aunt Sally Phelps"[388][0][8]["sister of AP"], 1[32]
+   ->"Harvey Wilks"[644][0][3]["English `dissentering minister'"], 1[29]
+   ->"Townfolk"[1059][0][12]["crowd of people"], 1[27]
+   ->"Peter Wilks"[932][0][3]["recently dead man"], 1[27]
+   ->"Joanna (the harelip)"[708][0][3]["youngest niece of PW"], 1[26]
+   ->"Mary Jane Wilks"[811][0][4]["redheaded and `full of sand'"], 1[26]
+   ->"The Duke"[498][0][13]["thespian swindler"], 1[19]
+   ->"The King"[738][0][13]["distinguished rapscallion"], 1[19]
+   ->"Pap"[910][0][8]["ne'er-do-well father of HF"], 1[4]
+   ->"Judge Thatcher"[713][0][6]["prominent man in HF's village"], 1[4]
+   ->"Joe Harper"[701][0][3]["member of TS's gang"], 1[2]
+   ->"Jim"[706][0][29]["runaway slave of MW"], 1[2]
+   ->"Miss Watson"[824][0][5]["unmarried sister of WD"], 1[1]
+   ->"Widow Douglas"[1165][0][6]["`allowed she would sivilize HF'"], 1[1]
+   ->"Tom Sawyer"[1072][0][14]["adventurous friend of HF"], 1[1]
+==econ_full
+
+"econ(81,0,0,1)"
+81 vertices, 4902 arcs, util_types ZZZZIAIZZZZZZZ
+V0: "Livestock and livestock products"[72530][->NULL]
+   ->"Livestock and livestock products"[72530], 1[8490]
+   ->"Agriculture, excluding livestock"[90288], 1[2182]
+   ->"Forestry and fishery products"[8325], 1[42]
+   ->"Agricultural support services"[19956], 1[467]
+   ->"Food, liquor, and candy"[300724], 1[59639]
+   ->"Spinning and weaving"[33394], 1[84]
+   ->"Specialized textile products"[13646], 1[58]
+   ->"Apparel"[54031], 1[3]
+   ->"Household textiles"[14582], 1[4]
+   ->"Lumber and wood, except containers"[49711], 1[7]
+   ->"Office furniture and fixtures"[15165], 1[1]
+   ->"Paper products, except containers"[68955], 1[15]
+   ->"Paperboard containers and boxes"[22334], 1[3]
+   ->"Printing and publishing"[69451], 1[4]
+   ->"Fertilizers, glues, explosives, etc."[100988], 1[79]
+   ->"Plastics and synthetic materials"[36281], 1[7]
+   ->"Drugs and toiletries"[57993], 1[107]
+   ->"Rubber products"[71020], 1[23]
+   ->"Metal containers"[12098], 1[5]
+   ->"Architectural metalwork"[40833], 1[2]
+   ->"Screw machine products and stampings"[31825], 1[7]
+   ->"Metal products, not screws or stampings"[44027], 1[1]
+   ->"Special industry machinery and equipment"[14355], 1[3]
+   ->"Electrical machines for service industries"[19439], 1[2]
+   ->"Household appliances"[14971], 1[1]
+   ->"Sundries (jewelry, games, etc.)"[25738], 1[5]
+   ->"Transportation and warehousing"[241393], 1[2]
+   ->"Private utilities"[301977], 1[1]
+   ->"Hotels, beauty care, etc."[95084], 1[3]
+   ->"Business support services"[463594], 1[19]
+   ->"Eating and drinking places"[174379], 1[545]
+   ->"Amusements"[50757], 1[73]
+   ->"Health, education, and social services"[413230], 1[120]
+   ->"Federal government enterprises"[34334], 1[5]
+   ->"Users"[3999362], 1[521]
+==econ_omit2
+
+"econ(40,2,1000,5)"
+40 vertices, 344 arcs, util_types ZZZZIAIZZZZZZZ
+V5: "Petroleum and natural gas production"[123754][->NULL]
+   ->"Petroleum and natural gas production"[123754], 1[5725]
+   ->"Fertilizers, glues, explosives, etc."[100988], 1[10216]
+   ->"Petrochemicals"[186485], 1[99760]
+   ->"Utilities"[351313], 1[33029]
+==econ_greedy
+
+"econ(10,1,0,0)"
+10 vertices, 100 arcs, util_types ZZZZIAIZZZZZZZ
+V2: "Organic products"[984577][->NULL]
+   ->"Natural resources"[336227], 1[22919]
+   ->"Infrastructure"[1193573], 1[90875]
+   ->"Organic products"[984577], 1[249211]
+   ->"General inorganic products"[450682], 1[25130]
+   ->"Specialized manufactured goods"[787703], 1[49624]
+   ->"Wholesale and retail trade"[727513], 1[22167]
+   ->"Financial services"[950317], 1[8793]
+   ->"Commercial services"[483550], 1[21700]
+   ->"Personal services"[827615], 1[74771]
+   ->"Adjustments"[457090], 1[204]
+==econ_users
+
+"econ(20,0,0,7)"
+20 vertices, 385 arcs, util_types ZZZZIAIZZZZZZZ
+V19: "Users"[3999362][NULL]
+   ->"Organic resources"[321629], 1[173253]
+   ->"Mining of metals"[5278], 1[1978]
+   ->"Mining of minerals"[9320], 1[5067]
+   ->"Infrastructure"[1193573], 1[606102]
+   ->"Food and tobacco products"[325169], 1[89038]
+   ->"Textile manufacturing"[115653], 1[35422]
+   ->"Wood manufacturing"[80831], 1[30438]
+   ->"Paper manufacturing"[160740], 1[66786]
+   ->"Plastics and synthetic materials"[36281], 1[9466]
+   ->"Petrochemicals"[186485], 1[38124]
+   ->"Rubber products"[71020], 1[26857]
+   ->"Leather manufacturing"[8398], 1[3208]
+   ->"General inorganic products"[450682], 1[175846]
+   ->"Machinery and equipment"[401365], 1[163442]
+   ->"Vehicles and ordnance"[309511], 1[115811]
+   ->"Specialized static equipment"[76827], 1[35260]
+   ->"Economic services"[1677830], 1[1158698]
+   ->"Direct services"[1311165], 1[809549]
+   ->"Adjustments"[457090], 1[455017]
+==econ_default
+
+"econ(81,0,0,0)"
+81 vertices, 4902 arcs, util_types ZZZZIAIZZZZZZZ
+V80: "Users"[3999362][NULL]
+   ->"Livestock and livestock products"[72530], 1[20358]
+   ->"Agriculture, excluding livestock"[90288], 1[41531]
+   ->"Forestry and fishery products"[8325], 1[3706]
+   ->"Agricultural support services"[19956], 1[10213]
+   ->"Mining of ferrous metals"[2627], 1[1118]
+   ->"Mining of nonferrous metals"[2651], 1[860]
+   ->"Coal mining"[26732], 1[12999]
+   ->"Petroleum and natural gas production"[123754], 1[94659]
+   ->"Quarrying of stone and clay"[7308], 1[4147]
+   ->"Mining of chemicals"[2012], 1[920]
+   ->"New construction"[364224], 1[156635]
+   ->"Repair and maintenance construction"[127525], 1[67036]
+   ->"Ordnance and accessories"[23766], 1[11870]
+   ->"Food, liquor, and candy"[300724], 1[74833]
+   ->"Cigarettes, cigars, tobacco"[24445], 1[14205]
+   ->"Spinning and weaving"[33394], 1[8379]
+   ->"Specialized textile products"[13646], 1[3231]
+   ->"Apparel"[54031], 1[19409]
+   ->"Household textiles"[14582], 1[4403]
+   ->"Lumber and wood, except containers"[49711], 1[17496]
+   ->"Wood containers"[557], 1[180]
+   ->"Household furniture"[15398], 1[5740]
+   ->"Office furniture and fixtures"[15165], 1[7022]
+   ->"Paper products, except containers"[68955], 1[24423]
+   ->"Paperboard containers and boxes"[22334], 1[8988]
+   ->"Printing and publishing"[69451], 1[33375]
+   ->"Fertilizers, glues, explosives, etc."[100988], 1[29925]
+   ->"Plastics and synthetic materials"[36281], 1[9466]
+   ->"Drugs and toiletries"[57993], 1[23680]
+   ->"Paints and allied products"[10900], 1[3645]
+   ->"Petroleum refining and byproducts"[175585], 1[34479]
+   ->"Rubber products"[71020], 1[26857]
+   ->"Leather tanning and finishing"[1719], 1[776]
+   ->"Leather products"[6679], 1[2432]
+   ->"Glass and glass products"[13895], 1[6524]
+   ->"Stone and clay products"[39597], 1[17896]
+   ->"Primary iron and steel manufacturing"[61139], 1[26394]
+   ->"Primary nonferrous metals manufacturing"[48287], 1[13890]
+   ->"Metal containers"[12098], 1[4852]
+   ->"Architectural metalwork"[40833], 1[16649]
+   ->"Screw machine products and stampings"[31825], 1[14164]
+   ->"Metal products, not screws or stampings"[44027], 1[21872]
+   ->"Engines and turbines"[14682], 1[7167]
+   ->"Farm and garden machinery"[10571], 1[4945]
+   ->"Construction and mining machinery"[17821], 1[9244]
+   ->"Materials handling machinery and equipment"[7436], 1[3139]
+   ->"Metalworking machinery and equipment"[20776], 1[12495]
+   ->"Special industry machinery and equipment"[14355], 1[7637]
+   ->"General industrial machinery equipment"[24280], 1[11631]
+   ->"Engine parts"[17900], 1[10223]
+   ->"Office, computing, and accounting machines"[58405], 1[17064]
+   ->"Electrical machines for service industries"[19439], 1[7738]
+   ->"Electrical apparatus for manufacturing"[31919], 1[17112]
+   ->"Household appliances"[14971], 1[5474]
+   ->"Electric lighting and wiring equipment"[15557], 1[7580]
+   ->"Radio, TV, and communication equipment"[73165], 1[24778]
+   ->"Electronic components and accessories"[43698], 1[9758]
+   ->"Batteries and other electric supplies"[16390], 1[7457]
+   ->"Motor vehicles and equipment"[187244], 1[57221]
+   ->"Aircraft and parts"[70200], 1[34493]
+   ->"Ships, trains, cycles, motor homes"[28301], 1[12227]
+   ->"Scientific and controlling instruments"[28183], 1[14622]
+   ->"Optical and photographic equipment"[22906], 1[9679]
+   ->"Sundries (jewelry, games, etc.)"[25738], 1[10959]
+   ->"Transportation and warehousing"[241393], 1[132337]
+   ->"Communications, except radio and TV"[107463], 1[79652]
+   ->"Radio and television broadcasting"[1655], 1[966]
+   ->"Private utilities"[301977], 1[147758]
+   ->"Wholesale and retail trade"[727513], 1[475550]
+   ->"Banking and insurance"[308335], 1[165728]
+   ->"Real estate and rental"[641982], 1[517420]
+   ->"Hotels, beauty care, etc."[95084], 1[61039]
+   ->"Business support services"[463594], 1[322773]
+   ->"Eating and drinking places"[174379], 1[84779]
+   ->"Automobile repair and services"[94165], 1[48837]
+   ->"Amusements"[50757], 1[25330]
+   ->"Health, education, and social services"[413230], 1[256578]
+   ->"Federal government enterprises"[34334], 1[16653]
+   ->"Local government enterprises"[15002], 1[5065]
+   ->"Adjustments"[457090], 1[455017]
+==games_full
+
+"games(120,0,0,0,0,0,128,1)"
+120 vertices, 1276 arcs, util_types IIZSSSIIZZZZZZ
+V0: "Lafayette"[0][0]["LAFAY"]["Leopards"]["Patriot"]
+   ->"Lehigh"[0][0]["LHIGH"]["Engineers"]["Patriot"], 14[3][83]
+   ->"Colgate"[0][0]["COLG"]["Red Raiders"]["Patriot"], 7[1][76]
+   ->"Fordham"[0][0]["FORD"]["Rams"]["Patriot"], 59[1][69]
+   ->"Holy Cross"[0][0]["HOLY"]["Crusaders"]["Patriot"], 3[1][62]
+   ->"Army"[0][0]["ARMY"]["Cadets"]["(null)"], 0[1][55]
+   ->"Cornell"[0][0]["CORN"]["Big Red"]["Ivy"], 16[3][48]
+   ->"Columbia"[0][0]["COLUM"]["Lions"]["Ivy"], 41[1][41]
+   ->"Pennsylvania"[0][0]["PENN"]["Red \& Blue"]["Ivy"], 20[3][34]
+   ->"Yale"[0][0]["YALE"]["Bulldogs"]["Ivy"], 17[1][27]
+   ->"Bucknell"[0][0]["BUCK"]["Bisons"]["Patriot"], 14[3][20]
+==games_window
+
+"games(30,1,1,1,1,60,90,7)"
+30 vertices, 40 arcs, util_types IIZSSSIIZZZZZZ
+V3: "Miami"[66389356][19006203]["MIAMI"]["Hurricanes"]["(null)"]
+   ->"Pittsburgh"[44105728][9175040]["PITT"]["Panthers"]["(null)"], 45[3][69]
+==games_neg
+
+"games(10,-1,-1,-1,-1,0,128,3)"
+10 vertices, 6 arcs, util_types IIZSSSIIZZZZZZ
+V0: "Bowling Green"[0][0]["BOWLG"]["Falcons"]["Mid-American"]
+==games_bad
+
+Ooops, we just ran into panic code 30!
+==lisa_matrix
+lisa(4,4,255,0,360,0,250,0,22950000)
+106 110 65 97
+50 66 48 47
+26 30 19 12
+17 34 17 11
+==lisa_window
+lisa(3,5,7,100,110,100,110,1000,60000)
+0 0 1 1 1
+1 1 1 1 1
+1 1 1 1 0
+==plane_lisa_small
+
+"plane_lisa(20,20,10,0,360,0,250,0,22950000)"
+81 vertices, 332 arcs, util_types ZZZIIIZZIIZZZZ[20][20]
+V0: "0"[3][0][5]
+   ->"1"[4][6][46], 1
+==plane_lisa_window
+
+"plane_lisa(10,10,255,100,110,100,110,0,25500)"
+93 vertices, 346 arcs, util_types ZZZIIIZZIIZZZZ[10][10]
+V3: "3"[144][3][3]
+   ->"13"[92][13][13], 1
+   ->"4"[156][4][4], 1
+   ->"2"[123][2][2], 1
+==bi_lisa
+
+"bi_lisa(10,10,0,360,0,250,30000,0)"
+20 vertices, 16 arcs, util_types ZZZZZZZIIZZZZZ[10]
+V0: "r0"
+==bi_lisa_c
+
+"bi_lisa(10,10,100,110,100,110,20000,1)"
+20 vertices, 54 arcs, util_types ZZZZZZZIIZZZZZ[10]
+V12: "c2"
+   ->"r4", 1[19275]
+   ->"r3", 1[11051]
+   ->"r2", 1[11822]
+   ->"r1", 1[19532]
+==lisa_bad
+
+Ooops, we just ran into panic code 31!
+==risc2_sample
+
+"risc(2)"
+1630 vertices, 3972 arcs, util_types ZZZIIVZZZZZZZA[->"Z598"[0][38]]
+V1: "M0"[0][73][NULL]
+==risc2_eval=0
+0000000000000001
+==run_risc_mult
+ r0   r1   r2   r3   r4   r5   r6   r7   P XSNKV MEM
+0000 0000 0000 0000 0000 0000 0000 0000 000..... 2ff0
+0001 0000 0000 0000 0000 0000 0000 0000 2fcX.... 0003
+0002 0000 0003 0000 0000 0000 0000 0000 000..... 1a30
+0003 0000 0003 0000 0000 0000 0000 0000 1a0X.... 0004
+0004 0004 0003 0000 0000 0000 0000 0000 000..N.. 7f70
+0005 0004 0003 0000 0000 0000 0000 0000 7f4X.N.. 000a
+000a 0004 0003 0000 0000 0000 0000 0006 000..N.. 3a01
+000b 0004 0003 0001 0000 0000 0000 0006 3a0..N.. 4000
+000c 0004 0003 0001 0000 0000 0000 0006 400..... 5000
+000d 0004 0003 0001 0000 0000 0000 0006 500..... 6000
+000e 0004 0003 0001 0000 0000 0000 0006 600..... 2a63
+000f 0004 0002 0001 0000 0000 0000 0006 2a4..N.. 0f95
+0014 0004 0002 0001 0000 0000 0000 0006 0f8..N.. 2a63
+0015 0004 0001 0001 0000 0000 0000 0006 2a4..N.. 039b
+0010 0004 0001 0001 0000 0000 0000 0006 038..N.. 3063
+0011 0004 0001 0002 0000 0000 0000 0006 304..N.. 1061
+0012 0008 0001 0002 0000 0000 0000 0006 104..N.. 6ac1
+0013 0008 0001 0002 0000 0000 0000 0006 6ac..N.. 5fd1
+0014 0008 0001 0002 0000 0001 0000 0006 5fc..N.. 2a63
+0015 0008 ffff 0002 0000 0001 0000 0006 2a4.SNK. 039b
+0016 0008 ffff 0002 0000 0001 0000 0006 038.SNK. 0843
+0019 0008 ffff 0002 0000 0001 0000 0006 084..N.. 2863
+001a 0008 0001 0002 0000 0001 0000 0006 284..NK. 0c94
+001b 0008 0001 0002 0000 0001 0000 0006 0c8..NK. 4861
+001c 0008 0001 0002 0008 0001 0000 0006 484..N.. 6ac1
+001d 0008 0001 0002 0008 0001 0000 0006 6ac..N.. 2a63
+001e 0008 ffff 0002 0008 0001 0000 0006 2a4.SNK. 5a41
+001f 0008 ffff 0002 0008 0000 0000 0006 5a4..... 0398
+0017 0008 ffff 0002 0008 0000 0000 0006 038..... 3463
+0018 0008 ffff 0001 0008 0000 0000 0006 344..N.. 1561
+0019 0004 ffff 0001 0008 0000 0000 0006 154..N.. 2863
+001a 0004 0000 0001 0008 0000 0000 0006 284...K. 0c94
+001b 0004 0000 0001 0008 0000 0000 0006 0c8...K. 4861
+001c 0004 0000 0001 000c 0000 0000 0006 484..N.. 6ac1
+001d 0004 0000 0001 000c 0000 0000 0006 6ac..N.. 2a63
+001e 0004 ffff 0001 000c 0000 0000 0006 2a4.SNK. 5a41
+001f 0004 ffff 0001 000c ffff 0000 0006 5a4.SNK. 0398
+0020 0004 ffff 0001 000c ffff 0000 0006 038.SNK. 6666
+0021 0004 ffff 0001 000c ffff 0000 0006 664..... 0fa7
+0006 0004 ffff 0001 000c ffff 0000 0006 0f8..... 0f8f
+ffff 0004 ffff 0001 000c ffff 0000 0006 0f8..... ????
+Execution terminated with memory address ffff.
+return=0
+65535 4 65535 1 12 65535 0 6 0 0 0 0 0 0 0 0 3968 65535 
+==run_risc_div
+return=0
+65535 1 65535 4 0 65535 0 6 0 0 0 0 0 0 0 0 3968 65535 
+==prod22
+X0 = input
+X1 = input
+Y0 = input
+Y1 = input
+A0:0 = Y0 & X0
+A0:1 = Y1 & X0
+A1:1 = Y0 & X1
+A1:2 = Y1 & X1
+U1 = A1:1 ^ A0:1
+V1 = A1:1 & A0:1
+B3:2 = V1 & A1:2
+Z2 = V1 ^ A1:2
+Output B3:2
+Output Z2
+Output U1
+Output A0:0
+
+"prod(2,2)"
+12 vertices, 16 arcs, util_types ZZZIIVZZZZZZZA[->"B3:2"[0][38]]
+V0: "X0"[0][73][NULL]
+==prod33_sample
+
+"prod(3,3)"
+39 vertices, 66 arcs, util_types ZZZIIVZZZZZZZA[->"C5:3"[0][124]]
+V10: "A1:2"[0][38][NULL]
+   ->"Y1"[0][73], 100
+   ->"X1"[0][73], 100
+==partial_prod33
+****
+
+"partial_gates(prod(3,3),2,50000,1)"
+39 vertices, 66 arcs, util_types ZZZIIVZZZZZZZA[->"C5:3"[0][124]]
+V5: "Y2"[0][73][NULL]
+==partial_risc_stanza4
+*1*1***101**010*
+
+"partial_gates(risc(16),1,43210,98765)"
+1702 vertices, 3796 arcs, util_types ZZZIIVZZZZZZZA[->"Z1508"[0][38]]
+V79: "R10:10"[0][76]["Z898"[0][38]]
+==prod_bad
+
+Ooops, we just ran into panic code 50!
+==risc2_gates
+RUN = input
+M0 = input
+M1 = input
+M2 = input
+M3 = input
+M4 = input
+M5 = input
+M6 = input
+M7 = input
+M8 = input
+M9 = input
+M10 = input
+M11 = input
+M12 = input
+M13 = input
+M14 = input
+M15 = input
+P0 = latched Z367
+P1 = latched Z368
+P2 = latched Z369
+P3 = latched Z370
+P4 = latched Z371
+P5 = latched Z372
+P6 = latched Z373
+P7 = latched Z374
+P8 = latched Z375
+P9 = latched Z376
+S = latched Z339
+N = latched Z352
+K = latched Z366
+V = latched Z359
+X = latched Z380
+R0:0 = latched Z399
+R0:1 = latched Z412
+R0:2 = latched Z425
+R0:3 = latched Z438
+R0:4 = latched Z451
+R0:5 = latched Z464
+R0:6 = latched Z477
+R0:7 = latched Z490
+R0:8 = latched Z503
+R0:9 = latched Z516
+R0:10 = latched Z529
+R0:11 = latched Z542
+R0:12 = latched Z555
+R0:13 = latched Z568
+R0:14 = latched Z581
+R0:15 = latched Z594
+R1:0 = latched Z273
+R1:1 = latched Z277
+R1:2 = latched Z281
+R1:3 = latched Z285
+R1:4 = latched Z289
+R1:5 = latched Z293
+R1:6 = latched Z297
+R1:7 = latched Z301
+R1:8 = latched Z305
+R1:9 = latched Z309
+R1:10 = latched Z313
+R1:11 = latched Z317
+R1:12 = latched Z321
+R1:13 = latched Z325
+R1:14 = latched Z329
+R1:15 = latched Z333
+X~ = ~ X
+M4~ = ~ M4
+M5~ = ~ M5
+D0 = M5~ & M4~ & X~
+D1 = M5~ & M4 & X~
+D2 = M5 & M4~ & X~
+D3 = M5 & M4 & X~
+D4 = P0 & X
+D5 = M6 & X~
+D6 = D5 | D4
+D7 = P1 & X
+D8 = M7 & X~
+D9 = D8 | D7
+D10 = P2 & X
+D11 = M8 & X~
+D12 = D11 | D10
+D13 = P6 & X
+D14 = M12 & X~
+D15 = D14 | D13
+D16 = P3 & X
+D17 = M9 & X~
+D18 = D17 | D16
+D19 = P7 & X
+D20 = M13 & X~
+D21 = D20 | D19
+D22 = P4 & X
+D23 = M10 & X~
+D24 = D23 | D22
+D25 = P8 & X
+D26 = M14 & X~
+D27 = D26 | D25
+D28 = P5 & X
+D29 = M11 & X~
+D30 = D29 | D28
+D31 = P9 & X
+D32 = M15 & X~
+D33 = D32 | D31
+D15~ = ~ D15
+D21~ = ~ D21
+D27~ = ~ D27
+D33~ = ~ D33
+F0 = D33~ & D27~ & D21~ & D15~
+F1 = D33~ & D27~ & D21~ & D15
+F2 = R0:0 & F0
+F3 = R1:0 & F1
+F4 = F3 | F2
+F5 = R0:1 & F0
+F6 = R1:1 & F1
+F7 = F6 | F5
+F8 = R0:2 & F0
+F9 = R1:2 & F1
+F10 = F9 | F8
+F11 = R0:3 & F0
+F12 = R1:3 & F1
+F13 = F12 | F11
+F14 = R0:4 & F0
+F15 = R1:4 & F1
+F16 = F15 | F14
+F17 = R0:5 & F0
+F18 = R1:5 & F1
+F19 = F18 | F17
+F20 = R0:6 & F0
+F21 = R1:6 & F1
+F22 = F21 | F20
+F23 = R0:7 & F0
+F24 = R1:7 & F1
+F25 = F24 | F23
+F26 = R0:8 & F0
+F27 = R1:8 & F1
+F28 = F27 | F26
+F29 = R0:9 & F0
+F30 = R1:9 & F1
+F31 = F30 | F29
+F32 = R0:10 & F0
+F33 = R1:10 & F1
+F34 = F33 | F32
+F35 = R0:11 & F0
+F36 = R1:11 & F1
+F37 = F36 | F35
+F38 = R0:12 & F0
+F39 = R1:12 & F1
+F40 = F39 | F38
+F41 = R0:13 & F0
+F42 = R1:13 & F1
+F43 = F42 | F41
+F44 = R0:14 & F0
+F45 = R1:14 & F1
+F46 = F45 | F44
+F47 = R0:15 & F0
+F48 = R1:15 & F1
+F49 = F48 | F47
+M0~ = ~ M0
+M1~ = ~ M1
+M2~ = ~ M2
+M3~ = ~ M3
+F50 = M3~ & M2~ & M1~ & M0~ & R0:0
+F51 = M3~ & M2~ & M1~ & M0 & R1:0
+F52 = F51 | F50
+F53 = M3~ & M2~ & M1~ & M0~ & R0:1
+F54 = M3~ & M2~ & M1~ & M0 & R1:1
+F55 = F54 | F53
+F56 = M3~ & M2~ & M1~ & M0~ & R0:2
+F57 = M3~ & M2~ & M1~ & M0 & R1:2
+F58 = F57 | F56
+F59 = M3~ & M2~ & M1~ & M0~ & R0:3
+F60 = M3~ & M2~ & M1~ & M0 & R1:3
+F61 = F60 | F59
+F62 = M3~ & M2~ & M1~ & M0~ & R0:4
+F63 = M3~ & M2~ & M1~ & M0 & R1:4
+F64 = F63 | F62
+F65 = M3~ & M2~ & M1~ & M0~ & R0:5
+F66 = M3~ & M2~ & M1~ & M0 & R1:5
+F67 = F66 | F65
+F68 = M3~ & M2~ & M1~ & M0~ & R0:6
+F69 = M3~ & M2~ & M1~ & M0 & R1:6
+F70 = F69 | F68
+F71 = M3~ & M2~ & M1~ & M0~ & R0:7
+F72 = M3~ & M2~ & M1~ & M0 & R1:7
+F73 = F72 | F71
+F74 = M3~ & M2~ & M1~ & M0~ & R0:8
+F75 = M3~ & M2~ & M1~ & M0 & R1:8
+F76 = F75 | F74
+F77 = M3~ & M2~ & M1~ & M0~ & R0:9
+F78 = M3~ & M2~ & M1~ & M0 & R1:9
+F79 = F78 | F77
+F80 = M3~ & M2~ & M1~ & M0~ & R0:10
+F81 = M3~ & M2~ & M1~ & M0 & R1:10
+F82 = F81 | F80
+F83 = M3~ & M2~ & M1~ & M0~ & R0:11
+F84 = M3~ & M2~ & M1~ & M0 & R1:11
+F85 = F84 | F83
+F86 = M3~ & M2~ & M1~ & M0~ & R0:12
+F87 = M3~ & M2~ & M1~ & M0 & R1:12
+F88 = F87 | F86
+F89 = M3~ & M2~ & M1~ & M0~ & R0:13
+F90 = M3~ & M2~ & M1~ & M0 & R1:13
+F91 = F90 | F89
+F92 = M3~ & M2~ & M1~ & M0~ & R0:14
+F93 = M3~ & M2~ & M1~ & M0 & R1:14
+F94 = F93 | F92
+F95 = M3~ & M2~ & M1~ & M0~ & R0:15
+F96 = M3~ & M2~ & M1~ & M0 & R1:15
+F97 = F96 | F95
+F98 = M0~ & F4
+F4~ = ~ F4
+F99 = M0 & F4~
+F100 = F99 | F98
+F101 = M0 & F4
+F7~ = ~ F7
+F101~ = ~ F101
+F102 = F101~ & M1~ & F7
+F103 = F101~ & M1 & F7~
+F104 = F101 & M1~ & F7~
+F105 = F101 & M1 & F7
+F106 = F105 | F104 | F103 | F102
+F107 = M1 & F7
+F108 = F101 & F7
+F109 = F101 & M1
+F110 = F109 | F108 | F107
+F10~ = ~ F10
+F110~ = ~ F110
+F111 = F110~ & M2~ & F10
+F112 = F110~ & M2 & F10~
+F113 = F110 & M2~ & F10~
+F114 = F110 & M2 & F10
+F115 = F114 | F113 | F112 | F111
+F116 = M2 & F10
+F117 = F110 & F10
+F118 = F110 & M2
+F119 = F118 | F117 | F116
+F13~ = ~ F13
+F119~ = ~ F119
+F120 = F119~ & M3~ & F13
+F121 = F119~ & M3 & F13~
+F122 = F119 & M3~ & F13~
+F123 = F119 & M3 & F13
+F124 = F123 | F122 | F121 | F120
+F125 = M3 & F13
+F126 = F119 & F13
+F127 = F119 & M3
+F128 = F127 | F126 | F125
+F129 = M3~ & F128
+F128~ = ~ F128
+F130 = M3 & F128~
+F129~ = ~ F129
+F130~ = ~ F130
+F16~ = ~ F16
+F131 = F129 & F16~
+F132 = F130 & F16~
+F133 = F130~ & F129~ & F16
+F134 = F133 | F132 | F131
+F135 = F16 & F129
+F136 = F16~ & F130
+F135~ = ~ F135
+F136~ = ~ F136
+F19~ = ~ F19
+F137 = F135 & F19~
+F138 = F136 & F19~
+F139 = F136~ & F135~ & F19
+F140 = F139 | F138 | F137
+F141 = F19 & F135
+F142 = F19~ & F136
+F141~ = ~ F141
+F142~ = ~ F142
+F22~ = ~ F22
+F143 = F141 & F22~
+F144 = F142 & F22~
+F145 = F142~ & F141~ & F22
+F146 = F145 | F144 | F143
+F147 = F22 & F141
+F148 = F22~ & F142
+F147~ = ~ F147
+F148~ = ~ F148
+F25~ = ~ F25
+F149 = F147 & F25~
+F150 = F148 & F25~
+F151 = F148~ & F147~ & F25
+F152 = F151 | F150 | F149
+F153 = F25 & F147
+F154 = F25~ & F148
+F153~ = ~ F153
+F154~ = ~ F154
+F28~ = ~ F28
+F155 = F153 & F28~
+F156 = F154 & F28~
+F157 = F154~ & F153~ & F28
+F158 = F157 | F156 | F155
+F159 = F28 & F153
+F160 = F28~ & F154
+F159~ = ~ F159
+F160~ = ~ F160
+F31~ = ~ F31
+F161 = F159 & F31~
+F162 = F160 & F31~
+F163 = F160~ & F159~ & F31
+F164 = F163 | F162 | F161
+F165 = F31 & F159
+F166 = F31~ & F160
+F165~ = ~ F165
+F166~ = ~ F166
+F34~ = ~ F34
+F167 = F165 & F34~
+F168 = F166 & F34~
+F169 = F166~ & F165~ & F34
+F170 = F169 | F168 | F167
+F171 = F34 & F165
+F172 = F34~ & F166
+F171~ = ~ F171
+F172~ = ~ F172
+F37~ = ~ F37
+F173 = F171 & F37~
+F174 = F172 & F37~
+F175 = F172~ & F171~ & F37
+F176 = F175 | F174 | F173
+F177 = F37 & F171
+F178 = F37~ & F172
+F177~ = ~ F177
+F178~ = ~ F178
+F40~ = ~ F40
+F179 = F177 & F40~
+F180 = F178 & F40~
+F181 = F178~ & F177~ & F40
+F182 = F181 | F180 | F179
+F183 = F40 & F177
+F184 = F40~ & F178
+F183~ = ~ F183
+F184~ = ~ F184
+F43~ = ~ F43
+F185 = F183 & F43~
+F186 = F184 & F43~
+F187 = F184~ & F183~ & F43
+F188 = F187 | F186 | F185
+F189 = F43 & F183
+F190 = F43~ & F184
+F189~ = ~ F189
+F190~ = ~ F190
+F46~ = ~ F46
+F191 = F189 & F46~
+F192 = F190 & F46~
+F193 = F190~ & F189~ & F46
+F194 = F193 | F192 | F191
+F195 = F46 & F189
+F196 = F46~ & F190
+F195~ = ~ F195
+F196~ = ~ F196
+F49~ = ~ F49
+F197 = F195 & F49~
+F198 = F196 & F49~
+F199 = F196~ & F195~ & F49
+F200 = F199 | F198 | F197
+F201 = M0 & D0
+F202 = F100 & D1
+F203 = F52 & D2
+F204 = M0 & X
+F205 = F204 | F203 | F202 | F201
+F206 = M1 & D0
+F207 = F106 & D1
+F208 = F55 & D2
+F209 = M1 & X
+F210 = F209 | F208 | F207 | F206
+F211 = M2 & D0
+F212 = F115 & D1
+F213 = F58 & D2
+F214 = M2 & X
+F215 = F214 | F213 | F212 | F211
+F216 = M3 & D0
+F217 = F124 & D1
+F218 = F61 & D2
+F219 = M3 & X
+F220 = F219 | F218 | F217 | F216
+F221 = M3 & D0
+F222 = F134 & D1
+F223 = F64 & D2
+F224 = M4 & X
+F225 = F224 | F223 | F222 | F221
+F226 = M3 & D0
+F227 = F140 & D1
+F228 = F67 & D2
+F229 = M5 & X
+F230 = F229 | F228 | F227 | F226
+F231 = M3 & D0
+F232 = F146 & D1
+F233 = F70 & D2
+F234 = M6 & X
+F235 = F234 | F233 | F232 | F231
+F236 = M3 & D0
+F237 = F152 & D1
+F238 = F73 & D2
+F239 = M7 & X
+F240 = F239 | F238 | F237 | F236
+F241 = M3 & D0
+F242 = F158 & D1
+F243 = F76 & D2
+F244 = M8 & X
+F245 = F244 | F243 | F242 | F241
+F246 = M3 & D0
+F247 = F164 & D1
+F248 = F79 & D2
+F249 = M9 & X
+F250 = F249 | F248 | F247 | F246
+F251 = M3 & D0
+F252 = F170 & D1
+F253 = F82 & D2
+F254 = M10 & X
+F255 = F254 | F253 | F252 | F251
+F256 = M3 & D0
+F257 = F176 & D1
+F258 = F85 & D2
+F259 = M11 & X
+F260 = F259 | F258 | F257 | F256
+F261 = M3 & D0
+F262 = F182 & D1
+F263 = F88 & D2
+F264 = M12 & X
+F265 = F264 | F263 | F262 | F261
+F266 = M3 & D0
+F267 = F188 & D1
+F268 = F91 & D2
+F269 = M13 & X
+F270 = F269 | F268 | F267 | F266
+F271 = M3 & D0
+F272 = F194 & D1
+F273 = F94 & D2
+F274 = M14 & X
+F275 = F274 | F273 | F272 | F271
+F276 = M3 & D0
+F277 = F200 & D1
+F278 = F97 & D2
+F279 = M15 & X
+F280 = F279 | F278 | F277 | F276
+F205~ = ~ F205
+L0 = F205~ & F4~ & D12
+L1 = F205 & F4~ & D18
+L2 = F205~ & F4 & D24
+L3 = F205 & F4 & D30
+L4 = L3 | L2 | L1 | L0
+F210~ = ~ F210
+L5 = F210~ & F7~ & D12
+L6 = F210 & F7~ & D18
+L7 = F210~ & F7 & D24
+L8 = F210 & F7 & D30
+L9 = L8 | L7 | L6 | L5
+F215~ = ~ F215
+L10 = F215~ & F10~ & D12
+L11 = F215 & F10~ & D18
+L12 = F215~ & F10 & D24
+L13 = F215 & F10 & D30
+L14 = L13 | L12 | L11 | L10
+F220~ = ~ F220
+L15 = F220~ & F13~ & D12
+L16 = F220 & F13~ & D18
+L17 = F220~ & F13 & D24
+L18 = F220 & F13 & D30
+L19 = L18 | L17 | L16 | L15
+F225~ = ~ F225
+L20 = F225~ & F16~ & D12
+L21 = F225 & F16~ & D18
+L22 = F225~ & F16 & D24
+L23 = F225 & F16 & D30
+L24 = L23 | L22 | L21 | L20
+F230~ = ~ F230
+L25 = F230~ & F19~ & D12
+L26 = F230 & F19~ & D18
+L27 = F230~ & F19 & D24
+L28 = F230 & F19 & D30
+L29 = L28 | L27 | L26 | L25
+F235~ = ~ F235
+L30 = F235~ & F22~ & D12
+L31 = F235 & F22~ & D18
+L32 = F235~ & F22 & D24
+L33 = F235 & F22 & D30
+L34 = L33 | L32 | L31 | L30
+F240~ = ~ F240
+L35 = F240~ & F25~ & D12
+L36 = F240 & F25~ & D18
+L37 = F240~ & F25 & D24
+L38 = F240 & F25 & D30
+L39 = L38 | L37 | L36 | L35
+F245~ = ~ F245
+L40 = F245~ & F28~ & D12
+L41 = F245 & F28~ & D18
+L42 = F245~ & F28 & D24
+L43 = F245 & F28 & D30
+L44 = L43 | L42 | L41 | L40
+F250~ = ~ F250
+L45 = F250~ & F31~ & D12
+L46 = F250 & F31~ & D18
+L47 = F250~ & F31 & D24
+L48 = F250 & F31 & D30
+L49 = L48 | L47 | L46 | L45
+F255~ = ~ F255
+L50 = F255~ & F34~ & D12
+L51 = F255 & F34~ & D18
+L52 = F255~ & F34 & D24
+L53 = F255 & F34 & D30
+L54 = L53 | L52 | L51 | L50
+F260~ = ~ F260
+L55 = F260~ & F37~ & D12
+L56 = F260 & F37~ & D18
+L57 = F260~ & F37 & D24
+L58 = F260 & F37 & D30
+L59 = L58 | L57 | L56 | L55
+F265~ = ~ F265
+L60 = F265~ & F40~ & D12
+L61 = F265 & F40~ & D18
+L62 = F265~ & F40 & D24
+L63 = F265 & F40 & D30
+L64 = L63 | L62 | L61 | L60
+F270~ = ~ F270
+L65 = F270~ & F43~ & D12
+L66 = F270 & F43~ & D18
+L67 = F270~ & F43 & D24
+L68 = F270 & F43 & D30
+L69 = L68 | L67 | L66 | L65
+F275~ = ~ F275
+L70 = F275~ & F46~ & D12
+L71 = F275 & F46~ & D18
+L72 = F275~ & F46 & D24
+L73 = F275 & F46 & D30
+L74 = L73 | L72 | L71 | L70
+F280~ = ~ F280
+L75 = F280~ & F49~ & D12
+L76 = F280 & F49~ & D18
+L77 = F280~ & F49 & D24
+L78 = F280 & F49 & D30
+L79 = L78 | L77 | L76 | L75
+S~ = ~ S
+N~ = ~ N
+C0 = N~ & S~ & D12
+C1 = N & S~ & D18
+C2 = N~ & S & D24
+C3 = N & S & D30
+C4 = C3 | C2 | C1 | C0
+K~ = ~ K
+V~ = ~ V
+C5 = V~ & K~ & D12
+C6 = V & K~ & D18
+C7 = V~ & K & D24
+C8 = V & K & D30
+C9 = C8 | C7 | C6 | C5
+D9~ = ~ D9
+D6~ = ~ D6
+C10 = D6~ & C4
+C11 = D6 & C9
+C12 = C11 | C10 | D9~
+D18~ = ~ D18
+D24~ = ~ D24
+A0 = D24~ & D18~ & D12 & F280
+A1 = D24~ & D18 & D12 & F265
+A2 = D24 & D18~ & F210
+A3 = D24 & D18 & F225
+A4 = A3 | A2 | A1 | A0
+A5 = D24~ & D18~ & F205
+A6 = D24~ & D18 & D12 & F270
+A7 = D24 & D18~ & F215
+A8 = D24 & D18 & F230
+A9 = A8 | A7 | A6 | A5
+A10 = D24~ & D18~ & F210
+A11 = D24~ & D18 & D12 & F275
+A12 = D24 & D18~ & F220
+A13 = D24 & D18 & F235
+A14 = A13 | A12 | A11 | A10
+A15 = D24~ & D18~ & F215
+A16 = D24~ & D18 & D12 & F280
+A17 = D24 & D18~ & F225
+A18 = D24 & D18 & F240
+A19 = A18 | A17 | A16 | A15
+A20 = D24~ & D18~ & F220
+A21 = D24~ & D18 & F205
+A22 = D24 & D18~ & F230
+A23 = D24 & D18 & F245
+A24 = A23 | A22 | A21 | A20
+A25 = D24~ & D18~ & F225
+A26 = D24~ & D18 & F210
+A27 = D24 & D18~ & F235
+A28 = D24 & D18 & F250
+A29 = A28 | A27 | A26 | A25
+A30 = D24~ & D18~ & F230
+A31 = D24~ & D18 & F215
+A32 = D24 & D18~ & F240
+A33 = D24 & D18 & F255
+A34 = A33 | A32 | A31 | A30
+A35 = D24~ & D18~ & F235
+A36 = D24~ & D18 & F220
+A37 = D24 & D18~ & F245
+A38 = D24 & D18 & F260
+A39 = A38 | A37 | A36 | A35
+A40 = D24~ & D18~ & F240
+A41 = D24~ & D18 & F225
+A42 = D24 & D18~ & F250
+A43 = D24 & D18 & F265
+A44 = A43 | A42 | A41 | A40
+A45 = D24~ & D18~ & F245
+A46 = D24~ & D18 & F230
+A47 = D24 & D18~ & F255
+A48 = D24 & D18 & F270
+A49 = A48 | A47 | A46 | A45
+A50 = D24~ & D18~ & F250
+A51 = D24~ & D18 & F235
+A52 = D24 & D18~ & F260
+A53 = D24 & D18 & F275
+A54 = A53 | A52 | A51 | A50
+A55 = D24~ & D18~ & F255
+A56 = D24~ & D18 & F240
+A57 = D24 & D18~ & F265
+A58 = D24 & D18 & F280
+A59 = A58 | A57 | A56 | A55
+A60 = D24~ & D18~ & F260
+A61 = D24~ & D18 & F245
+A62 = D24 & D18~ & F270
+D12~ = ~ D12
+A63 = D24 & D18 & D12~ & F280
+A64 = A63 | A62 | A61 | A60
+A65 = D24~ & D18~ & F265
+A66 = D24~ & D18 & F250
+A67 = D24 & D18~ & F275
+A68 = D24 & D18 & D12~ & F280
+A69 = A68 | A67 | A66 | A65
+A70 = D24~ & D18~ & F270
+A71 = D24~ & D18 & F255
+A72 = D24 & D18~ & F280
+A73 = D24 & D18 & D12~ & F280
+A74 = A73 | A72 | A71 | A70
+A75 = D24~ & D18~ & F275
+A76 = D24~ & D18 & F260
+A77 = D24 & D18~ & D12~ & F280
+A78 = D24 & D18 & D12~ & F280
+A79 = A78 | A77 | A76 | A75
+A80 = F280 & D24~
+A81 = F265 | F270 | F275
+A82 = A81 & D18 & D24~
+A83 = F205 & D18~ & D24
+A84 = F220 & D18 & D24
+A85 = A84 | A83 | A82 | A80
+A86 = F275~ & F280
+A87 = F275 & F280~
+A88 = A87 | A86
+A89 = A88 & D18~ & D24~
+A90 = F260 | F265 | F270 | F275 | F280
+A91 = F260~ | F265~ | F270~ | F275~ | F280~
+A92 = A91 & A90 & D18 & D24~
+A93 = F215 | F210 | F205
+A94 = A93 & D18 & D24
+A95 = A94 | A92 | A89
+A96 = D12 & K
+A96~ = ~ A96
+A97 = A96~ & F205~ & F4
+A98 = A96~ & F205 & F4~
+A99 = A96 & F205~ & F4~
+A100 = A96 & F205 & F4
+A101 = A100 | A99 | A98 | A97
+A102 = F205 & F4
+A103 = A96 & F4
+A104 = A96 & F205
+A105 = A104 | A103 | A102
+A105~ = ~ A105
+A106 = A105~ & F210~ & F7
+A107 = A105~ & F210 & F7~
+A108 = A105 & F210~ & F7~
+A109 = A105 & F210 & F7
+A110 = A109 | A108 | A107 | A106
+A111 = F210 & F7
+A112 = A105 & F7
+A113 = A105 & F210
+A114 = A113 | A112 | A111
+A114~ = ~ A114
+A115 = A114~ & F215~ & F10
+A116 = A114~ & F215 & F10~
+A117 = A114 & F215~ & F10~
+A118 = A114 & F215 & F10
+A119 = A118 | A117 | A116 | A115
+A120 = F215 & F10
+A121 = A114 & F10
+A122 = A114 & F215
+A123 = A122 | A121 | A120
+A123~ = ~ A123
+A124 = A123~ & F220~ & F13
+A125 = A123~ & F220 & F13~
+A126 = A123 & F220~ & F13~
+A127 = A123 & F220 & F13
+A128 = A127 | A126 | A125 | A124
+A129 = F220 & F13
+A130 = A123 & F13
+A131 = A123 & F220
+A132 = A131 | A130 | A129
+A132~ = ~ A132
+A133 = A132~ & F225~ & F16
+A134 = A132~ & F225 & F16~
+A135 = A132 & F225~ & F16~
+A136 = A132 & F225 & F16
+A137 = A136 | A135 | A134 | A133
+A138 = F225 & F16
+A139 = A132 & F16
+A140 = A132 & F225
+A141 = A140 | A139 | A138
+A141~ = ~ A141
+A142 = A141~ & F230~ & F19
+A143 = A141~ & F230 & F19~
+A144 = A141 & F230~ & F19~
+A145 = A141 & F230 & F19
+A146 = A145 | A144 | A143 | A142
+A147 = F230 & F19
+A148 = A141 & F19
+A149 = A141 & F230
+A150 = A149 | A148 | A147
+A150~ = ~ A150
+A151 = A150~ & F235~ & F22
+A152 = A150~ & F235 & F22~
+A153 = A150 & F235~ & F22~
+A154 = A150 & F235 & F22
+A155 = A154 | A153 | A152 | A151
+A156 = F235 & F22
+A157 = A150 & F22
+A158 = A150 & F235
+A159 = A158 | A157 | A156
+A159~ = ~ A159
+A160 = A159~ & F240~ & F25
+A161 = A159~ & F240 & F25~
+A162 = A159 & F240~ & F25~
+A163 = A159 & F240 & F25
+A164 = A163 | A162 | A161 | A160
+A165 = F240 & F25
+A166 = A159 & F25
+A167 = A159 & F240
+A168 = A167 | A166 | A165
+A168~ = ~ A168
+A169 = A168~ & F245~ & F28
+A170 = A168~ & F245 & F28~
+A171 = A168 & F245~ & F28~
+A172 = A168 & F245 & F28
+A173 = A172 | A171 | A170 | A169
+A174 = F245 & F28
+A175 = A168 & F28
+A176 = A168 & F245
+A177 = A176 | A175 | A174
+A177~ = ~ A177
+A178 = A177~ & F250~ & F31
+A179 = A177~ & F250 & F31~
+A180 = A177 & F250~ & F31~
+A181 = A177 & F250 & F31
+A182 = A181 | A180 | A179 | A178
+A183 = F250 & F31
+A184 = A177 & F31
+A185 = A177 & F250
+A186 = A185 | A184 | A183
+A186~ = ~ A186
+A187 = A186~ & F255~ & F34
+A188 = A186~ & F255 & F34~
+A189 = A186 & F255~ & F34~
+A190 = A186 & F255 & F34
+A191 = A190 | A189 | A188 | A187
+A192 = F255 & F34
+A193 = A186 & F34
+A194 = A186 & F255
+A195 = A194 | A193 | A192
+A195~ = ~ A195
+A196 = A195~ & F260~ & F37
+A197 = A195~ & F260 & F37~
+A198 = A195 & F260~ & F37~
+A199 = A195 & F260 & F37
+A200 = A199 | A198 | A197 | A196
+A201 = F260 & F37
+A202 = A195 & F37
+A203 = A195 & F260
+A204 = A203 | A202 | A201
+A204~ = ~ A204
+A205 = A204~ & F265~ & F40
+A206 = A204~ & F265 & F40~
+A207 = A204 & F265~ & F40~
+A208 = A204 & F265 & F40
+A209 = A208 | A207 | A206 | A205
+A210 = F265 & F40
+A211 = A204 & F40
+A212 = A204 & F265
+A213 = A212 | A211 | A210
+A213~ = ~ A213
+A214 = A213~ & F270~ & F43
+A215 = A213~ & F270 & F43~
+A216 = A213 & F270~ & F43~
+A217 = A213 & F270 & F43
+A218 = A217 | A216 | A215 | A214
+A219 = F270 & F43
+A220 = A213 & F43
+A221 = A213 & F270
+A222 = A221 | A220 | A219
+A222~ = ~ A222
+A223 = A222~ & F275~ & F46
+A224 = A222~ & F275 & F46~
+A225 = A222 & F275~ & F46~
+A226 = A222 & F275 & F46
+A227 = A226 | A225 | A224 | A223
+A228 = F275 & F46
+A229 = A222 & F46
+A230 = A222 & F275
+A231 = A230 | A229 | A228
+A231~ = ~ A231
+A232 = A231~ & F280~ & F49
+A233 = A231~ & F280 & F49~
+A234 = A231 & F280~ & F49~
+A235 = A231 & F280 & F49
+A236 = A235 | A234 | A233 | A232
+A237 = F280 & F49
+A238 = A231 & F49
+A239 = A231 & F280
+A240 = A239 | A238 | A237
+A241 = D12 & K
+A241~ = ~ A241
+A242 = A241~ & F205~ & F4
+A243 = A241~ & F205 & F4~
+A244 = A241 & F205~ & F4~
+A245 = A241 & F205 & F4
+A246 = A245 | A244 | A243 | A242
+A247 = F205 & F4~
+A248 = A241 & F4~
+A249 = A241 & F205
+A250 = A249 | A248 | A247
+A250~ = ~ A250
+A251 = A250~ & F210~ & F7
+A252 = A250~ & F210 & F7~
+A253 = A250 & F210~ & F7~
+A254 = A250 & F210 & F7
+A255 = A254 | A253 | A252 | A251
+A256 = F210 & F7~
+A257 = A250 & F7~
+A258 = A250 & F210
+A259 = A258 | A257 | A256
+A259~ = ~ A259
+A260 = A259~ & F215~ & F10
+A261 = A259~ & F215 & F10~
+A262 = A259 & F215~ & F10~
+A263 = A259 & F215 & F10
+A264 = A263 | A262 | A261 | A260
+A265 = F215 & F10~
+A266 = A259 & F10~
+A267 = A259 & F215
+A268 = A267 | A266 | A265
+A268~ = ~ A268
+A269 = A268~ & F220~ & F13
+A270 = A268~ & F220 & F13~
+A271 = A268 & F220~ & F13~
+A272 = A268 & F220 & F13
+A273 = A272 | A271 | A270 | A269
+A274 = F220 & F13~
+A275 = A268 & F13~
+A276 = A268 & F220
+A277 = A276 | A275 | A274
+A277~ = ~ A277
+A278 = A277~ & F225~ & F16
+A279 = A277~ & F225 & F16~
+A280 = A277 & F225~ & F16~
+A281 = A277 & F225 & F16
+A282 = A281 | A280 | A279 | A278
+A283 = F225 & F16~
+A284 = A277 & F16~
+A285 = A277 & F225
+A286 = A285 | A284 | A283
+A286~ = ~ A286
+A287 = A286~ & F230~ & F19
+A288 = A286~ & F230 & F19~
+A289 = A286 & F230~ & F19~
+A290 = A286 & F230 & F19
+A291 = A290 | A289 | A288 | A287
+A292 = F230 & F19~
+A293 = A286 & F19~
+A294 = A286 & F230
+A295 = A294 | A293 | A292
+A295~ = ~ A295
+A296 = A295~ & F235~ & F22
+A297 = A295~ & F235 & F22~
+A298 = A295 & F235~ & F22~
+A299 = A295 & F235 & F22
+A300 = A299 | A298 | A297 | A296
+A301 = F235 & F22~
+A302 = A295 & F22~
+A303 = A295 & F235
+A304 = A303 | A302 | A301
+A304~ = ~ A304
+A305 = A304~ & F240~ & F25
+A306 = A304~ & F240 & F25~
+A307 = A304 & F240~ & F25~
+A308 = A304 & F240 & F25
+A309 = A308 | A307 | A306 | A305
+A310 = F240 & F25~
+A311 = A304 & F25~
+A312 = A304 & F240
+A313 = A312 | A311 | A310
+A313~ = ~ A313
+A314 = A313~ & F245~ & F28
+A315 = A313~ & F245 & F28~
+A316 = A313 & F245~ & F28~
+A317 = A313 & F245 & F28
+A318 = A317 | A316 | A315 | A314
+A319 = F245 & F28~
+A320 = A313 & F28~
+A321 = A313 & F245
+A322 = A321 | A320 | A319
+A322~ = ~ A322
+A323 = A322~ & F250~ & F31
+A324 = A322~ & F250 & F31~
+A325 = A322 & F250~ & F31~
+A326 = A322 & F250 & F31
+A327 = A326 | A325 | A324 | A323
+A328 = F250 & F31~
+A329 = A322 & F31~
+A330 = A322 & F250
+A331 = A330 | A329 | A328
+A331~ = ~ A331
+A332 = A331~ & F255~ & F34
+A333 = A331~ & F255 & F34~
+A334 = A331 & F255~ & F34~
+A335 = A331 & F255 & F34
+A336 = A335 | A334 | A333 | A332
+A337 = F255 & F34~
+A338 = A331 & F34~
+A339 = A331 & F255
+A340 = A339 | A338 | A337
+A340~ = ~ A340
+A341 = A340~ & F260~ & F37
+A342 = A340~ & F260 & F37~
+A343 = A340 & F260~ & F37~
+A344 = A340 & F260 & F37
+A345 = A344 | A343 | A342 | A341
+A346 = F260 & F37~
+A347 = A340 & F37~
+A348 = A340 & F260
+A349 = A348 | A347 | A346
+A349~ = ~ A349
+A350 = A349~ & F265~ & F40
+A351 = A349~ & F265 & F40~
+A352 = A349 & F265~ & F40~
+A353 = A349 & F265 & F40
+A354 = A353 | A352 | A351 | A350
+A355 = F265 & F40~
+A356 = A349 & F40~
+A357 = A349 & F265
+A358 = A357 | A356 | A355
+A358~ = ~ A358
+A359 = A358~ & F270~ & F43
+A360 = A358~ & F270 & F43~
+A361 = A358 & F270~ & F43~
+A362 = A358 & F270 & F43
+A363 = A362 | A361 | A360 | A359
+A364 = F270 & F43~
+A365 = A358 & F43~
+A366 = A358 & F270
+A367 = A366 | A365 | A364
+A367~ = ~ A367
+A368 = A367~ & F275~ & F46
+A369 = A367~ & F275 & F46~
+A370 = A367 & F275~ & F46~
+A371 = A367 & F275 & F46
+A372 = A371 | A370 | A369 | A368
+A373 = F275 & F46~
+A374 = A367 & F46~
+A375 = A367 & F275
+A376 = A375 | A374 | A373
+A376~ = ~ A376
+A377 = A376~ & F280~ & F49
+A378 = A376~ & F280 & F49~
+A379 = A376 & F280~ & F49~
+A380 = A376 & F280 & F49
+A381 = A380 | A379 | A378 | A377
+A382 = F280 & F49~
+A383 = A376 & F49~
+A384 = A376 & F280
+A385 = A384 | A383 | A382
+A236~ = ~ A236
+A386 = A236~ & F280 & F49
+A387 = A236 & F280~ & F49~
+A388 = A387 | A386
+A381~ = ~ A381
+A389 = A381~ & F280~ & F49
+A390 = A381 & F280 & F49~
+A391 = A390 | A389
+R0:0~ = ~ R0:0
+Z0 = R0:0~ & R0:1
+R0:1~ = ~ R0:1
+Z1 = R0:0 & R0:1~
+Z2 = Z1 | Z0
+Z3 = R0:1 & R0:0
+Z3~ = ~ Z3
+Z4 = Z3~ & R0:2
+R0:2~ = ~ R0:2
+Z5 = Z3 & R0:2~
+Z6 = Z5 | Z4
+Z7 = R0:1~ & R0:2
+Z8 = R0:1 & R0:2~
+Z9 = Z8 | Z7
+Z10 = R0:2 & R0:1
+Z11 = Z10 & R0:0
+Z11~ = ~ Z11
+Z12 = Z11~ & R0:3
+R0:3~ = ~ R0:3
+Z13 = Z11 & R0:3~
+Z14 = Z13 | Z12
+Z10~ = ~ Z10
+Z15 = Z10~ & R0:3
+Z16 = Z10 & R0:3~
+Z17 = Z16 | Z15
+Z18 = R0:3 & Z10
+Z19 = Z18 & R0:0
+Z19~ = ~ Z19
+Z20 = Z19~ & R0:4
+R0:4~ = ~ R0:4
+Z21 = Z19 & R0:4~
+Z22 = Z21 | Z20
+Z18~ = ~ Z18
+Z23 = Z18~ & R0:4
+Z24 = Z18 & R0:4~
+Z25 = Z24 | Z23
+Z26 = R0:4 & Z18
+Z27 = Z26 & R0:0
+Z27~ = ~ Z27
+Z28 = Z27~ & R0:5
+R0:5~ = ~ R0:5
+Z29 = Z27 & R0:5~
+Z30 = Z29 | Z28
+Z26~ = ~ Z26
+Z31 = Z26~ & R0:5
+Z32 = Z26 & R0:5~
+Z33 = Z32 | Z31
+Z34 = R0:5 & Z26
+Z35 = Z34 & R0:0
+Z35~ = ~ Z35
+Z36 = Z35~ & R0:6
+R0:6~ = ~ R0:6
+Z37 = Z35 & R0:6~
+Z38 = Z37 | Z36
+Z34~ = ~ Z34
+Z39 = Z34~ & R0:6
+Z40 = Z34 & R0:6~
+Z41 = Z40 | Z39
+Z42 = R0:6 & Z34
+Z43 = Z42 & R0:0
+Z43~ = ~ Z43
+Z44 = Z43~ & R0:7
+R0:7~ = ~ R0:7
+Z45 = Z43 & R0:7~
+Z46 = Z45 | Z44
+Z42~ = ~ Z42
+Z47 = Z42~ & R0:7
+Z48 = Z42 & R0:7~
+Z49 = Z48 | Z47
+Z50 = R0:7 & Z42
+Z51 = Z50 & R0:0
+Z51~ = ~ Z51
+Z52 = Z51~ & R0:8
+R0:8~ = ~ R0:8
+Z53 = Z51 & R0:8~
+Z54 = Z53 | Z52
+Z50~ = ~ Z50
+Z55 = Z50~ & R0:8
+Z56 = Z50 & R0:8~
+Z57 = Z56 | Z55
+Z58 = R0:8 & Z50
+Z59 = Z58 & R0:0
+Z59~ = ~ Z59
+Z60 = Z59~ & R0:9
+R0:9~ = ~ R0:9
+Z61 = Z59 & R0:9~
+Z62 = Z61 | Z60
+Z58~ = ~ Z58
+Z63 = Z58~ & R0:9
+Z64 = Z58 & R0:9~
+Z65 = Z64 | Z63
+Z66 = R0:9 & Z58
+Z67 = Z66 & R0:0
+Z67~ = ~ Z67
+Z68 = Z67~ & R0:10
+R0:10~ = ~ R0:10
+Z69 = Z67 & R0:10~
+Z70 = Z69 | Z68
+Z66~ = ~ Z66
+Z71 = Z66~ & R0:10
+Z72 = Z66 & R0:10~
+Z73 = Z72 | Z71
+Z74 = R0:10 & Z66
+Z75 = Z74 & R0:0
+Z75~ = ~ Z75
+Z76 = Z75~ & R0:11
+R0:11~ = ~ R0:11
+Z77 = Z75 & R0:11~
+Z78 = Z77 | Z76
+Z74~ = ~ Z74
+Z79 = Z74~ & R0:11
+Z80 = Z74 & R0:11~
+Z81 = Z80 | Z79
+Z82 = R0:11 & Z74
+Z83 = Z82 & R0:0
+Z83~ = ~ Z83
+Z84 = Z83~ & R0:12
+R0:12~ = ~ R0:12
+Z85 = Z83 & R0:12~
+Z86 = Z85 | Z84
+Z82~ = ~ Z82
+Z87 = Z82~ & R0:12
+Z88 = Z82 & R0:12~
+Z89 = Z88 | Z87
+Z90 = R0:12 & Z82
+Z91 = Z90 & R0:0
+Z91~ = ~ Z91
+Z92 = Z91~ & R0:13
+R0:13~ = ~ R0:13
+Z93 = Z91 & R0:13~
+Z94 = Z93 | Z92
+Z90~ = ~ Z90
+Z95 = Z90~ & R0:13
+Z96 = Z90 & R0:13~
+Z97 = Z96 | Z95
+Z98 = R0:13 & Z90
+Z99 = Z98 & R0:0
+Z99~ = ~ Z99
+Z100 = Z99~ & R0:14
+R0:14~ = ~ R0:14
+Z101 = Z99 & R0:14~
+Z102 = Z101 | Z100
+Z98~ = ~ Z98
+Z103 = Z98~ & R0:14
+Z104 = Z98 & R0:14~
+Z105 = Z104 | Z103
+Z106 = R0:14 & Z98
+Z107 = Z106 & R0:0
+Z107~ = ~ Z107
+Z108 = Z107~ & R0:15
+R0:15~ = ~ R0:15
+Z109 = Z107 & R0:15~
+Z110 = Z109 | Z108
+Z106~ = ~ Z106
+Z111 = Z106~ & R0:15
+Z112 = Z106 & R0:15~
+Z113 = Z112 | Z111
+Z114 = R0:15 & Z106
+Z115 = D30 & D24 & D18 & D12 & D6
+Z116 = L4 & D6~
+Z117 = R0:0~ & Z115
+D30~ = ~ D30
+Z118 = A4 & D30~ & D6
+Z119 = A101 & D18~ & D24~ & D30 & D6
+Z120 = A246 & D18 & D24~ & D30 & D6
+Z121 = Z120 | Z119 | Z118 | Z117 | Z116
+Z122 = F205 & C12 & D9
+Z123 = Z121 & D9~
+Z124 = Z123 | Z122
+Z125 = L9 & D6~
+Z126 = Z2 & Z115
+Z127 = A9 & D30~ & D6
+Z128 = A110 & D18~ & D24~ & D30 & D6
+Z129 = A255 & D18 & D24~ & D30 & D6
+Z130 = Z129 | Z128 | Z127 | Z126 | Z125
+Z131 = F210 & C12 & D9
+Z132 = Z130 & D9~
+Z133 = Z132 | Z131
+Z134 = L14 & D6~
+Z135 = Z6 & Z115
+Z136 = A14 & D30~ & D6
+Z137 = A119 & D18~ & D24~ & D30 & D6
+Z138 = A264 & D18 & D24~ & D30 & D6
+Z139 = Z138 | Z137 | Z136 | Z135 | Z134
+Z140 = F215 & C12 & D9
+Z141 = Z139 & D9~
+Z142 = Z141 | Z140
+Z143 = L19 & D6~
+Z144 = Z14 & Z115
+Z145 = A19 & D30~ & D6
+Z146 = A128 & D18~ & D24~ & D30 & D6
+Z147 = A273 & D18 & D24~ & D30 & D6
+Z148 = Z147 | Z146 | Z145 | Z144 | Z143
+Z149 = F220 & C12 & D9
+Z150 = Z148 & D9~
+Z151 = Z150 | Z149
+Z152 = L24 & D6~
+Z153 = Z22 & Z115
+Z154 = A24 & D30~ & D6
+Z155 = A137 & D18~ & D24~ & D30 & D6
+Z156 = A282 & D18 & D24~ & D30 & D6
+Z157 = Z156 | Z155 | Z154 | Z153 | Z152
+Z158 = F225 & C12 & D9
+Z159 = Z157 & D9~
+Z160 = Z159 | Z158
+Z161 = L29 & D6~
+Z162 = Z30 & Z115
+Z163 = A29 & D30~ & D6
+Z164 = A146 & D18~ & D24~ & D30 & D6
+Z165 = A291 & D18 & D24~ & D30 & D6
+Z166 = Z165 | Z164 | Z163 | Z162 | Z161
+Z167 = F230 & C12 & D9
+Z168 = Z166 & D9~
+Z169 = Z168 | Z167
+Z170 = L34 & D6~
+Z171 = Z38 & Z115
+Z172 = A34 & D30~ & D6
+Z173 = A155 & D18~ & D24~ & D30 & D6
+Z174 = A300 & D18 & D24~ & D30 & D6
+Z175 = Z174 | Z173 | Z172 | Z171 | Z170
+Z176 = F235 & C12 & D9
+Z177 = Z175 & D9~
+Z178 = Z177 | Z176
+Z179 = L39 & D6~
+Z180 = Z46 & Z115
+Z181 = A39 & D30~ & D6
+Z182 = A164 & D18~ & D24~ & D30 & D6
+Z183 = A309 & D18 & D24~ & D30 & D6
+Z184 = Z183 | Z182 | Z181 | Z180 | Z179
+Z185 = F240 & C12 & D9
+Z186 = Z184 & D9~
+Z187 = Z186 | Z185
+Z188 = L44 & D6~
+Z189 = Z54 & Z115
+Z190 = A44 & D30~ & D6
+Z191 = A173 & D18~ & D24~ & D30 & D6
+Z192 = A318 & D18 & D24~ & D30 & D6
+Z193 = Z192 | Z191 | Z190 | Z189 | Z188
+Z194 = F245 & C12 & D9
+Z195 = Z193 & D9~
+Z196 = Z195 | Z194
+Z197 = L49 & D6~
+Z198 = Z62 & Z115
+Z199 = A49 & D30~ & D6
+Z200 = A182 & D18~ & D24~ & D30 & D6
+Z201 = A327 & D18 & D24~ & D30 & D6
+Z202 = Z201 | Z200 | Z199 | Z198 | Z197
+Z203 = F250 & C12 & D9
+Z204 = Z202 & D9~
+Z205 = Z204 | Z203
+Z206 = L54 & D6~
+Z207 = Z70 & Z115
+Z208 = A54 & D30~ & D6
+Z209 = A191 & D18~ & D24~ & D30 & D6
+Z210 = A336 & D18 & D24~ & D30 & D6
+Z211 = Z210 | Z209 | Z208 | Z207 | Z206
+Z212 = F255 & C12 & D9
+Z213 = Z211 & D9~
+Z214 = Z213 | Z212
+Z215 = L59 & D6~
+Z216 = Z78 & Z115
+Z217 = A59 & D30~ & D6
+Z218 = A200 & D18~ & D24~ & D30 & D6
+Z219 = A345 & D18 & D24~ & D30 & D6
+Z220 = Z219 | Z218 | Z217 | Z216 | Z215
+Z221 = F260 & C12 & D9
+Z222 = Z220 & D9~
+Z223 = Z222 | Z221
+Z224 = L64 & D6~
+Z225 = Z86 & Z115
+Z226 = A64 & D30~ & D6
+Z227 = A209 & D18~ & D24~ & D30 & D6
+Z228 = A354 & D18 & D24~ & D30 & D6
+Z229 = Z228 | Z227 | Z226 | Z225 | Z224
+Z230 = F265 & C12 & D9
+Z231 = Z229 & D9~
+Z232 = Z231 | Z230
+Z233 = L69 & D6~
+Z234 = Z94 & Z115
+Z235 = A69 & D30~ & D6
+Z236 = A218 & D18~ & D24~ & D30 & D6
+Z237 = A363 & D18 & D24~ & D30 & D6
+Z238 = Z237 | Z236 | Z235 | Z234 | Z233
+Z239 = F270 & C12 & D9
+Z240 = Z238 & D9~
+Z241 = Z240 | Z239
+Z242 = L74 & D6~
+Z243 = Z102 & Z115
+Z244 = A74 & D30~ & D6
+Z245 = A227 & D18~ & D24~ & D30 & D6
+Z246 = A372 & D18 & D24~ & D30 & D6
+Z247 = Z246 | Z245 | Z244 | Z243 | Z242
+Z248 = F275 & C12 & D9
+Z249 = Z247 & D9~
+Z250 = Z249 | Z248
+Z251 = L79 & D6~
+Z252 = Z110 & Z115
+Z253 = A79 & D30~ & D6
+Z254 = A236 & D18~ & D24~ & D30 & D6
+Z255 = A381 & D18 & D24~ & D30 & D6
+Z256 = Z255 | Z254 | Z253 | Z252 | Z251
+Z257 = F280 & C12 & D9
+Z258 = Z256 & D9~
+Z259 = Z258 | Z257
+Z260 = A85 & D30~ & D6
+Z261 = A240 & D18~ & D24~ & D30 & D6
+Z262 = A385 & D18 & D24~ & D30 & D6
+Z263 = Z262 | Z261 | Z260
+Z264 = A95 & D30~ & D6
+Z265 = A388 & D18~ & D24~ & D30 & D6
+Z266 = A391 & D18 & D24~ & D30 & D6
+Z267 = Z266 | Z265 | Z264
+D3~ = ~ D3
+Z268 = D3~ & C12
+Z269 = F1 & Z268
+Z270 = Z124 & Z269
+Z269~ = ~ Z269
+Z271 = R1:0 & Z269~
+Z272 = Z271 | Z270
+Z273 = RUN & Z272
+Z274 = Z133 & Z269
+Z275 = R1:1 & Z269~
+Z276 = Z275 | Z274
+Z277 = RUN & Z276
+Z278 = Z142 & Z269
+Z279 = R1:2 & Z269~
+Z280 = Z279 | Z278
+Z281 = RUN & Z280
+Z282 = Z151 & Z269
+Z283 = R1:3 & Z269~
+Z284 = Z283 | Z282
+Z285 = RUN & Z284
+Z286 = Z160 & Z269
+Z287 = R1:4 & Z269~
+Z288 = Z287 | Z286
+Z289 = RUN & Z288
+Z290 = Z169 & Z269
+Z291 = R1:5 & Z269~
+Z292 = Z291 | Z290
+Z293 = RUN & Z292
+Z294 = Z178 & Z269
+Z295 = R1:6 & Z269~
+Z296 = Z295 | Z294
+Z297 = RUN & Z296
+Z298 = Z187 & Z269
+Z299 = R1:7 & Z269~
+Z300 = Z299 | Z298
+Z301 = RUN & Z300
+Z302 = Z196 & Z269
+Z303 = R1:8 & Z269~
+Z304 = Z303 | Z302
+Z305 = RUN & Z304
+Z306 = Z205 & Z269
+Z307 = R1:9 & Z269~
+Z308 = Z307 | Z306
+Z309 = RUN & Z308
+Z310 = Z214 & Z269
+Z311 = R1:10 & Z269~
+Z312 = Z311 | Z310
+Z313 = RUN & Z312
+Z314 = Z223 & Z269
+Z315 = R1:11 & Z269~
+Z316 = Z315 | Z314
+Z317 = RUN & Z316
+Z318 = Z232 & Z269
+Z319 = R1:12 & Z269~
+Z320 = Z319 | Z318
+Z321 = RUN & Z320
+Z322 = Z241 & Z269
+Z323 = R1:13 & Z269~
+Z324 = Z323 | Z322
+Z325 = RUN & Z324
+Z326 = Z250 & Z269
+Z327 = R1:14 & Z269~
+Z328 = Z327 | Z326
+Z329 = RUN & Z328
+Z330 = Z259 & Z269
+Z331 = R1:15 & Z269~
+Z332 = Z331 | Z330
+Z333 = RUN & Z332
+Z334 = D9 & S
+Z335 = Z115 & S
+Z336 = D3 & S
+Z115~ = ~ Z115
+Z337 = D3~ & Z115~ & D9~ & Z259
+Z338 = Z337 | Z336 | Z335 | Z334
+Z339 = RUN & Z338
+Z340 = Z151 | Z142 | Z133 | Z124
+Z341 = Z187 | Z178 | Z169 | Z160
+Z342 = Z223 | Z214 | Z205 | Z196
+Z343 = S | N
+Z344 = D30 & D24~ & D12 & D6 & Z343
+Z345 = Z344 | Z250 | Z241 | Z232
+Z346 = Z345 | Z342 | Z341 | Z340
+Z347 = D9 & N
+Z348 = Z115 & N
+Z349 = D3 & N
+Z350 = D3~ & Z115~ & D9~ & Z346
+Z351 = Z350 | Z349 | Z348 | Z347
+Z352 = RUN & Z351
+Z353 = D9 & V
+Z354 = Z115 & V
+Z355 = D6~ & V
+Z356 = D3 & V
+Z357 = D6 & D3~ & Z115~ & D9~ & Z267
+Z358 = Z357 | Z356 | Z355 | Z354 | Z353
+Z359 = RUN & Z358
+Z360 = D9 & K
+Z361 = Z115 & K
+Z362 = D6~ & K
+Z363 = D3 & K
+Z364 = D6 & D3~ & Z115~ & D9~ & Z263
+Z365 = Z364 | Z363 | Z362 | Z361 | Z360
+Z366 = RUN & Z365
+Z367 = RUN & M6
+Z368 = RUN & M7
+Z369 = RUN & M8
+Z370 = RUN & M9
+Z371 = RUN & M10
+Z372 = RUN & M11
+Z373 = RUN & M12
+Z374 = RUN & M13
+Z375 = RUN & M14
+Z376 = RUN & M15
+Z377 = D9~ & D3
+Z378 = C12 & D3
+Z379 = Z378 | Z377
+Z380 = RUN & Z379
+Z381 = M3 | M2 | M1 | M0
+Z382 = D33 | D27 | D21 | D15
+C12~ = ~ C12
+Z383 = C12~ & D9
+Z384 = Z115 & D9~
+Z385 = D3~ & Z383
+Z386 = Z381 & Z383
+Z383~ = ~ Z383
+Z381~ = ~ Z381
+Z387 = Z381~ & D3 & Z383~
+Z384~ = ~ Z384
+Z388 = Z382 & Z384~ & Z383~
+Z389 = Z388 | Z387 | Z386 | Z385
+Z390 = Z381 & D3 & Z383~
+Z391 = R0:0~ & Z389
+Z392 = R0:0 & Z381~ & D3 & Z383
+Z393 = F205 & D3~ & Z384
+Z382~ = ~ Z382
+Z394 = Z124 & Z382~ & D3~ & Z384~ & Z383~
+Z395 = Z394 | Z393 | Z392 | Z391
+Z396 = R0:0 & Z390
+Z390~ = ~ Z390
+Z397 = Z395 & Z390~
+Z398 = Z397 | Z396
+Z399 = RUN & Z398
+Z400 = F52 & Z390
+Z401 = Z395 & Z390~
+Z402 = Z401 | Z400
+Z403 = RUN & Z402
+Z404 = Z2 & Z389
+Z405 = R0:1~ & Z381~ & D3 & Z383
+Z406 = F210 & D3~ & Z384
+Z407 = Z133 & Z382~ & D3~ & Z384~ & Z383~
+Z408 = Z407 | Z406 | Z405 | Z404
+Z409 = R0:1 & Z390
+Z410 = Z408 & Z390~
+Z411 = Z410 | Z409
+Z412 = RUN & Z411
+Z413 = F55 & Z390
+Z414 = Z408 & Z390~
+Z415 = Z414 | Z413
+Z416 = RUN & Z415
+Z417 = Z6 & Z389
+Z418 = Z9 & Z381~ & D3 & Z383
+Z419 = F215 & D3~ & Z384
+Z420 = Z142 & Z382~ & D3~ & Z384~ & Z383~
+Z421 = Z420 | Z419 | Z418 | Z417
+Z422 = R0:2 & Z390
+Z423 = Z421 & Z390~
+Z424 = Z423 | Z422
+Z425 = RUN & Z424
+Z426 = F58 & Z390
+Z427 = Z421 & Z390~
+Z428 = Z427 | Z426
+Z429 = RUN & Z428
+Z430 = Z14 & Z389
+Z431 = Z17 & Z381~ & D3 & Z383
+Z432 = F220 & D3~ & Z384
+Z433 = Z151 & Z382~ & D3~ & Z384~ & Z383~
+Z434 = Z433 | Z432 | Z431 | Z430
+Z435 = R0:3 & Z390
+Z436 = Z434 & Z390~
+Z437 = Z436 | Z435
+Z438 = RUN & Z437
+Z439 = F61 & Z390
+Z440 = Z434 & Z390~
+Z441 = Z440 | Z439
+Z442 = RUN & Z441
+Z443 = Z22 & Z389
+Z444 = Z25 & Z381~ & D3 & Z383
+Z445 = F225 & D3~ & Z384
+Z446 = Z160 & Z382~ & D3~ & Z384~ & Z383~
+Z447 = Z446 | Z445 | Z444 | Z443
+Z448 = R0:4 & Z390
+Z449 = Z447 & Z390~
+Z450 = Z449 | Z448
+Z451 = RUN & Z450
+Z452 = F64 & Z390
+Z453 = Z447 & Z390~
+Z454 = Z453 | Z452
+Z455 = RUN & Z454
+Z456 = Z30 & Z389
+Z457 = Z33 & Z381~ & D3 & Z383
+Z458 = F230 & D3~ & Z384
+Z459 = Z169 & Z382~ & D3~ & Z384~ & Z383~
+Z460 = Z459 | Z458 | Z457 | Z456
+Z461 = R0:5 & Z390
+Z462 = Z460 & Z390~
+Z463 = Z462 | Z461
+Z464 = RUN & Z463
+Z465 = F67 & Z390
+Z466 = Z460 & Z390~
+Z467 = Z466 | Z465
+Z468 = RUN & Z467
+Z469 = Z38 & Z389
+Z470 = Z41 & Z381~ & D3 & Z383
+Z471 = F235 & D3~ & Z384
+Z472 = Z178 & Z382~ & D3~ & Z384~ & Z383~
+Z473 = Z472 | Z471 | Z470 | Z469
+Z474 = R0:6 & Z390
+Z475 = Z473 & Z390~
+Z476 = Z475 | Z474
+Z477 = RUN & Z476
+Z478 = F70 & Z390
+Z479 = Z473 & Z390~
+Z480 = Z479 | Z478
+Z481 = RUN & Z480
+Z482 = Z46 & Z389
+Z483 = Z49 & Z381~ & D3 & Z383
+Z484 = F240 & D3~ & Z384
+Z485 = Z187 & Z382~ & D3~ & Z384~ & Z383~
+Z486 = Z485 | Z484 | Z483 | Z482
+Z487 = R0:7 & Z390
+Z488 = Z486 & Z390~
+Z489 = Z488 | Z487
+Z490 = RUN & Z489
+Z491 = F73 & Z390
+Z492 = Z486 & Z390~
+Z493 = Z492 | Z491
+Z494 = RUN & Z493
+Z495 = Z54 & Z389
+Z496 = Z57 & Z381~ & D3 & Z383
+Z497 = F245 & D3~ & Z384
+Z498 = Z196 & Z382~ & D3~ & Z384~ & Z383~
+Z499 = Z498 | Z497 | Z496 | Z495
+Z500 = R0:8 & Z390
+Z501 = Z499 & Z390~
+Z502 = Z501 | Z500
+Z503 = RUN & Z502
+Z504 = F76 & Z390
+Z505 = Z499 & Z390~
+Z506 = Z505 | Z504
+Z507 = RUN & Z506
+Z508 = Z62 & Z389
+Z509 = Z65 & Z381~ & D3 & Z383
+Z510 = F250 & D3~ & Z384
+Z511 = Z205 & Z382~ & D3~ & Z384~ & Z383~
+Z512 = Z511 | Z510 | Z509 | Z508
+Z513 = R0:9 & Z390
+Z514 = Z512 & Z390~
+Z515 = Z514 | Z513
+Z516 = RUN & Z515
+Z517 = F79 & Z390
+Z518 = Z512 & Z390~
+Z519 = Z518 | Z517
+Z520 = RUN & Z519
+Z521 = Z70 & Z389
+Z522 = Z73 & Z381~ & D3 & Z383
+Z523 = F255 & D3~ & Z384
+Z524 = Z214 & Z382~ & D3~ & Z384~ & Z383~
+Z525 = Z524 | Z523 | Z522 | Z521
+Z526 = R0:10 & Z390
+Z527 = Z525 & Z390~
+Z528 = Z527 | Z526
+Z529 = RUN & Z528
+Z530 = F82 & Z390
+Z531 = Z525 & Z390~
+Z532 = Z531 | Z530
+Z533 = RUN & Z532
+Z534 = Z78 & Z389
+Z535 = Z81 & Z381~ & D3 & Z383
+Z536 = F260 & D3~ & Z384
+Z537 = Z223 & Z382~ & D3~ & Z384~ & Z383~
+Z538 = Z537 | Z536 | Z535 | Z534
+Z539 = R0:11 & Z390
+Z540 = Z538 & Z390~
+Z541 = Z540 | Z539
+Z542 = RUN & Z541
+Z543 = F85 & Z390
+Z544 = Z538 & Z390~
+Z545 = Z544 | Z543
+Z546 = RUN & Z545
+Z547 = Z86 & Z389
+Z548 = Z89 & Z381~ & D3 & Z383
+Z549 = F265 & D3~ & Z384
+Z550 = Z232 & Z382~ & D3~ & Z384~ & Z383~
+Z551 = Z550 | Z549 | Z548 | Z547
+Z552 = R0:12 & Z390
+Z553 = Z551 & Z390~
+Z554 = Z553 | Z552
+Z555 = RUN & Z554
+Z556 = F88 & Z390
+Z557 = Z551 & Z390~
+Z558 = Z557 | Z556
+Z559 = RUN & Z558
+Z560 = Z94 & Z389
+Z561 = Z97 & Z381~ & D3 & Z383
+Z562 = F270 & D3~ & Z384
+Z563 = Z241 & Z382~ & D3~ & Z384~ & Z383~
+Z564 = Z563 | Z562 | Z561 | Z560
+Z565 = R0:13 & Z390
+Z566 = Z564 & Z390~
+Z567 = Z566 | Z565
+Z568 = RUN & Z567
+Z569 = F91 & Z390
+Z570 = Z564 & Z390~
+Z571 = Z570 | Z569
+Z572 = RUN & Z571
+Z573 = Z102 & Z389
+Z574 = Z105 & Z381~ & D3 & Z383
+Z575 = F275 & D3~ & Z384
+Z576 = Z250 & Z382~ & D3~ & Z384~ & Z383~
+Z577 = Z576 | Z575 | Z574 | Z573
+Z578 = R0:14 & Z390
+Z579 = Z577 & Z390~
+Z580 = Z579 | Z578
+Z581 = RUN & Z580
+Z582 = F94 & Z390
+Z583 = Z577 & Z390~
+Z584 = Z583 | Z582
+Z585 = RUN & Z584
+Z586 = Z110 & Z389
+Z587 = Z113 & Z381~ & D3 & Z383
+Z588 = F280 & D3~ & Z384
+Z589 = Z259 & Z382~ & D3~ & Z384~ & Z383~
+Z590 = Z589 | Z588 | Z587 | Z586
+Z591 = R0:15 & Z390
+Z592 = Z590 & Z390~
+Z593 = Z592 | Z591
+Z594 = RUN & Z593
+Z595 = F97 & Z390
+Z596 = Z590 & Z390~
+Z597 = Z596 | Z595
+Z598 = RUN & Z597
+Output Z598
+Output Z585
+Output Z572
+Output Z559
+Output Z546
+Output Z533
+Output Z520
+Output Z507
+Output Z494
+Output Z481
+Output Z468
+Output Z455
+Output Z442
+Output Z429
+Output Z416
+Output Z403

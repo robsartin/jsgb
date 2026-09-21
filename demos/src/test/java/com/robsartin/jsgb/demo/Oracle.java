@@ -11,10 +11,11 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 /**
- * Reads the C oracle files {@code oracle_inc2.out} and {@code oracle_inc3a.out}: each is a sequence
- * of cases, headed by a line {@code ==name} or {@code ==name=returnvalue}, followed by exactly what
- * {@code print_sample} (or, for a few inc3a cases, a custom printer) printed. Also captures a
- * printer's output the same way the C harnesses produced it.
+ * Reads the C oracle files {@code oracle_inc2.out}, {@code oracle_inc3a.out} and {@code
+ * oracle_inc3b.out}: each is a sequence of cases, headed by a line {@code ==name} or {@code
+ * ==name=returnvalue}, followed by exactly what {@code print_sample} (or, for a few inc3a and inc3b
+ * cases, a custom printer) printed. Also captures a printer's output the same way the C harnesses
+ * produced it.
  */
 final class Oracle {
 
@@ -23,6 +24,7 @@ final class Oracle {
 
   private static final OracleFile INC2 = load("/oracle/inc2/oracle_inc2.out");
   private static final OracleFile INC3A = load("/oracle/inc3a/oracle_inc3a.out");
+  private static final OracleFile INC3B = load("/oracle/inc3b/oracle_inc3b.out");
 
   private Oracle() {}
 
@@ -48,6 +50,18 @@ final class Oracle {
    */
   static long inc3aReturn(String name) {
     return returnValue(INC3A, name);
+  }
+
+  /** The text printed for the named increment-3b case, exactly as recorded. */
+  static String inc3b(String name) {
+    return body(INC3B, name, "oracle_inc3b.out");
+  }
+
+  /**
+   * The return value recorded in the {@code ==name=value} header for the named increment-3b case.
+   */
+  static long inc3bReturn(String name) {
+    return returnValue(INC3B, name);
   }
 
   private static String body(OracleFile file, String name, String fileLabel) {

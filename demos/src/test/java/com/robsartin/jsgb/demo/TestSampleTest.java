@@ -3,9 +3,14 @@ package com.robsartin.jsgb.demo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.robsartin.jsgb.basic.Basic;
+import com.robsartin.jsgb.books.Books;
+import com.robsartin.jsgb.econ.Econ;
+import com.robsartin.jsgb.games.Games;
+import com.robsartin.jsgb.gates.Gates;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
+import com.robsartin.jsgb.lisa.Lisa;
 import com.robsartin.jsgb.miles.Miles;
 import com.robsartin.jsgb.plane.Plane;
 import com.robsartin.jsgb.raman.Raman;
@@ -210,23 +215,12 @@ class TestSampleTest {
   }
 
   @Test
-  @DisplayName(
-      "the main sequence so far reproduces the header and stanzas 0-3, 8 and 10-15 of"
-          + " sample.correct")
-  void shouldMatchSampleCorrectPrefixWhenMainRuns() {
+  @DisplayName("run reproduces sample.correct byte for byte")
+  void shouldMatchSampleCorrectWhenMainRuns() throws Exception {
     String expected =
-        SampleCorrect.HEADER
-            + SampleCorrect.stanza(0)
-            + SampleCorrect.stanza(1)
-            + SampleCorrect.stanza(2)
-            + SampleCorrect.stanza(3)
-            + SampleCorrect.stanza(8)
-            + SampleCorrect.stanza(10)
-            + SampleCorrect.stanza(11)
-            + SampleCorrect.stanza(12)
-            + SampleCorrect.stanza(13)
-            + SampleCorrect.stanza(14)
-            + SampleCorrect.stanza(15);
+        Files.readString(
+            Path.of(getClass().getResource("/oracle/sample.correct").toURI()),
+            StandardCharsets.ISO_8859_1);
     assertThat(Oracle.capture(ps -> TestSample.run(ps, dir))).isEqualTo(expected);
     assertThat(dir.resolve("test.gb")).exists();
   }
@@ -303,5 +297,76 @@ class TestSampleTest {
                     TestSample.printSample(
                         Plane.planeMiles(50L, 500L, -100L, 1L, 1L, 40000L, 271818L), 14, ps)))
         .isEqualTo(SampleCorrect.stanza(10));
+  }
+
+  @Test
+  @DisplayName("stanza 5: book(homer,500,400,2,12,10000,-123456,789) at vertex 81")
+  void shouldMatchSampleCorrectWhenBookStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Books.book("homer", 500L, 400L, 2L, 12L, 10000L, -123456L, 789L), 81, ps)))
+        .isEqualTo(SampleCorrect.stanza(5));
+  }
+
+  @Test
+  @DisplayName("oracle_inc3b.out cases are addressable by name")
+  void shouldExtractInc3bCasesWhenReadingOracleFile() {
+    assertThat(Oracle.inc3b("book_bad")).isEqualTo("\nOoops, we just ran into panic code 30!\n");
+    assertThat(Oracle.inc3bReturn("risc2_eval")).isZero();
+    assertThat(Oracle.inc3b("risc2_eval")).isEqualTo("0000000000000001\n");
+  }
+
+  @Test
+  @DisplayName("stanza 6: econ(40,0,400,-111) at vertex 11")
+  void shouldMatchSampleCorrectWhenEconStanzaPrinted() {
+    assertThat(
+            Oracle.capture(ps -> TestSample.printSample(Econ.econ(40L, 0L, 400L, -111L), 11, ps)))
+        .isEqualTo(SampleCorrect.stanza(6));
+  }
+
+  @Test
+  @DisplayName("stanza 7: games(60,70,80,-90,-101,60,0,999999999) at vertex 14")
+  void shouldMatchSampleCorrectWhenGamesStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Games.games(60L, 70L, 80L, -90L, -101L, 60L, 0L, 999999999L), 14, ps)))
+        .isEqualTo(SampleCorrect.stanza(7));
+  }
+
+  @Test
+  @DisplayName("stanza 9: plane_lisa(100,100,50,1,300,1,200,2975050,11900200) at vertex 1294")
+  void shouldMatchSampleCorrectWhenPlaneLisaStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Lisa.planeLisa(
+                            100L,
+                            100L,
+                            50L,
+                            1L,
+                            300L,
+                            1L,
+                            200L,
+                            50L * 299L * 199L,
+                            200L * 299L * 199L),
+                        1294,
+                        ps)))
+        .isEqualTo(SampleCorrect.stanza(9));
+  }
+
+  @Test
+  @DisplayName("stanza 4: partial_gates(risc(0),1,43210,98765) at vertex 79")
+  void shouldMatchSampleCorrectWhenGatesStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Gates.partialGates(Gates.risc(0L), 1L, 43210L, 98765L, null), 79, ps)))
+        .isEqualTo(SampleCorrect.stanza(4));
   }
 }
