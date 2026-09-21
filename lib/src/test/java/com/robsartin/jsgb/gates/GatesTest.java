@@ -2,6 +2,7 @@ package com.robsartin.jsgb.gates;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -107,5 +108,24 @@ class GatesTest {
     assertThat(Gates.partialGates(null, 1L, 1L, 1L, null)).isNull();
     assertThat(com.robsartin.jsgb.graph.Gb.panicCode)
         .isEqualTo(com.robsartin.jsgb.graph.Gb.MISSING_OPERAND);
+  }
+
+  @Test
+  @DisplayName(
+      "partial_gates panics instead of throwing when reduce's own newGraph allocation fails")
+  void shouldPanicWhenReduceNewGraphAllocationFails() {
+    Graph g = Gates.risc(2L);
+    long savedExtraN = Gb.extraN;
+    // Gb.extraN is added to every gb_new_graph(n) request's size; making it huge forces reduce's
+    // internal gb_new_graph(n) call (n = the small live-vertex count it just counted) to fail,
+    // exactly as a colossal n would in C, without needing to actually build a colossal graph.
+    Gb.extraN = Long.MAX_VALUE / 2;
+    try {
+      // r = g.n so partial_gates's own loop touches nothing; it still unconditionally reduces.
+      assertThat(Gates.partialGates(g, g.n, 0L, 1L, null)).isNull();
+      assertThat(Gb.panicCode).isEqualTo(Gb.NO_ROOM + 2);
+    } finally {
+      Gb.extraN = savedExtraN;
+    }
   }
 }

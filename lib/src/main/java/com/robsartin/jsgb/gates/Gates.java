@@ -1306,6 +1306,12 @@ public final class Gates {
     }
     // Section 62-65: compact the reachable vertices into a fresh graph, preserving relative order.
     Graph ng = Gb.newGraph(n);
+    if (ng == null) {
+      Gb.recycle(g);
+      Gb.panicCode = Gb.NO_ROOM + 2;
+      Gb.troubleCode = 0;
+      return null;
+    }
     ng.id = g.id;
     ng.utilTypes = "ZZZIIVZZZZZZZA";
     int next = 0;
