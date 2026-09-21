@@ -39,6 +39,7 @@ class JsgbTest {
                 + "  word_components\n"
                 + "  roget_components\n"
                 + "  ladders\n"
+                + "  assign_lisa\n"
                 + "  book_components\n"
                 + "  econ_order\n"
                 + "  miles_span\n"
