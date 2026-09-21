@@ -362,3 +362,13 @@ cap of 0xffff00 bytes (2,097,120 `long`s) and sets `panic_code` to
 `Integer.MAX_VALUE` longs, since the arena is not ported. No oracle or demo
 reaches either limit. Code unchanged; recorded as the same deliberate
 deviation as the `newGraph` case above.
+
+### 2026-09-21: five demos read stdin, not three
+
+The Demos section above says "the three interactive programs (`football`,
+`girth`, `multiply`) read stdin as before," matching ADR 0019's Context.
+Both undercount: `ladders` (prompts for a starting and a goal five-letter
+word) and `take_risc` (prompts for the numbers it multiplies and divides)
+also read stdin. Five of the twelve demos are interactive:
+`football`, `girth`, `ladders`, `multiply`, `take_risc`. Found in the
+whole-branch review of increment 4; corrected alongside ADR 0024.
