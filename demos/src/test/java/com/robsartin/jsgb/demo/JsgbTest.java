@@ -39,6 +39,8 @@ class JsgbTest {
                 + "  word_components\n"
                 + "  roget_components\n"
                 + "  ladders\n"
+                + "  book_components\n"
+                + "  econ_order\n"
                 + "  test_sample\n");
   }
 

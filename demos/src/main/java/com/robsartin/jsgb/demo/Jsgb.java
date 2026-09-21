@@ -24,6 +24,8 @@ public final class Jsgb {
     DEMOS.put("word_components", WordComponents::run);
     DEMOS.put("roget_components", RogetComponents::run);
     DEMOS.put("ladders", Ladders::run);
+    DEMOS.put("book_components", BookComponents::run);
+    DEMOS.put("econ_order", EconOrder::run);
     DEMOS.put(
         "test_sample",
         (args, in, out, err, workDir) -> {
