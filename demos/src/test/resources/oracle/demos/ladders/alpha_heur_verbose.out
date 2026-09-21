@@ -1,0 +1,254 @@
+(alphabetic distance selected)
+(lowerbound heuristic will be used to focus the search)
+(the graph has 5757 words)
+
+Starting word:     Goal word: Distances from words [59]:
+ 6 to wolds [53] via words
+ 11 to lords [48] via words
+ 9 to worms [50] via words
+ 3 to woods [56] via words
+ 7 to works [52] via words
+ 22 to golds [37] via wolds
+ 16 to molds [43] via wolds
+ 21 to holds [38] via wolds
+ 12 to lores [47] via lords
+ 28 to loads [31] via lords
+ 18 to norms [41] via worms
+ 8 to roods [51] via woods
+ 11 to wools [48] via woods
+ 5 to woofs [54] via woods
+ 18 to hoods [41] via woods
+ 13 to moods [46] via woods
+ 19 to goods [40] via woods
+ 14 to porks [45] via works
+ 11 to wonks [48] via works
+ 24 to golfs [35] via golds
+ 33 to goads [26] via golds
+ 24 to molls [35] via molds
+ 17 to moles [42] via molds
+ 22 to holes [37] via holds
+ 23 to loges [36] via lores
+ 17 to gores [42] via lores
+ 26 to lodes [33] via lores
+ 14 to lopes [45] via lores
+ 28 to lobes [31] via lores
+ 30 to loafs [29] via loads
+ 37 to loams [22] via loads
+ 38 to loans [21] via loads
+ 15 to rooks [44] via roods
+ 10 to roofs [49] via roods
+ 17 to rooms [42] via roods
+ 14 to roids [45] via roods
+ 22 to roads [37] via roods
+ 18 to pools [41] via wools
+ 14 to tools [45] via wools
+ 21 to goofs [38] via woofs
+ 20 to hoofs [39] via woofs
+ 30 to hoops [29] via hoods
+ 25 to hooks [34] via hoods
+ 23 to moons [36] via moods
+ 26 to gooks [33] via goods
+ 29 to goons [30] via goods
+ 29 to pocks [30] via porks
+ 26 to honks [33] via wonks
+ 21 to monks [38] via wonks
+ 36 to grads [23] via goads
+ 41 to goals [18] via goads
+ 25 to lolls [34] via molls
+ 25 to modes [34] via moles
+ 23 to holer [36] via holes
+ 33 to logos [26] via loges
+ 15 to loper [44] via lopes
+ 18 to hopes [41] via lopes
+ 22 to kooks [37] via rooks
+ 27 to rocks [32] via rooks
+ 19 to nooks [40] via rooks
+ 21 to looks [38] via rooks
+ 31 to roams [28] via rooms
+ 23 to looms [36] via rooms
+ 22 to roils [37] via roids
+ 32 to roans [27] via roads
+ 22 to poops [37] via pools
+ 21 to polls [38] via pools
+ 16 to toons [43] via tools
+ 20 to toils [39] via tools
+ 17 to tolls [42] via tools
+ 37 to hocks [22] via hooks
+ 24 to loons [35] via moons
+ 37 to moans [22] via moons
+ 29 to groks [30] via gooks
+ 35 to jocks [24] via pocks
+ 32 to mocks [27] via pocks
+ 33 to locks [26] via pocks
+ 45 to grams [14] via grads
+ 31 to modem [28] via modes
+ 32 to model [27] via modes
+ 37 to locos [22] via logos
+ 19 to hoper [40] via loper
+ 17 to loner [42] via loper
+ 20 to hones [39] via hopes
+ 21 to homes [38] via hopes
+ 22 to noons [37] via nooks
+ 26 to loops [33] via looks
+ 24 to pomps [35] via poops
+ 25 to props [34] via poops
+ 24 to polos [35] via polls
+ 21 to soils [38] via toils
+ 19 to rolls [40] via tolls
+ 30 to loins [29] via loons
+ 21 to honer [38] via hoper
+ 22 to homer [37] via hoper
+ 22 to goner [37] via loner
+ 31 to homos [28] via homes
+ 35 to preps [24] via props
+ 32 to joins [27] via loins
+ 31 to honor [28] via honer
+ 30 to gofer [29] via goner
+ 42 to hobos [17] via homos
+ 44 to greps [15] via preps
+ 33 to johns [26] via joins
+ 17 to fords [44] via words
+ 23 to folds [38] via wolds
+ 26 to forms [35] via worms
+ 20 to foods [41] via woods
+ 24 to forks [37] via works
+ 18 to fores [43] via lores
+ 13 to loses [48] via lores
+ 13 to mores [48] via lores
+ 28 to fools [33] via wools
+ 15 to mopes [46] via lopes
+ 43 to foams [18] via loams
+ 42 to foals [19] via goals
+ 26 to nodes [35] via modes
+ 16 to moper [45] via loper
+ 28 to socks [33] via rocks
+ 34 to foils [27] via roils
+ 33 to joint [28] via joins
+ 30 to folks [31] via folds
+ 14 to loser [47] via loses
+ 17 to hoses [44] via loses
+ 20 to morel [41] via mores
+ 22 to morns [39] via mores
+ 32 to socko [29] via socks
+ 30 to soaks [31] via socks
+ 30 to mohel [31] via morel
+ 27 to horns [34] via morns
+ 35 to soaps [26] via soaks
+ 27 to moors [36] via moods
+ 36 to roars [27] via roads
+ 24 to toads [39] via roads
+ 38 to grabs [25] via grads
+ 26 to romps [37] via pomps
+ 36 to snaps [27] via soaps
+ 46 to hoars [17] via roars
+ 28 to dorms [37] via worms
+ 26 to dorks [39] via works
+ 19 to molas [46] via molds
+ 18 to lures [47] via lores
+ 14 to zonks [51] via wonks
+ 30 to gulfs [35] via golfs
+ 36 to glads [29] via goads
+ 30 to mulls [35] via molls
+ 33 to dolls [32] via molls
+ 26 to doles [39] via moles
+ 23 to mules [42] via moles
+ 20 to poles [45] via moles
+ 31 to doges [34] via loges
+ 22 to dopes [43] via lopes
+ 34 to lubes [31] via lobes
+ 31 to dooms [34] via rooms
+ 29 to muons [36] via moons
+ 35 to pucks [30] via pocks
+ 41 to docks [24] via pocks
+ 32 to hunks [33] via honks
+ 50 to grade [15] via grads
+ 51 to grass [14] via grads
+ 31 to lulls [34] via lolls
+ 23 to doper [42] via loper
+ 25 to plops [40] via poops
+ 24 to polis [41] via polls
+ 27 to pulls [38] via polls
+ 34 to toile [31] via toils
+ 37 to gross [28] via groks
+ 38 to mucks [27] via mocks
+ 36 to lochs [29] via locks
+ 39 to lucks [26] via locks
+ 48 to drams [17] via grams
+ 25 to domes [40] via homes
+ 30 to pumps [35] via pomps
+ 28 to proms [37] via props
+ 37 to drops [28] via props
+ 27 to solos [38] via polos
+ 38 to press [27] via preps
+ 35 to donor [30] via honor
+ 15 to noses [50] via loses
+ 15 to motes [50] via mores
+ 22 to motel [43] via morel
+ 37 to soars [28] via soaks
+ 26 to molal [39] via molas
+ 20 to molar [45] via molas
+ 22 to lunes [43] via lures
+ 19 to lurer [46] via lures
+ 24 to lurks [41] via lures
+ 40 to gulps [25] via gulfs
+ 36 to gulls [29] via gulfs
+ 46 to glans [19] via glads
+ 35 to hulls [30] via mulls
+ 29 to gules [36] via mules
+ 21 to poler [44] via poles
+ 21 to pokes [44] via poles
+ 33 to gunks [32] via hunks
+ 34 to hulks [31] via hunks
+ 62 to grape [3] via grade
+ 54 to grasp [11] via grass
+ 28 to polio [37] via polis
+ 29 to nulls [36] via pulls
+ 31 to pulps [34] via pulls
+ 38 to humps [27] via pumps
+ 33 to mumps [32] via pumps
+ 34 to lumps [31] via pumps
+ 36 to jumps [29] via pumps
+ 34 to prims [31] via proms
+ 32 to promo [33] via proms
+ 42 to prams [23] via proms
+ 43 to drips [22] via drops
+ 32 to solon [33] via solos
+ 37 to dolor [28] via donor
+ 20 to nones [45] via noses
+ 18 to moths [47] via motes
+ 27 to hotel [38] via motel
+ 38 to spars [27] via soars
+ 34 to modal [31] via molal
+ 24 to lungs [41] via lunes
+ 39 to hullo [26] via hulls
+ 22 to poker [43] via poler
+ 27 to jokes [38] via pokes
+ 65 to graph [0] via grape
+         0 words
+         6 wolds
+        22 golds
+        33 goads
+        36 grads
+        50 grade
+        62 grape
+        65 graph
+
+Starting word:     Goal word: Distances from flour [54]:
+ 6 to floor [48] via flour
+ 20 to flood [34] via floor
+ 24 to blood [30] via flood
+ 30 to brood [24] via blood
+ 25 to blond [29] via blood
+ 44 to broad [10] via brood
+ 35 to blend [19] via blond
+ 31 to blind [23] via blond
+ 54 to bread [0] via broad
+         0 flour
+         6 floor
+        20 flood
+        24 blood
+        30 brood
+        44 broad
+        54 bread
+
+Starting word: 

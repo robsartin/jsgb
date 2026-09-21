@@ -1,0 +1,21 @@
+The graph miles(30,0,0,0,0,10,2) has 109 edges,
+  and its minimum spanning tree has length 8235.
+ The Kruskal/radix-sort algorithm takes 2486 mems;
+ the Jarnik/Prim/binary-heap algorithm takes 1854 mems;
+ the Jarnik/Prim/Fibonacci-heap algorithm takes 2645 mems;
+ the Cheriton/Tarjan/Karp algorithm takes 4521 mems.
+
+The graph miles(30,0,0,0,0,10,3) has 114 edges,
+  and its minimum spanning tree has length 7499.
+ The Kruskal/radix-sort algorithm takes 2555 mems;
+ the Jarnik/Prim/binary-heap algorithm takes 1978 mems;
+ the Jarnik/Prim/Fibonacci-heap algorithm takes 2806 mems;
+ the Cheriton/Tarjan/Karp algorithm takes 4834 mems.
+
+The graph miles(30,0,0,0,0,10,4) has 100 edges,
+  and its minimum spanning tree has length 7237.
+ The Kruskal/radix-sort algorithm takes 2335 mems;
+ the Jarnik/Prim/binary-heap algorithm takes 1738 mems;
+ the Jarnik/Prim/Fibonacci-heap algorithm takes 2463 mems;
+ the Cheriton/Tarjan/Karp algorithm takes 4497 mems.
+

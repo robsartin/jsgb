@@ -1,0 +1,7 @@
+This program explores the girth and diameter of Ramanujan graphs.
+The bipartite graphs have q^3-q vertices, and the non-bipartite
+graphs have half that number. Each vertex has degree p+1.
+Both p and q should be odd prime numbers;
+  or you can try p = 2 with q = 17 or 43.
+
+Choose a branching factor, p: 

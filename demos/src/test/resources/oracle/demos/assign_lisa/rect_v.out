@@ -1,0 +1,19 @@
+Assignment problem for lisa(5,8,255,0,360,0,250,0,22950000)
+ 114 119 108 121  60  74  99 102
+  54  55  41  80  54  23  49  62
+  42  36  35 107  85  19  23  39
+  26  20  28  17  11  10   7  11
+  15  17  32  32  19  17  13   9
+ After 124 mems I've matched 2 rows.
+ Breakthrough at node 5 of 5!
+ After 354 mems I've matched 3 rows.
+ Breakthrough at node 2 of 3!
+ After 465 mems I've matched 4 rows.
+ Breakthrough at node 2 of 2!
+The following entries produce an optimum assignment:
+ [0,1]
+ [1,7]
+ [2,3]
+ [3,0]
+ [4,2]
+Solved in 586 mems.

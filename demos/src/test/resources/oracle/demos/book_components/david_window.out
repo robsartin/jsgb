@@ -1,0 +1,91 @@
+Biconnectivity analysis of book("david",87,0,3,10,2,1,5)
+
+Bicomponent QU also includes:
+ OM (from JR; ..to DC)
+ MC (from OC; ..to DC)
+ OC (from CK; ..to DC)
+ ML (from MF; ..to DC)
+ MF (from MM; ..to DC)
+ MM (from CK; ..to DC)
+ CK (from TT; ..to DC)
+ TT (from TU; ..to DC)
+ TU (from JS; ..to DC)
+ HP (from JS; ..to DC)
+ JS (from DP; ..to DC)
+ DP (from LE; ..to DC)
+ LE (from BA; ..to DC)
+ BA (from MG; ..to DC)
+ MG (from JR; ..to DC)
+ JR (from CD; ..to DC)
+ CD (from MO; ..to DC)
+ MO (from ED; ..to DC)
+ ED (from CC; ..to DC)
+ CC (from BM; ..to DC)
+ BM (from CP; ..to DC)
+ CP (from JM; ..to DC)
+ JM (from QU; ..to DC)
+ and articulation point DC
+Bicomponent SH
+ and articulation point DC
+Bicomponent WI
+ and DC (this ends a connected component of the graph)
+Isolated vertex BT
+Isolated vertex AW
+Isolated vertex DB
+Isolated vertex WM
+Isolated vertex DO
+Isolated vertex EM
+Isolated vertex UH
+Isolated vertex RD
+Isolated vertex MS
+Isolated vertex DS
+Isolated vertex WW
+Isolated vertex AS
+Isolated vertex LM
+Isolated vertex ME
+Isolated vertex FS
+Isolated vertex MJ
+Isolated vertex CR
+Isolated vertex DM
+Isolated vertex ST
+Isolated vertex JT
+Isolated vertex OS
+Isolated vertex TI
+Isolated vertex TR
+Isolated vertex JU
+Isolated vertex CS
+Isolated vertex LS
+Isolated vertex UM
+Isolated vertex TW
+Isolated vertex CM
+Isolated vertex DW
+Isolated vertex MP
+Isolated vertex BC
+Isolated vertex CL
+Isolated vertex JK
+Isolated vertex HC
+Isolated vertex AD
+Isolated vertex TP
+Isolated vertex DL
+Isolated vertex SA
+Isolated vertex RW
+Isolated vertex SC
+Isolated vertex WB
+Isolated vertex FG
+Isolated vertex WL
+Isolated vertex FM
+Isolated vertex GU
+Isolated vertex LC
+Isolated vertex HA
+Isolated vertex PA
+Isolated vertex LF
+Isolated vertex GR
+Isolated vertex HS
+Isolated vertex CH
+Isolated vertex KI
+Isolated vertex MW
+Isolated vertex MH
+Isolated vertex GP
+Isolated vertex LA
+Isolated vertex WA
+Isolated vertex PN

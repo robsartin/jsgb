@@ -1,0 +1,12 @@
+
+Starting word: hello
+    Goal word: WORLD
+(Please type five lowercase letters and RETURN.)
+    Goal word: world
+Sorry, there's no ladder from hello to world.
+
+Starting word: helpo
+    Goal word: ab
+(Please type five lowercase letters and RETURN.)
+    Goal word: 
+Starting word: 

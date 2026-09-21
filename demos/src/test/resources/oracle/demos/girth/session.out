@@ -1,0 +1,86 @@
+This program explores the girth and diameter of Ramanujan graphs.
+The bipartite graphs have q^3-q vertices, and the non-bipartite
+graphs have half that number. Each vertex has degree p+1.
+Both p and q should be odd prime numbers;
+  or you can try p = 2 with q = 17 or 43.
+
+Choose a branching factor, p: OK, now choose the cube root of graph size, q: The graph has 336 vertices, each of degree 4, and it is bipartite.
+Any such graph must have diameter >= 5 and girth <= 10;
+theoretical considerations tell us that this one's diameter is <= 12,
+and its girth is >= 8.
+Starting at any given vertex, there are
+       4 vertices at distance 1,
+      12 vertices at distance 2,
+      36 vertices at distance 3,
+     102 vertices at distance 4,
+     128 vertices at distance 5,
+      53 vertices at distance 6,
+       0 vertices at distance 7.
+So the diameter is 6, and the girth is 8.
+
+Choose a branching factor, p: OK, now choose the cube root of graph size, q: The graph has 2448 vertices, each of degree 3, and it is not bipartite.
+Any such graph must have diameter >= 10 and girth <= 20;
+theoretical considerations tell us that this one's diameter is <= 25.
+Starting at any given vertex, there are
+       3 vertices at distance 1,
+       6 vertices at distance 2,
+      12 vertices at distance 3,
+      24 vertices at distance 4,
+      46 vertices at distance 5,
+      90 vertices at distance 6,
+     169 vertices at distance 7,
+     290 vertices at distance 8,
+     497 vertices at distance 9,
+     634 vertices at distance 10,
+     521 vertices at distance 11,
+     138 vertices at distance 12,
+      13 vertices at distance 13,
+       3 vertices at distance 14,
+       1 vertices at distance 15,
+       0 vertices at distance 16.
+So the diameter is 15, and the girth is 9.
+
+Choose a branching factor, p: OK, now choose the cube root of graph size, q: The graph has 24 vertices, each of degree 6, and it is bipartite.
+Any such graph must have diameter >= 2 and girth <= 4;
+theoretical considerations tell us that this one's diameter is <= 5,
+and its girth is >= 4.
+Starting at any given vertex, there are
+       6 vertices at distance 1,
+      11 vertices at distance 2,
+       6 vertices at distance 3,
+       0 vertices at distance 4.
+So the diameter is 3, and the girth is 4.
+
+Choose a branching factor, p: OK, now choose the cube root of graph size, q:  Sorry, I couldn't make that graph (q isn't compatible with p=2).
+
+Choose a branching factor, p: OK, now choose the cube root of graph size, q: The graph has 1320 vertices, each of degree 8, and it is bipartite.
+Any such graph must have diameter >= 4 and girth <= 8;
+theoretical considerations tell us that this one's diameter is <= 9,
+and its girth is >= 6.
+Starting at any given vertex, there are
+       8 vertices at distance 1,
+      56 vertices at distance 2,
+     310 vertices at distance 3,
+     582 vertices at distance 4,
+     342 vertices at distance 5,
+      21 vertices at distance 6,
+       0 vertices at distance 7.
+So the diameter is 6, and the girth is 6.
+
+Choose a branching factor, p: OK, now choose the cube root of graph size, q: The graph has 120 vertices, each of degree 4, and it is bipartite.
+Any such graph must have diameter >= 4 and girth <= 8;
+theoretical considerations tell us that this one's diameter is <= 10,
+and its girth is >= 6.
+Starting at any given vertex, there are
+       4 vertices at distance 1,
+      12 vertices at distance 2,
+      30 vertices at distance 3,
+      44 vertices at distance 4,
+      26 vertices at distance 5,
+       3 vertices at distance 6,
+       0 vertices at distance 7.
+So the diameter is 6, and the girth is 6.
+
+Choose a branching factor, p: OK, now choose the cube root of graph size, q:  Sorry, I couldn't make that graph (p isn't prime).
+
+Choose a branching factor, p: 

@@ -1,0 +1,143 @@
+(lowerbound heuristic will be used to focus the search)
+(the graph has 5757 words)
+
+Starting word:     Goal word: Distances from words [5]:
+ 1 to worts [5] via words
+ 1 to wolds [5] via words
+ 1 to fords [5] via words
+ 1 to wordy [5] via words
+ 1 to wards [5] via words
+ 1 to lords [5] via words
+ 1 to cords [5] via words
+ 1 to worms [5] via words
+ 1 to woods [5] via words
+ 1 to works [5] via words
+ 2 to worth [4] via worts
+ 2 to golds [4] via wolds
+ 2 to warps [4] via wards
+ 2 to loads [4] via lords
+ 2 to corps [4] via cords
+ 2 to goods [4] via woods
+ 3 to goads [3] via golds
+ 4 to grads [2] via goads
+ 2 to wonts [5] via worts
+ 2 to warts [5] via worts
+ 2 to morts [5] via worts
+ 2 to torts [5] via worts
+ 2 to forts [5] via worts
+ 2 to ports [5] via worts
+ 2 to sorts [5] via worts
+ 2 to welds [5] via wolds
+ 2 to wilds [5] via wolds
+ 2 to colds [5] via wolds
+ 2 to folds [5] via wolds
+ 2 to molds [5] via wolds
+ 2 to holds [5] via wolds
+ 2 to fores [5] via fords
+ 2 to forks [5] via fords
+ 2 to forms [5] via fords
+ 2 to foods [5] via fords
+ 2 to cordy [5] via wordy
+ 2 to lordy [5] via wordy
+ 2 to wormy [5] via wordy
+ 2 to worry [5] via wordy
+ 2 to woody [5] via wordy
+ 2 to pards [5] via wards
+ 2 to nards [5] via wards
+ 2 to bards [5] via wards
+ 2 to lards [5] via wards
+ 2 to wands [5] via wards
+ 2 to warns [5] via wards
+ 2 to wares [5] via wards
+ 2 to warms [5] via wards
+ 2 to cards [5] via wards
+ 2 to yards [5] via wards
+ 2 to lores [5] via lords
+ 2 to corms [5] via cords
+ 2 to coeds [5] via cords
+ 2 to corns [5] via cords
+ 2 to corks [5] via cords
+ 2 to cores [5] via cords
+ 2 to curds [5] via cords
+ 2 to dorms [5] via worms
+ 2 to norms [5] via worms
+ 2 to roods [5] via woods
+ 2 to wools [5] via woods
+ 2 to woofs [5] via woods
+ 2 to hoods [5] via woods
+ 2 to moods [5] via woods
+ 2 to porks [5] via works
+ 2 to wonks [5] via works
+ 2 to dorks [5] via works
+ 3 to forth [4] via worth
+ 3 to north [4] via worth
+ 3 to gelds [4] via golds
+ 3 to gilds [4] via golds
+ 3 to golfs [4] via golds
+ 3 to tarps [4] via warps
+ 3 to wasps [4] via warps
+ 3 to carps [4] via warps
+ 3 to harps [4] via warps
+ 3 to loafs [4] via loads
+ 3 to loams [4] via loads
+ 3 to loans [4] via loads
+ 3 to toads [4] via loads
+ 3 to leads [4] via loads
+ 3 to roads [4] via loads
+ 3 to comps [4] via corps
+ 3 to coups [4] via corps
+ 3 to coops [4] via corps
+ 3 to gooks [4] via goods
+ 3 to goofs [4] via goods
+ 3 to goons [4] via goods
+ 3 to goody [4] via goods
+ 4 to glads [3] via goads
+ 4 to goals [3] via goads
+ 4 to goats [3] via goads
+ 5 to grade [2] via grads
+ 5 to grays [2] via grads
+ 5 to grabs [2] via grads
+ 5 to grams [2] via grads
+ 5 to grass [2] via grads
+ 3 to moats [4] via morts
+ 3 to gores [4] via fores
+ 3 to foams [4] via forms
+ 3 to hoops [4] via hoods
+ 4 to gasps [3] via wasps
+ 4 to leaps [3] via leads
+ 4 to crops [3] via coops
+ 4 to groks [3] via gooks
+ 4 to grody [3] via goody
+ 4 to goopy [3] via goody
+ 6 to grape [1] via grade
+ 5 to craps [2] via crops
+ 7 to graph [0] via grape
+         0 words
+         1 wolds
+         2 golds
+         3 goads
+         4 grads
+         5 grade
+         6 grape
+         7 graph
+
+Starting word:     Goal word: Distances from flour [5]:
+ 1 to flout [5] via flour
+ 1 to floor [5] via flour
+ 2 to float [4] via flout
+ 2 to flood [4] via floor
+ 3 to bloat [3] via float
+ 3 to blood [3] via flood
+ 4 to bleat [2] via bloat
+ 4 to brood [2] via blood
+ 5 to broad [1] via brood
+ 6 to bread [0] via broad
+         0 flour
+         1 floor
+         2 flood
+         3 blood
+         4 brood
+         5 broad
+         6 bread
+
+Starting word: 

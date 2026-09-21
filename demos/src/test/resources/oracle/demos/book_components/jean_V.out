@@ -1,0 +1,85 @@
+Biconnectivity analysis of book("jean",40,0,1,356,1,1,0)
+
+JV=Jean Valjean, thief of bread [weight 113]
+MA=Marius, grandson of GI [weight 77]
+CO=Cosette, daughter of FN and FT [weight 55]
+EN=Enjolras, `Friends of the ABC' chief [weight 31]
+CR=Courfeyrac, `Friends of the ABC' center [weight 27]
+TH=Th\'enardier, sergeant of Waterloo and keeper of a chophouse [weight 27]
+JA=Javert, police officer of M-- sur M-- [weight 24]
+GA=Gavroche, young urchin living at Gorbeau House [weight 21]
+GI=Monsieur Luke Esprit Gillenormand, grand bourgeois [weight 20]
+MY=Monsieur Charles Fran\c{c}ois Bienvenu Myriel, Bishop of D-- [weight 19]
+FN=Fantine, lover of FT [weight 18]
+CM=Combeferre, `Friends of the ABC' guide [weight 17]
+TM=Madame Th\'enardier, wife of TH [weight 16]
+BO=Bossuet (Lesgle), `Friends of the ABC' klutz [weight 16]
+FF=Fauchelevent, aged notary of M-- sur M-- [weight 12]
+EP=Eponine, daughter of TH and TM [weight 11]
+ME=Madame Magloire, housekeeper to MY [weight 10]
+MG=Madamoiselle Gillenormand, unmarried daughter of GI [weight 10]
+BA=Bahorel, `Friends of the ABC' cutup [weight 9]
+JO=Joly, `Friends of the ABC' medic [weight 9]
+MM=Monsieur Mabeuf, prefect of church [weight 9]
+MB=Mademoiselle Baptistine, sister of MY [weight 9]
+FE=Feuilly, `Friends of the ABC' political idealist [weight 7]
+NP=Napoleon, Emperor of France [weight 6]
+GT=Grantaire, `Friends of the ABC' skeptic [weight 6]
+FT=F\'elix Tholomy\`es, Parisian student from Toulouse [weight 6]
+MO=Montparnasse, genteel bandit of Paris [weight 5]
+BL=Blacheville, Parisian student from Montauban [weight 5]
+QU=Claquesous, night-like bandit of Paris [weight 5]
+DA=Dahlia, lover of LI [weight 5]
+JP=Jean Prouvaire, `Friends of the ABC' poet [weight 5]
+GU=Gueulemer, Herculean bandit of Paris [weight 5]
+BB=Babet, tooth-pulling bandit of Paris [weight 5]
+FV=Favourite, lover of BL [weight 5]
+TG=Lieutenant Theodule Gillenormand, soldier and grandnephew of GI [weight 4]
+FA=Fameuil, Parisian student from Limoges [weight 4]
+SS=Sister Simplice, saintly nun at infirmary in M-- sur M-- [weight 4]
+ZE=Zephine, lover of FA [weight 4]
+LL=Old woman 2, landlady of JV in Paris at Gorbeau House [weight 4]
+LI=Listolier, Parisian student from Cahors [weight 4]
+
+Bicomponent MG also includes:
+ FF (from JA; ..to JV)
+ LL (from JA; ..to JV)
+ FT (from LI; ..to CO)
+ LI (from FA; ..to CO)
+ FA (from BL; ..to CO)
+ BL (from FV; ..to CO)
+ FV (from DA; ..to CO)
+ DA (from ZE; ..to CO)
+ ZE (from FN; ..to CO)
+ SS (from FN; ..to JV)
+ FN (from TM; ..to JV)
+ BB (from TM; ..to JV)
+ TM (from GU; ..to JV)
+ GU (from TH; ..to JV)
+ TH (from MO; ..to JV)
+ MO (from EP; ..to JV)
+ BO (from BA; ..to JV)
+ BA (from GT; ..to JV)
+ GT (from JO; ..to JV)
+ JO (from CM; ..to JV)
+ CM (from JP; ..to JV)
+ JP (from CR; ..to JV)
+ CR (from EP; ..to JV)
+ EP (from QU; ..to JV)
+ QU (from EN; ..to JV)
+ EN (from JA; ..to JV)
+ JA (from GA; ..to JV)
+ GA (from MM; ..to JV)
+ MM (from FE; ..to JV)
+ FE (from MA; ..to JV)
+ MA (from TG; ..to JV)
+ TG (from GI; ..to JV)
+ GI (from CO; ..to JV)
+ CO (from MG; ..to JV)
+ and articulation point JV
+Bicomponent NP
+ and articulation point MY
+Bicomponent MY also includes:
+ MB (from ME; ..to JV)
+ ME (from MY; ..to JV)
+ and JV (this ends a connected component of the graph)
