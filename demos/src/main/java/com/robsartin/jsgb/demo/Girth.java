@@ -32,7 +32,6 @@ public final class Girth {
 
   /** Runs the program: ignores {@code args}; loops prompting for {@code p} and {@code q}. */
   public static int run(String[] args, CStdin in, PrintStream out, PrintStream err, Path workDir) {
-    Gb.verbose = 0;
     out.print("This program explores the girth and diameter of Ramanujan graphs.\n");
     out.print("The bipartite graphs have q^3-q vertices, and the non-bipartite\n");
     out.print("graphs have half that number. Each vertex has degree p+1.\n");

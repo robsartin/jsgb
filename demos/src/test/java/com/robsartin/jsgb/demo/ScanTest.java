@@ -48,4 +48,10 @@ class ScanTest {
   void shouldReturnNullWhenArgHasNoDigits() {
     assertThat(Scan.scan("abc", "")).isNull();
   }
+
+  @Test
+  @DisplayName("scan rejects non-ASCII decimal digits that C's %ld would not accept")
+  void shouldReturnNullWhenDigitIsNonAscii() {
+    assertThat(Scan.scan("-n٥", "-n")).isNull();
+  }
 }

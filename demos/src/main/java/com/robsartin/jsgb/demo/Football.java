@@ -26,6 +26,10 @@ import java.util.Locale;
  * {@code link} = {@code w.V}, {@code rank} = {@code z.I}, {@code parent} = {@code u.V}, {@code
  * untagged} = {@code x.A}, {@code min} = {@code v.V}, {@code date} = {@code b.I}, {@code nickname}
  * = {@code y.S}.
+ *
+ * <p>The C's out-of-memory returns (&minus;2 and &minus;3 from football.c's {@code new_node} calls,
+ * around lines 191 and 360) are unreachable here since Java allocates or throws {@link
+ * OutOfMemoryError} rather than {@code new_node} returning {@code NULL}, so they are omitted.
  */
 public final class Football {
 
@@ -136,9 +140,13 @@ public final class Football {
 
   /**
    * {@code prompt_for_team(s)}: prints {@code "<s> team: "}, then reads a name with {@code
-   * fgets(buffer,30)}. A blank line (or EOF re-reading the still-blank initial buffer) returns
-   * {@code null}; an unrecognized name reprints the prompt after two lines of complaint; otherwise
-   * returns the matching vertex.
+   * fgets(buffer,30)}. A blank line returns {@code null}. The buffer starts as {@code ""}, which
+   * does not start with {@code '\n'}, so EOF at the very first prompt (before any line has been
+   * read) is <em>not</em> a blank line: it re-reads the still-empty buffer as an unrecognized name
+   * and loops forever, printing the "Sorry..." complaint each time. That is the C's own behaviour
+   * (its {@code buffer[30]} is uninitialised, and an empty name never matches a team), reproduced
+   * here deliberately rather than special-cased away. An unrecognized name otherwise reprints the
+   * prompt after two lines of complaint; a recognized one returns the matching vertex.
    */
   private static Vertex promptForTeam(String s, Graph g, CStdin in, PrintStream out) {
     String buffer = "";

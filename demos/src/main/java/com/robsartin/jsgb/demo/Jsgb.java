@@ -16,22 +16,24 @@ public final class Jsgb {
 
   private Jsgb() {}
 
-  /** Registered demos, keyed by their C program name, in the order they were ported. */
+  /**
+   * Registered demos, keyed by their C program name, alphabetically with {@code test_sample} last.
+   */
   public static final Map<String, Demo> DEMOS = new LinkedHashMap<>();
 
   static {
-    DEMOS.put("queen", Queen::run);
-    DEMOS.put("word_components", WordComponents::run);
-    DEMOS.put("roget_components", RogetComponents::run);
-    DEMOS.put("ladders", Ladders::run);
     DEMOS.put("assign_lisa", AssignLisa::run);
     DEMOS.put("book_components", BookComponents::run);
     DEMOS.put("econ_order", EconOrder::run);
-    DEMOS.put("miles_span", MilesSpan::run);
-    DEMOS.put("girth", Girth::run);
-    DEMOS.put("multiply", Multiply::run);
-    DEMOS.put("take_risc", TakeRisc::run);
     DEMOS.put("football", Football::run);
+    DEMOS.put("girth", Girth::run);
+    DEMOS.put("ladders", Ladders::run);
+    DEMOS.put("miles_span", MilesSpan::run);
+    DEMOS.put("multiply", Multiply::run);
+    DEMOS.put("queen", Queen::run);
+    DEMOS.put("roget_components", RogetComponents::run);
+    DEMOS.put("take_risc", TakeRisc::run);
+    DEMOS.put("word_components", WordComponents::run);
     DEMOS.put(
         "test_sample",
         (args, in, out, err, workDir) -> {

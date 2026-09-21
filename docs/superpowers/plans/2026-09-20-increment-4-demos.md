@@ -184,5 +184,5 @@ Notes:
 
 ## Self-review notes
 
-- Spec coverage: twelve demos + launcher + the `Mems` counter + hand-rolled argument parsing (ADR 0019) + one golden test per captured case; `test_sample` is reachable from the launcher. Sixty captured cases across `demos/`, all reached through `Jsgb.DEMOS` once Task 8's assertion holds.
+- Spec coverage: twelve demos + launcher + the `Mems` counter + hand-rolled argument parsing (ADR 0019) + one golden test per captured case; `test_sample` is reachable from the launcher. Fifty-nine captured cases across `demos/`, all reached through `Jsgb.DEMOS` once Task 8's assertion holds.
 - Names used across tasks: `Demo.run` signature, `CStdin.fgets/getchar`, `Scan.scan`, `Mems.o/oo/ooo/oooo/mems`, `Jsgb.DEMOS/dispatch/exitStatus`, `Gb.allocAuxArcs` (Task 5), `Games` mates (Task 8).

@@ -35,18 +35,18 @@ class JsgbTest {
     assertThat(errBytes.toString(StandardCharsets.ISO_8859_1))
         .isEqualTo(
             "Usage: jsgb <demo> [arguments]\n"
-                + "  queen\n"
-                + "  word_components\n"
-                + "  roget_components\n"
-                + "  ladders\n"
                 + "  assign_lisa\n"
                 + "  book_components\n"
                 + "  econ_order\n"
-                + "  miles_span\n"
-                + "  girth\n"
-                + "  multiply\n"
-                + "  take_risc\n"
                 + "  football\n"
+                + "  girth\n"
+                + "  ladders\n"
+                + "  miles_span\n"
+                + "  multiply\n"
+                + "  queen\n"
+                + "  roget_components\n"
+                + "  take_risc\n"
+                + "  word_components\n"
                 + "  test_sample\n");
   }
 
@@ -75,5 +75,14 @@ class JsgbTest {
 
     assertThat(code).isZero();
     assertThat(workDir.resolve("queen.gb")).exists();
+  }
+
+  @Test
+  @DisplayName("dispatch runs test_sample and writes test.gb when dispatched")
+  void shouldRunTestSampleWhenDispatchedThroughLauncher() {
+    int code = Jsgb.dispatch(new String[] {"test_sample"}, emptyStdin(), sink(), sink(), workDir);
+
+    assertThat(code).isZero();
+    assertThat(workDir.resolve("test.gb")).exists();
   }
 }

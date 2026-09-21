@@ -30,13 +30,17 @@ public final class Scan {
       i++;
     }
     int digitsStart = i;
-    while (i < n && Character.isDigit(arg.charAt(i))) {
+    while (i < n && isAsciiDigit(arg.charAt(i))) {
       i++;
     }
     if (i == digitsStart) {
       return null;
     }
     return Long.parseLong(arg.substring(start, i));
+  }
+
+  private static boolean isAsciiDigit(char c) {
+    return c >= '0' && c <= '9';
   }
 
   private static boolean isCWhitespace(char c) {

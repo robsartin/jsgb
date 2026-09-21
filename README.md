@@ -87,8 +87,9 @@ One sentence per program:
 `./gradlew :demos:run --args="test_sample"` prints the sample sequence
 above; `./gradlew :demos:run` with no `--args` prints the launcher's usage
 (the full demo list) instead, since `Jsgb` is the module's Gradle `run`
-entry point. The sample sequence is also exercised directly by `./gradlew
-:demos:test`.
+entry point — usage exits 1, so Gradle reports `BUILD FAILED` even though
+the usage text printed as expected. The sample sequence is also exercised
+directly by `./gradlew :demos:test`.
 
 ## Regenerating oracles
 
