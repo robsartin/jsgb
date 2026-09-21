@@ -72,6 +72,26 @@ class DemoOracleTest {
     assertThat(shouldReproduceCOutputWhenDemoRunsCapturedCase().count()).isGreaterThanOrEqualTo(1);
   }
 
+  /**
+   * Guards against the {@link Jsgb#DEMOS}-membership filter above silently dropping an oracle
+   * directory whose demo was never registered: every subdirectory of {@code /oracle/demos} must be
+   * a registered demo name.
+   */
+  @Test
+  void shouldRegisterEveryOracleDemoWhenAllPorted() throws IOException {
+    List<String> unregistered;
+    try (Stream<Path> entries = Files.list(oracleRoot())) {
+      unregistered =
+          entries
+              .filter(Files::isDirectory)
+              .map(p -> p.getFileName().toString())
+              .filter(name -> !Jsgb.DEMOS.containsKey(name))
+              .sorted()
+              .toList();
+    }
+    assertThat(unregistered).isEmpty();
+  }
+
   private void runCase(Path demoDir, String demo, String caseName) throws IOException {
     Path dir = Files.createTempDirectory(tmp, "case");
     String seedPrefix = caseName + ".seed.";

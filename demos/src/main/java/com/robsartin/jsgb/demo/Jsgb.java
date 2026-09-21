@@ -31,6 +31,7 @@ public final class Jsgb {
     DEMOS.put("girth", Girth::run);
     DEMOS.put("multiply", Multiply::run);
     DEMOS.put("take_risc", TakeRisc::run);
+    DEMOS.put("football", Football::run);
     DEMOS.put(
         "test_sample",
         (args, in, out, err, workDir) -> {

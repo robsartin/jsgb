@@ -46,6 +46,7 @@ class JsgbTest {
                 + "  girth\n"
                 + "  multiply\n"
                 + "  take_risc\n"
+                + "  football\n"
                 + "  test_sample\n");
   }
 
