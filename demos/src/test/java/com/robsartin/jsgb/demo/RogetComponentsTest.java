@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 class RogetComponentsTest {
 
   @Test
+  @DisplayName("prints usage on stderr and returns -2 when an argument is unrecognized")
   void shouldPrintUsageWhenArgumentUnknown() {
     ByteArrayOutputStream errBytes = new ByteArrayOutputStream();
     PrintStream out =
