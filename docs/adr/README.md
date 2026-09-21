@@ -30,6 +30,9 @@
 - [22. Library output goes through a per-module swappable PrintStream](0022-swappable-per-module-print-stream.md) — _Accepted_
   `dijk` and `gates` each print straight to `stdout` in C; a test capturing that output byte for byte needs to redirect it without touching the JVM-global `System.out` or its default charset.
   Related: [13. Bit-exact port over behavioural equivalence](0013-bit-exact-port.md), [18. Javadoc as the literate layer, not CWEB for Java](0018-javadoc-as-literate-layer.md)
+- [23. reduce compares vertex indexes under a no-XOR-with-latches invariant](0023-reduce-index-comparison-invariant.md) — _Accepted_
+  `Gates.reduce` ports the C's `u < v` on a latch's `alt` as a `Vertex.index` comparison, which is only meaningful because no SGB gate graph has both XOR gates and latches in one `reduce` pass; ADR 1 forbids amending ADR 21, so the invariant gets its own record.
+  Related: [21. Boolean vertex and auxiliary vertices for gb_gates](0021-boolean-vertex-and-aux-vertices.md)
 
 ## Universal
 

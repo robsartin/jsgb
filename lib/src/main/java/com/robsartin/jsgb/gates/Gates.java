@@ -1155,7 +1155,7 @@ public final class Gates {
       Gb.troubleCode = 0;
       return null;
     }
-    // See ADR 0021's amendment: the C's sentinel is one-past-the-end of vertices, borrowed from
+    // See ADR 0023: the C's sentinel is one-past-the-end of vertices, borrowed from
     // gb_new_graph's extra_n headroom; the Java sentinel is never guaranteed that slot (extra_n
     // may be 0, and a restored graph has none at all), so it is a synthetic vertex instead, built
     // the same way Gb.ONE is: an unregistered vertex from Gb.allocAuxVertices, only ever compared
@@ -1292,7 +1292,7 @@ public final class Gates {
           Arc b = v.arcs;
           if (v.y.I == 'L') {
             Vertex u = v.z.V();
-            // See ADR 0021's amendment for why comparing Vertex.index here is well-defined only
+            // See ADR 0023 for why comparing Vertex.index here is well-defined only
             // under an invariant, not in general.
             if (u.index < v.index) {
               n++;
