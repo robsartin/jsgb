@@ -22,14 +22,10 @@ public final class CStdin {
    * {@code fgets(buffer, size, stdin)}: reads at most {@code size - 1} bytes, stopping after (and
    * keeping) a {@code '\n'}; returns the bytes read as an ISO-8859-1 string, or {@code null} when
    * EOF was hit before any byte was read. A partial final line with no trailing newline is returned
-   * once; the next call then returns {@code null}. {@code size <= 1} reads nothing and returns
-   * {@code ""}, matching {@code fgets} with no room for a character.
+   * once; the next call then returns {@code null}.
    */
   public String fgets(int size) {
     int limit = size - 1;
-    if (limit <= 0) {
-      return "";
-    }
     StringBuilder sb = new StringBuilder();
     while (sb.length() < limit) {
       int b = read();

@@ -40,6 +40,6 @@ public final class Scan {
   }
 
   private static boolean isCWhitespace(char c) {
-    return c == ' ' || c == '\t' || c == '\n' || c == '' || c == '\f' || c == '\r';
+    return c == ' ' || c == '\t' || c == '\n' || c == '\u000B' || c == '\f' || c == '\r';
   }
 }

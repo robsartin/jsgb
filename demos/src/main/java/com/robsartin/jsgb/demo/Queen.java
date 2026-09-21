@@ -17,6 +17,13 @@ public final class Queen {
 
   private Queen() {}
 
+  /** Entry point: runs with the real process streams and exits with the C's return value. */
+  public static void main(String[] args) {
+    System.exit(
+        Jsgb.exitStatus(
+            run(args, new CStdin(System.in), Jsgb.stdout(), Jsgb.stderr(), Path.of(""))));
+  }
+
   /** Runs the program; {@code args} is ignored, matching the C's {@code main()}. */
   public static int run(String[] args, CStdin in, PrintStream out, PrintStream err, Path workDir) {
     Graph g = Basic.board(3L, 4L, 0L, 0L, -1L, 0L, 0L);

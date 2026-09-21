@@ -32,11 +32,8 @@ class JsgbTest {
     int code = Jsgb.dispatch(new String[] {"nope"}, emptyStdin(), sink(), err, workDir);
 
     assertThat(code).isEqualTo(1);
-    StringBuilder expected = new StringBuilder("Usage: jsgb <demo> [arguments]\n");
-    for (String name : Jsgb.DEMOS.keySet()) {
-      expected.append("  ").append(name).append('\n');
-    }
-    assertThat(errBytes.toString(StandardCharsets.ISO_8859_1)).isEqualTo(expected.toString());
+    assertThat(errBytes.toString(StandardCharsets.ISO_8859_1))
+        .isEqualTo("Usage: jsgb <demo> [arguments]\n  queen\n  test_sample\n");
   }
 
   @Test
