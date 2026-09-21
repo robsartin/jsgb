@@ -1148,7 +1148,12 @@ public final class Gates {
       Gb.troubleCode = 0;
       return null;
     }
-    Vertex sentinel = g.vertices[(int) g.n];
+    // See ADR 0021's amendment: the C's sentinel is one-past-the-end of vertices, borrowed from
+    // gb_new_graph's extra_n headroom; the Java sentinel is never guaranteed that slot (extra_n
+    // may be 0, and a restored graph has none at all), so it is a synthetic vertex instead, built
+    // the same way Gb.ONE is: an unregistered vertex from Gb.allocAuxVertices, only ever compared
+    // and stored, never read through.
+    Vertex sentinel = Gb.allocAuxVertices(1)[0];
     XorPool pool = new XorPool();
     long n = 0;
     while (true) {
@@ -1238,7 +1243,7 @@ public final class Gates {
         if (tail != ReduceTail.DONE) {
           v.w.V(null);
         }
-        v.x.V(g.vertices[vi + 1]);
+        v.x.V(vi + 1 == g.n ? sentinel : g.vertices[vi + 1]);
       }
       boolean noConstantsYet = true;
       for (Vertex v = latchPtr; v != null; v = v.v.V()) {

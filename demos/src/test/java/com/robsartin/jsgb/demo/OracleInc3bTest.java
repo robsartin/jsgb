@@ -6,6 +6,7 @@ import com.robsartin.jsgb.books.Books;
 import com.robsartin.jsgb.econ.Econ;
 import com.robsartin.jsgb.games.Games;
 import com.robsartin.jsgb.gates.Gates;
+import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.lisa.Lisa;
 import java.io.PrintStream;
@@ -234,6 +235,26 @@ class OracleInc3bTest {
             Oracle.capture(
                 ps -> TestSample.printSample(Gates.partialGates(null, 1L, 1L, 1L, null), 0, ps)))
         .isEqualTo(Oracle.inc3b("prod_bad"));
+  }
+
+  @Test
+  @DisplayName("partial_gates prints exactly as the C when reduce has no extra vertices to borrow")
+  void shouldMatchOracleWhenReduceHasNoExtraVertices() {
+    long savedExtraN = Gb.extraN;
+    Gb.extraN = 0;
+    try {
+      StringBuilder buf = new StringBuilder();
+      Graph q = Gates.partialGates(Gates.risc(0L), 1L, 43210L, 98765L, buf);
+      assertThat(
+              Oracle.capture(
+                  ps -> {
+                    ps.print(buf + "\n");
+                    TestSample.printSample(q, 79, ps);
+                  }))
+          .isEqualTo(Oracle.inc3b("partial_risc_stanza4"));
+    } finally {
+      Gb.extraN = savedExtraN;
+    }
   }
 
   /** Like {@link Oracle#capture} but also routes {@link Gates#out} to the captured stream. */

@@ -128,4 +128,23 @@ class GatesTest {
       Gb.extraN = savedExtraN;
     }
   }
+
+  @Test
+  @DisplayName("reduce completes when the graph has no extra vertices beyond n")
+  void shouldReduceWhenGraphHasNoExtraVertices() {
+    long savedExtraN = Gb.extraN;
+    // Gb.extraN is normally 4, giving reduce's sentinel a spare slot at g.vertices[g.n] to borrow.
+    // With no spares, that slot doesn't exist; reduce must build its own sentinel instead of
+    // reading one past the end of the array.
+    Gb.extraN = 0;
+    try {
+      Graph h = Gates.partialGates(Gates.risc(0L), 1L, 43210L, 98765L, null);
+      assertThat(h.n).isEqualTo(1702L);
+      assertThat(h.m).isEqualTo(3796L);
+      assertThat(h.vertices[79].name).isEqualTo("R10:10");
+      assertThat(h.vertices[79].z.V().name).isEqualTo("Z898");
+    } finally {
+      Gb.extraN = savedExtraN;
+    }
+  }
 }
