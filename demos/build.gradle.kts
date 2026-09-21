@@ -26,6 +26,8 @@ dependencies {
     testRuntimeOnly(libs.junit.platform.launcher)
 }
 
+tasks.named<JavaExec>("run") { standardInput = System.`in` }
+
 tasks.test {
     useJUnitPlatform()
     // SGB is a single-threaded library with global state; never run tests in parallel.

@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
@@ -68,6 +69,7 @@ class DemoOracleTest {
 
   /** Guards against the scan above silently finding nothing to run. */
   @Test
+  @DisplayName("the oracle scan finds at least one case to run")
   void shouldRunAtLeastOneCaseWhenHarnessScansOracle() throws IOException {
     assertThat(shouldReproduceCOutputWhenDemoRunsCapturedCase().count()).isGreaterThanOrEqualTo(1);
   }
@@ -78,6 +80,7 @@ class DemoOracleTest {
    * a registered demo name.
    */
   @Test
+  @DisplayName("every oracle demo directory names a demo registered in Jsgb.DEMOS")
   void shouldRegisterEveryOracleDemoWhenAllPorted() throws IOException {
     List<String> unregistered;
     try (Stream<Path> entries = Files.list(oracleRoot())) {

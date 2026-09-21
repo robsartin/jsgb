@@ -38,18 +38,21 @@ canonical copy.
 ## Running the demos
 
 `./gradlew :demos:run --args="ladders -v"` runs one demo through Gradle,
-passing everything after the demo name on as its own arguments. For repeated
-use, `./gradlew :demos:installDist` builds a standalone launcher script at
-`demos/build/install/jsgb/bin/jsgb`, so `demos/build/install/jsgb/bin/jsgb
-miles_span -n50` runs the same way without going through Gradle each time.
+passing everything after the demo name on as its own arguments; the `run`
+task forwards its own stdin to the demo, so this works for the interactive
+programs too. For repeated use, `./gradlew :demos:installDist` builds a
+standalone launcher script at `demos/build/install/jsgb/bin/jsgb`, so
+`demos/build/install/jsgb/bin/jsgb miles_span -n50` runs the same way
+without going through Gradle each time.
 
-Five of the twelve are interactive and read from stdin: `ladders` prompts
-for a starting and a goal five-letter word and looks for a word ladder
-between them; `girth` prompts for a branching factor and a graph-size
-parameter and reports a Ramanujan graph's diameter and girth; `football`
-prompts for two 1990 college-football teams and looks for a chain of game
-results connecting them; `multiply` and `take_risc` prompt for the numbers
-they multiply, divide or run through the microRISC circuit.
+Five of the programs below are interactive and read from stdin: `ladders`
+prompts for a starting and a goal five-letter word and looks for a word
+ladder between them; `girth` prompts for a branching factor and a
+graph-size parameter and reports a Ramanujan graph's diameter and girth;
+`football` prompts for two 1990 college-football teams and looks for a
+chain of game results connecting them; `multiply` and `take_risc` prompt
+for the numbers they multiply, divide or run through the microRISC
+circuit.
 
 One sentence per program:
 
