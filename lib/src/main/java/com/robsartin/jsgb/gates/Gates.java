@@ -1,5 +1,6 @@
 package com.robsartin.jsgb.gates;
 
+import com.robsartin.jsgb.flip.Flip;
 import com.robsartin.jsgb.graph.Arc;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
@@ -818,7 +819,7 @@ public final class Gates {
    */
   public static long runRisc(Graph g, long[] rom, long size, long traceRegs) {
     if (traceRegs != 0) {
-      for (long r = 0; r < traceRegs; r++) {
+      for (long r = 0; Long.compareUnsigned(r, traceRegs) < 0; r++) {
         out.print(String.format(Locale.ROOT, " r%-2d ", r));
       }
       out.print(" P XSNKV MEM\n");
@@ -894,5 +895,751 @@ public final class Gates {
     riscState[16] = m;
     riscState[17] = l;
     return 0;
+  }
+
+  /**
+   * The outcome of {@link #reduce}'s per-vertex switch (section 53 of {@code gb_gates.w}), applied
+   * afterward: {@code MAKE_1}/{@code MAKE_0} set {@link Vertex#z}'s {@code I} (the constant's bit)
+   * to 1 or 0 and fall into {@code MAKE_CONSTANT}; {@code MAKE_CONSTANT} sets the vertex's type to
+   * {@code C} and clears its arcs (the case code has already set the bit); {@code MAKE_EQ} sets the
+   * type to {@code =} and clears its arcs (the case code has already set {@code alt}); {@code
+   * BREAK} leaves the vertex as is; {@code DONE} is {@code BREAK} but additionally skips resetting
+   * {@code bar} to {@code null} (the {@code NOT} case just memoized a fresh complement pair there).
+   */
+  private enum ReduceTail {
+    BREAK,
+    MAKE_EQ,
+    MAKE_1,
+    MAKE_0,
+    MAKE_CONSTANT,
+    DONE
+  }
+
+  /**
+   * Free list of XOR arcs bypassed by {@link #reduceXor} ({@code avail_arc}, threaded through
+   * {@link Arc#a}) and the cursor into the aux NOT-vertex pool ({@code next_vert}/{@code
+   * max_next_vert} in {@code reduce}'s section 59), filled seven at a time from {@link
+   * Gb#allocAuxVertices}. Both are local to one {@link #reduce} call but shared across every vertex
+   * it visits, so they live in one mutable holder rather than static fields.
+   */
+  private static final class XorPool {
+    Arc availArc;
+    Vertex[] auxBlock;
+    int auxNext;
+    int auxMax;
+  }
+
+  /**
+   * {@code test_single_arg}: common tail of the {@code AND}/{@code OR}/{@code XOR} cases once no
+   * further simplification applies — a single remaining arc collapses the vertex to a copy of that
+   * arc's tip, otherwise the vertex (with its already-simplified arc list) is left alone.
+   */
+  private static ReduceTail testSingleArg(Vertex v) {
+    if (v.arcs.next != null) {
+      return ReduceTail.BREAK;
+    }
+    v.z.V(v.arcs.tip);
+    return ReduceTail.MAKE_EQ;
+  }
+
+  /**
+   * Section 55 of {@code reduce}: the {@code AND} case. Walks {@code v}'s arcs, resolving {@code =}
+   * copies, bypassing (unlinking) arcs that are constant 1 or duplicate an earlier arc, and folding
+   * to constant 0 on a constant-0 or self-contradicting (arc vs. its memoized complement) input.
+   */
+  private static ReduceTail reduceAnd(Vertex v) {
+    Arc aa = null;
+    for (Arc a = v.arcs; a != null; a = a.next) {
+      Vertex u = a.tip;
+      if (u.y.I == '=') {
+        u = u.z.V();
+        a.tip = u;
+      }
+      boolean bypass;
+      if (u.y.I == 'C') {
+        if (u.z.I == 0) {
+          return ReduceTail.MAKE_0;
+        }
+        bypass = true;
+      } else {
+        bypass = false;
+        for (Arc b = v.arcs; b != a; b = b.next) {
+          if (b.tip == u) {
+            bypass = true;
+            break;
+          }
+          if (b.tip == u.w.V()) {
+            return ReduceTail.MAKE_0;
+          }
+        }
+      }
+      if (bypass) {
+        if (aa != null) {
+          aa.next = a.next;
+        } else {
+          v.arcs = a.next;
+        }
+      } else {
+        aa = a;
+      }
+    }
+    if (v.arcs == null) {
+      return ReduceTail.MAKE_1;
+    }
+    return testSingleArg(v);
+  }
+
+  /**
+   * Section 56 of {@code reduce}: the {@code OR} case, the AND/OR dual of {@link #reduceAnd} —
+   * bypasses constant-0 and duplicate arcs, folds to constant 1 on a constant-1 or
+   * self-contradicting input.
+   */
+  private static ReduceTail reduceOr(Vertex v) {
+    Arc aa = null;
+    for (Arc a = v.arcs; a != null; a = a.next) {
+      Vertex u = a.tip;
+      if (u.y.I == '=') {
+        u = u.z.V();
+        a.tip = u;
+      }
+      boolean bypass;
+      if (u.y.I == 'C') {
+        if (u.z.I != 0) {
+          return ReduceTail.MAKE_1;
+        }
+        bypass = true;
+      } else {
+        bypass = false;
+        for (Arc b = v.arcs; b != a; b = b.next) {
+          if (b.tip == u) {
+            bypass = true;
+            break;
+          }
+          if (b.tip == u.w.V()) {
+            return ReduceTail.MAKE_1;
+          }
+        }
+      }
+      if (bypass) {
+        if (aa != null) {
+          aa.next = a.next;
+        } else {
+          v.arcs = a.next;
+        }
+      } else {
+        aa = a;
+      }
+    }
+    if (v.arcs == null) {
+      return ReduceTail.MAKE_0;
+    }
+    return testSingleArg(v);
+  }
+
+  /**
+   * Sections 57-59 of {@code reduce}: the {@code XOR} case. A constant-1 input, or a pair of arcs
+   * whose tips are memoized complements, flips a running parity {@code cmp}; a duplicate pair of
+   * arcs cancels outright. Every folded-away arc is pushed onto {@code pool.availArc} (arcs' {@link
+   * Arc#a} field is reused as this free list's link, per the C's {@code avail_arc}). If the parity
+   * ends up odd, one remaining arc's tip is complemented (reusing an already-memoized complement
+   * when one of the tips has one, else building a fresh NOT gate from {@code pool}'s aux vertices
+   * and a freed arc) to absorb it, transcribing the C's {@code aa}/{@code bb} bookkeeping
+   * literally.
+   */
+  private static ReduceTail reduceXor(Vertex v, XorPool pool) {
+    long cmp = 0;
+    Arc aa = null;
+    for (Arc a = v.arcs; a != null; a = a.next) {
+      Vertex u = a.tip;
+      if (u.y.I == '=') {
+        u = u.z.V();
+        a.tip = u;
+      }
+      if (u.y.I == 'C') {
+        if (u.z.I != 0) {
+          cmp = 1 - cmp;
+        }
+      } else {
+        Arc bb = null;
+        boolean matched = false;
+        for (Arc b = v.arcs; b != a; b = b.next) {
+          boolean hit = b.tip == u;
+          if (!hit && b.tip == u.w.V()) {
+            cmp = 1 - cmp;
+            hit = true;
+          }
+          if (hit) {
+            if (bb != null) {
+              bb.next = b.next;
+            } else {
+              v.arcs = b.next;
+            }
+            matched = true;
+            break;
+          }
+          bb = b;
+        }
+        if (!matched) {
+          aa = a;
+          continue;
+        }
+      }
+      // bypass_xor: unlink `a` itself and push it onto the free list.
+      if (aa != null) {
+        aa.next = a.next;
+      } else {
+        v.arcs = a.next;
+      }
+      a.a.A(pool.availArc);
+      pool.availArc = a;
+    }
+    if (v.arcs == null) {
+      v.z.I = cmp;
+      return ReduceTail.MAKE_CONSTANT;
+    }
+    if (cmp != 0) {
+      Arc a = v.arcs;
+      Vertex u;
+      while (true) {
+        u = a.tip;
+        if (u.w.V() != null) {
+          break;
+        }
+        if (a.next == null) {
+          if (pool.auxNext == pool.auxMax) {
+            pool.auxBlock = Gb.allocAuxVertices(7);
+            pool.auxNext = 0;
+            pool.auxMax = 7;
+          }
+          Vertex nv = pool.auxBlock[pool.auxNext++];
+          nv.y.I = NOT;
+          nv.name = u.name + "~";
+          nv.arcs = pool.availArc;
+          pool.availArc.tip = u;
+          pool.availArc = pool.availArc.a.A();
+          nv.arcs.next = null;
+          nv.w.V(u);
+          nv.x.V(u.x.V());
+          u.x.V(nv);
+          u.w.V(nv);
+          break;
+        }
+        a = a.next;
+      }
+      a.tip = u.w.V();
+    }
+    return testSingleArg(v);
+  }
+
+  /**
+   * {@code reduce(g)}: the constant-propagation and duplicate-elimination pass every graph built by
+   * {@link #prod} or trimmed by {@link #partialGates} goes through. Repeatedly simplifies every
+   * vertex (folding constants, copies, contradictions and repeated inputs, per {@link ReduceTail})
+   * until a pass finds no new constants; latches whose {@code alt} became a copy or a constant are
+   * folded too. The vertices still reachable from an output are then compacted into a fresh graph
+   * (recycling {@code g}), preserving relative order and inserting a one-arc {@code OR} buffer
+   * ahead of any latch whose new target would otherwise land before the latch itself. Returns
+   * {@code null} and sets {@link Gb#panicCode} to {@link Gb#MISSING_OPERAND} if {@code g} is {@code
+   * null}.
+   */
+  private static Graph reduce(Graph g) {
+    if (g == null) {
+      Gb.panicCode = Gb.MISSING_OPERAND;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    Vertex sentinel = g.vertices[(int) g.n];
+    XorPool pool = new XorPool();
+    long n = 0;
+    while (true) {
+      Vertex latchPtr = null;
+      for (int vi = 0; vi < g.n; vi++) {
+        Vertex v = g.vertices[vi];
+        ReduceTail tail;
+        switch ((int) v.y.I) {
+          case 'L':
+            v.v.V(latchPtr);
+            latchPtr = v;
+            tail = ReduceTail.BREAK;
+            break;
+          case 'I':
+          case 'C':
+            tail = ReduceTail.BREAK;
+            break;
+          case '=':
+            {
+              Vertex u = v.z.V();
+              if (u.y.I == '=') {
+                v.z.V(u.z.V());
+                tail = ReduceTail.BREAK;
+              } else if (u.y.I == 'C') {
+                v.z.I = u.z.I;
+                tail = ReduceTail.MAKE_CONSTANT;
+              } else {
+                tail = ReduceTail.BREAK;
+              }
+              break;
+            }
+          case NOT:
+            {
+              Vertex u = v.arcs.tip;
+              if (u.y.I == '=') {
+                u = u.z.V();
+                v.arcs.tip = u;
+              }
+              if (u.y.I == 'C') {
+                v.z.I = 1 - u.z.I;
+                tail = ReduceTail.MAKE_CONSTANT;
+              } else if (u.w.V() != null) {
+                v.z.V(u.w.V());
+                tail = ReduceTail.MAKE_EQ;
+              } else {
+                u.w.V(v);
+                v.w.V(u);
+                tail = ReduceTail.DONE;
+              }
+              break;
+            }
+          case AND:
+            tail = reduceAnd(v);
+            break;
+          case OR:
+            tail = reduceOr(v);
+            break;
+          case XOR:
+            tail = reduceXor(v, pool);
+            break;
+          default:
+            tail = ReduceTail.BREAK;
+        }
+        switch (tail) {
+          case MAKE_1:
+            v.z.I = 1;
+            v.y.I = 'C';
+            v.arcs = null;
+            break;
+          case MAKE_0:
+            v.z.I = 0;
+            v.y.I = 'C';
+            v.arcs = null;
+            break;
+          case MAKE_CONSTANT:
+            v.y.I = 'C';
+            v.arcs = null;
+            break;
+          case MAKE_EQ:
+            v.y.I = '=';
+            v.arcs = null;
+            break;
+          case BREAK:
+          case DONE:
+            break;
+        }
+        if (tail != ReduceTail.DONE) {
+          v.w.V(null);
+        }
+        v.x.V(g.vertices[vi + 1]);
+      }
+      boolean noConstantsYet = true;
+      for (Vertex v = latchPtr; v != null; v = v.v.V()) {
+        Vertex u = v.z.V();
+        if (u.y.I == '=') {
+          v.z.V(u.z.V());
+        } else if (u.y.I == 'C') {
+          v.y.I = 'C';
+          v.z.I = u.z.I;
+          noConstantsYet = false;
+        }
+      }
+      if (noConstantsYet) {
+        break;
+      }
+    }
+    // Section 60-61: count and mark (via the shared bar/lnk slot) every vertex still reachable
+    // from an output, walking the foo chain (main array order, with aux NOT vertices spliced in).
+    for (Vertex v = g.vertices[0]; v != sentinel; v = v.x.V()) {
+      v.w.V(null);
+    }
+    for (Arc a = g.zz.A(); a != null; a = a.next) {
+      Vertex v = a.tip;
+      if (isBooleanOrNull(v)) {
+        continue;
+      }
+      if (v.y.I == '=') {
+        v = v.z.V();
+        a.tip = v;
+      }
+      if (v.y.I == 'C') {
+        a.tip = v.z.I == 1 ? Gb.ONE : null;
+        continue;
+      }
+      if (v.w.V() == null) {
+        v.w.V(sentinel);
+        do {
+          n++;
+          Arc b = v.arcs;
+          if (v.y.I == 'L') {
+            Vertex u = v.z.V();
+            // In risc there are no XOR gates and in prod no latches, so an aux vertex (only ever
+            // created by reduceXor) never reaches this comparison; it is always a main-array index.
+            if (u.index < v.index) {
+              n++;
+            }
+            if (u.w.V() == null) {
+              u.w.V(v.w.V());
+              v = u;
+            } else {
+              v = v.w.V();
+            }
+          } else {
+            v = v.w.V();
+          }
+          for (; b != null; b = b.next) {
+            Vertex u = b.tip;
+            if (u.w.V() == null) {
+              u.w.V(v);
+              v = u;
+            }
+          }
+        } while (v != sentinel);
+      }
+    }
+    // Section 62-65: compact the reachable vertices into a fresh graph, preserving relative order.
+    Graph ng = Gb.newGraph(n);
+    ng.id = g.id;
+    ng.utilTypes = "ZZZIIVZZZZZZZA";
+    int next = 0;
+    Vertex latchChain = null;
+    for (Vertex v = g.vertices[0]; v != sentinel; v = v.x.V()) {
+      if (v.w.V() != null) {
+        Vertex u = ng.vertices[next++];
+        v.w.V(u);
+        u.name = v.name;
+        u.y.I = v.y.I;
+        if (v.y.I == 'L') {
+          u.z.V(latchChain);
+          latchChain = v;
+        }
+        Arc prev = null;
+        Arc cur = v.arcs;
+        while (cur != null) {
+          Arc nxt = cur.next;
+          cur.next = prev;
+          prev = cur;
+          cur = nxt;
+        }
+        v.arcs = prev;
+        for (Arc a = v.arcs; a != null; a = a.next) {
+          Gb.newArc(u, a.tip.w.V(), a.len);
+        }
+      }
+    }
+    while (latchChain != null) {
+      Vertex u = latchChain.w.V();
+      Vertex v = u.z.V();
+      u.z.V(latchChain.z.V().w.V());
+      latchChain = v;
+      if (u.z.V().index < u.index) {
+        Vertex target = u.z.V();
+        Vertex buffer = ng.vertices[next++];
+        u.z.V(buffer);
+        buffer.name = target.name + ">" + u.name;
+        buffer.y.I = OR;
+        Gb.newArc(buffer, target, DELAY);
+        Gb.newArc(buffer, target, DELAY);
+      }
+    }
+    Arc prevOut = null;
+    Arc curOut = g.zz.A();
+    while (curOut != null) {
+      Arc nxt = curOut.next;
+      curOut.next = prevOut;
+      prevOut = curOut;
+      curOut = nxt;
+    }
+    g.zz.A(prevOut);
+    for (Arc a = g.zz.A(); a != null; a = a.next) {
+      Arc b = Gb.virginArc();
+      b.tip = isBooleanOrNull(a.tip) ? a.tip : a.tip.w.V();
+      b.next = ng.zz.A();
+      ng.zz.A(b);
+    }
+    Gb.recycle(g);
+    return ng;
+  }
+
+  /** {@code a_pos(j)}: {@link #prod}'s row index for column {@code j} of its adder network. */
+  private static long aPos(long j, long m) {
+    return j < m ? j + 1 : m + 5 * ((j - m) >> 1) + 3 + (((j - m) & 1) << 1);
+  }
+
+  /**
+   * {@code prod(m,n)}: an {@code m}-by-{@code n} unsigned binary multiplier (clamped to at least 2
+   * bits each way, as unsigned), built as a Wallace-style carry-save adder tree of partial products
+   * and always run through {@link #reduce} before being returned. Returns {@code null} and sets
+   * {@link Gb#panicCode} to {@link Gb#NO_ROOM} if the underlying {@link Gb#newGraph} allocation
+   * fails, or to {@link Gb#ALLOC_FAULT} if building overflows the graph's storage.
+   */
+  public static Graph prod(long m, long n) {
+    if (Long.compareUnsigned(m, 2) < 0) {
+      m = 2;
+    }
+    if (Long.compareUnsigned(n, 2) < 0) {
+      n = 2;
+    }
+    long mpn = m + n;
+    long f = 4;
+    long j = 3;
+    long k = 5;
+    while (Long.compareUnsigned(k, mpn) < 0) {
+      k = k + j;
+      j = k - j;
+      f++;
+    }
+    Graph g = Gb.newGraph((6 * m - 7 + 3 * f) * mpn);
+    if (g == null) {
+      Gb.panicCode = Gb.NO_ROOM;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    g.id = "prod(" + Long.toUnsignedString(m) + "," + Long.toUnsignedString(n) + ")";
+    g.utilTypes = UTIL_TYPES;
+
+    long[] flog = new long[(int) mpn + 1];
+    long[] down = new long[(int) mpn + 1];
+    long[] anc = new long[(int) f + 1];
+    Vertex[] w = new Vertex[(int) mpn];
+    Vertex[] c = new Vertex[(int) (f * mpn)];
+
+    verts = g.vertices;
+    nextVert = 0;
+    startPrefix("X");
+    int x = firstOf((int) m, 'I');
+    startPrefix("Y");
+    int y = firstOf((int) n, 'I');
+
+    // Section 72: the m*n AND partial-product matrix, padded with 0 constants each row.
+    for (long jj = 0; jj < m; jj++) {
+      numericPrefix('A', jj);
+      for (long kk = 0; kk < jj; kk++) {
+        newVert('C').z.I = 0;
+      }
+      for (long kk = 0; kk < n; kk++) {
+        make2(AND, verts[x + (int) jj], verts[y + (int) kk]);
+      }
+      for (long kk = jj + n; kk < mpn; kk++) {
+        newVert('C').z.I = 0;
+      }
+    }
+    // Section 73: the carry-save reduction rows (P/Q/R half-adders), two rows shorter than m.
+    for (long jj = 0; jj < m - 2; jj++) {
+      int alpha = (int) (aPos(3 * jj, m) * mpn);
+      int beta = (int) (aPos(3 * jj + 1, m) * mpn);
+      numericPrefix('P', jj);
+      for (long kk = 0; kk < mpn; kk++) {
+        make2(XOR, verts[alpha + (int) kk], verts[beta + (int) kk]);
+      }
+      numericPrefix('Q', jj);
+      for (long kk = 0; kk < mpn; kk++) {
+        make2(AND, verts[alpha + (int) kk], verts[beta + (int) kk]);
+      }
+      alpha = nextVert - 2 * (int) mpn;
+      beta = (int) (aPos(3 * jj + 2, m) * mpn);
+      numericPrefix('A', m + 2 * jj);
+      for (long kk = 0; kk < mpn; kk++) {
+        make2(XOR, verts[alpha + (int) kk], verts[beta + (int) kk]);
+      }
+      numericPrefix('R', jj);
+      for (long kk = 0; kk < mpn; kk++) {
+        make2(AND, verts[alpha + (int) kk], verts[beta + (int) kk]);
+      }
+      alpha = nextVert - 3 * (int) mpn;
+      beta = nextVert - (int) mpn;
+      numericPrefix('A', m + 2 * jj + 1);
+      newVert('C').z.I = 0;
+      for (long kk = 0; kk < mpn - 1; kk++) {
+        make2(OR, verts[alpha + (int) kk], verts[beta + (int) kk]);
+      }
+    }
+    // Section 74: the final row pair's XOR/AND (sum/carry) outputs, U and V.
+    int alpha74 = (int) (aPos(3 * m - 6, m) * mpn);
+    int beta74 = (int) (aPos(3 * m - 5, m) * mpn);
+    startPrefix("U");
+    for (long kk = 0; kk < mpn; kk++) {
+      make2(XOR, verts[alpha74 + (int) kk], verts[beta74 + (int) kk]);
+    }
+    startPrefix("V");
+    for (long kk = 0; kk < mpn; kk++) {
+      make2(AND, verts[alpha74 + (int) kk], verts[beta74 + (int) kk]);
+    }
+    // Section 76: flog[l]/down[l], tables of a Fibonacci-like "ancestor" structure used by the
+    // final ripple-carry stage below to find each column's earlier partial sums in O(log) steps.
+    flog[1] = 0;
+    flog[2] = 2;
+    down[1] = 0;
+    down[2] = 1;
+    long fi = 3;
+    long fj = 2;
+    long fk = 3;
+    for (long ll = 3; ll <= mpn; ll++) {
+      if (ll > fk) {
+        fk = fk + fj;
+        fj = fk - fj;
+        fi++;
+      }
+      flog[(int) ll] = fi;
+      down[(int) ll] = ll - fk + fj;
+    }
+    // Section 78-82: the W chain, one final ripple-carry adder tying every U/V column together.
+    int vv = nextVert - (int) mpn;
+    int uu = vv - (int) mpn;
+    startPrefix("W");
+    Vertex w0 = newVert('C');
+    w0.z.I = 0;
+    w[0] = w0;
+    Vertex w1 = newVert('=');
+    w1.z.V(verts[vv]);
+    w[1] = w1;
+    for (long kk = 2; kk < mpn; kk++) {
+      int l = 0;
+      long anceJ = kk;
+      while (true) {
+        anc[l] = anceJ;
+        if (anceJ == 2) {
+          break;
+        }
+        l++;
+        anceJ = down[(int) anceJ];
+      }
+      long ii = 1;
+      Vertex cc = verts[vv + (int) kk - 1];
+      Vertex dd = verts[uu + (int) kk - 1];
+      Vertex v = null;
+      long ff = 0;
+      while (true) {
+        long jVal = anc[l];
+        v = verts[nextVert++];
+        v.name = "B" + kk + ":" + jVal;
+        v.y.I = AND;
+        Gb.newArc(v, dd, DELAY);
+        ff = flog[(int) (jVal - ii)];
+        Gb.newArc(
+            v,
+            ff > 0 ? c[(int) (kk - ii + (ff - 2) * mpn)] : verts[vv + (int) (kk - ii) - 1],
+            DELAY);
+        if (l != 0) {
+          v = verts[nextVert++];
+          v.name = "C" + kk + ":" + jVal;
+          v.y.I = OR;
+        } else {
+          v = newVert(OR);
+        }
+        Gb.newArc(v, cc, DELAY);
+        Gb.newArc(v, verts[nextVert - 2], DELAY);
+        if (flog[(int) jVal] < flog[(int) jVal + 1]) {
+          c[(int) (kk + (flog[(int) jVal] - 2) * mpn)] = v;
+        }
+        if (l == 0) {
+          break;
+        }
+        cc = v;
+        v = verts[nextVert++];
+        v.name = "D" + kk + ":" + jVal;
+        v.y.I = AND;
+        Gb.newArc(v, dd, DELAY);
+        Gb.newArc(
+            v,
+            ff > 0
+                ? verts[c[(int) (kk - ii + (ff - 2) * mpn)].index + 1]
+                : verts[uu + (int) (kk - ii) - 1],
+            DELAY);
+        dd = v;
+        ii = jVal;
+        l--;
+      }
+      w[(int) kk] = v;
+    }
+    // Section 83: the m+n output XOR gates (each column's running sum against its U bit).
+    startPrefix("Z");
+    for (long kk = 0; kk < mpn; kk++) {
+      Arc a = Gb.virginArc();
+      a.tip = make2(XOR, verts[uu + (int) kk], w[(int) kk]);
+      a.next = g.zz.A();
+      g.zz.A(a);
+    }
+    g.n = nextVert;
+    if (Gb.troubleCode != 0) {
+      Gb.recycle(g);
+      Gb.panicCode = Gb.ALLOC_FAULT;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    return reduce(g);
+  }
+
+  /**
+   * {@code partial_gates(g,r,prob,seed,buf)}: seeds {@link Flip} from {@code seed}, then, for every
+   * input vertex from index {@code r} (unsigned) on, forces it to a random constant with
+   * probability {@code 1 - prob/2^31} (unsigned {@code prob}), else leaves it an input; stops early
+   * at the first non-input, non-constant, non-copy vertex. If {@code buf} is non-null, it is
+   * cleared and receives one character per input vertex visited: the forced bit, or {@code '*'} if
+   * left alone. The result is always run through {@link #reduce}, and (unless that fails) renamed
+   * {@code partial_gates(<g.id>,r,prob,seed)} (the old id truncated with {@code "..."} past 54
+   * characters). Returns {@code null} and sets {@link Gb#panicCode} to {@link Gb#MISSING_OPERAND}
+   * if {@code g} is {@code null}.
+   */
+  public static Graph partialGates(Graph g, long r, long prob, long seed, StringBuilder buf) {
+    if (g == null) {
+      Gb.panicCode = Gb.MISSING_OPERAND;
+      Gb.troubleCode = 0;
+      return null;
+    }
+    Flip.initRand(seed);
+    if (buf != null) {
+      buf.setLength(0);
+    }
+    for (long vi = r; Long.compareUnsigned(vi, g.n) < 0; vi++) {
+      Vertex v = g.vertices[(int) vi];
+      switch ((int) v.y.I) {
+        case 'C':
+        case '=':
+          continue;
+        case 'I':
+          if (Long.compareUnsigned(Flip.nextRand() >> 15, prob) >= 0) {
+            v.y.I = 'C';
+            v.z.I = Flip.nextRand() >> 30;
+            if (buf != null) {
+              buf.append((char) ('0' + v.z.I));
+            }
+          } else if (buf != null) {
+            buf.append('*');
+          }
+          break;
+        default:
+          vi = g.n; // stop the loop, matching the C's `goto done`.
+      }
+      if (vi == g.n) {
+        break;
+      }
+    }
+    String oldId = g.id;
+    g = reduce(g);
+    if (g != null) {
+      String s = oldId;
+      if (s.length() > 54) {
+        s = s.substring(0, 51) + "...";
+      }
+      g.id =
+          "partial_gates("
+              + s
+              + ","
+              + Long.toUnsignedString(r)
+              + ","
+              + Long.toUnsignedString(prob)
+              + ","
+              + seed
+              + ")";
+    }
+    return g;
   }
 }

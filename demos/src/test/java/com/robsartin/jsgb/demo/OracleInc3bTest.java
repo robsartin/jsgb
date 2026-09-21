@@ -200,6 +200,42 @@ class OracleInc3bTest {
         .isEqualTo(Oracle.inc3b("risc2_gates"));
   }
 
+  @Test
+  @DisplayName("prod and partial_gates print exactly as the C")
+  void shouldMatchOracleWhenProdPrinted() {
+    Graph g = Gates.prod(2L, 2L);
+    assertThat(
+            captureGates(
+                ps -> {
+                  Gates.printGates(g);
+                  TestSample.printSample(g, 0, ps);
+                }))
+        .isEqualTo(Oracle.inc3b("prod22"));
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Gates.prod(3L, 3L), 10, ps)))
+        .isEqualTo(Oracle.inc3b("prod33_sample"));
+    StringBuilder buf = new StringBuilder();
+    Graph p = Gates.partialGates(Gates.prod(3L, 3L), 2L, 50000L, 1L, buf);
+    assertThat(
+            Oracle.capture(
+                ps -> {
+                  ps.print(buf + "\n");
+                  TestSample.printSample(p, 5, ps);
+                }))
+        .isEqualTo(Oracle.inc3b("partial_prod33"));
+    Graph q = Gates.partialGates(Gates.risc(0L), 1L, 43210L, 98765L, buf);
+    assertThat(
+            Oracle.capture(
+                ps -> {
+                  ps.print(buf + "\n");
+                  TestSample.printSample(q, 79, ps);
+                }))
+        .isEqualTo(Oracle.inc3b("partial_risc_stanza4"));
+    assertThat(
+            Oracle.capture(
+                ps -> TestSample.printSample(Gates.partialGates(null, 1L, 1L, 1L, null), 0, ps)))
+        .isEqualTo(Oracle.inc3b("prod_bad"));
+  }
+
   /** Like {@link Oracle#capture} but also routes {@link Gates#out} to the captured stream. */
   private static String captureGates(Consumer<PrintStream> printer) {
     PrintStream saved = Gates.out;

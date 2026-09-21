@@ -6,6 +6,7 @@ import com.robsartin.jsgb.basic.Basic;
 import com.robsartin.jsgb.books.Books;
 import com.robsartin.jsgb.econ.Econ;
 import com.robsartin.jsgb.games.Games;
+import com.robsartin.jsgb.gates.Gates;
 import com.robsartin.jsgb.graph.Gb;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.graph.Vertex;
@@ -367,5 +368,16 @@ class TestSampleTest {
                         1294,
                         ps)))
         .isEqualTo(SampleCorrect.stanza(9));
+  }
+
+  @Test
+  @DisplayName("stanza 4: partial_gates(risc(0),1,43210,98765) at vertex 79")
+  void shouldMatchSampleCorrectWhenGatesStanzaPrinted() {
+    assertThat(
+            Oracle.capture(
+                ps ->
+                    TestSample.printSample(
+                        Gates.partialGates(Gates.risc(0L), 1L, 43210L, 98765L, null), 79, ps)))
+        .isEqualTo(SampleCorrect.stanza(4));
   }
 }

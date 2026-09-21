@@ -70,4 +70,42 @@ class GatesTest {
     assertThat(Gates.riscState)
         .containsExactly(65535, 4, 65535, 1, 12, 65535, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 3968, 65535);
   }
+
+  @Test
+  @DisplayName("prod(2,2) reduces to the 12-gate multiplier the C prints")
+  void shouldBuildMultiplierWhenProdCalled() {
+    Graph g = Gates.prod(2L, 2L);
+    assertThat(g.id).isEqualTo("prod(2,2)");
+    assertThat(g.n).isEqualTo(12L);
+    assertThat(g.m).isEqualTo(16L);
+    assertThat(g.vertices[0].name).isEqualTo("X0");
+    assertThat(g.vertices[4].name).isEqualTo("A0:0");
+    assertThat(g.vertices[8].name).isEqualTo("U1");
+    assertThat(g.vertices[8].y.I).isEqualTo(94L); // '^'
+    assertThat(g.zz.A().tip.name).isEqualTo("B3:2");
+    StringBuilder out = new StringBuilder();
+    assertThat(Gates.gateEval(g, "1111", out)).isZero();
+    assertThat(out.toString()).isEqualTo("1001"); // 3 x 3 = 9, output bits high to low
+    assertThat(Gates.prod(0L, 0L).id).isEqualTo("prod(2,2)");
+  }
+
+  @Test
+  @DisplayName("partial_gates forces inputs at random, reports them in buf, and renames the graph")
+  void shouldForceInputsWhenPartialGatesCalled() {
+    StringBuilder buf = new StringBuilder("stale");
+    Graph g = Gates.partialGates(Gates.prod(3L, 3L), 2L, 50000L, 1L, buf);
+    assertThat(buf.toString()).isEqualTo("****");
+    assertThat(g.id).isEqualTo("partial_gates(prod(3,3),2,50000,1)");
+    assertThat(g.n).isEqualTo(39L);
+    Graph h = Gates.partialGates(Gates.risc(0L), 1L, 43210L, 98765L, buf);
+    assertThat(buf.toString()).isEqualTo("*1*1***101**010*");
+    assertThat(h.id).isEqualTo("partial_gates(risc(16),1,43210,98765)");
+    assertThat(h.n).isEqualTo(1702L);
+    assertThat(h.m).isEqualTo(3796L);
+    assertThat(h.vertices[79].name).isEqualTo("R10:10");
+    assertThat(h.vertices[79].z.V().name).isEqualTo("Z898");
+    assertThat(Gates.partialGates(null, 1L, 1L, 1L, null)).isNull();
+    assertThat(com.robsartin.jsgb.graph.Gb.panicCode)
+        .isEqualTo(com.robsartin.jsgb.graph.Gb.MISSING_OPERAND);
+  }
 }
