@@ -33,6 +33,17 @@ public final class Multiply {
 
   /** Runs the program: parses {@code m n [seed]}, builds the circuit, then loops on numbers. */
   public static int run(String[] args, CStdin in, PrintStream out, PrintStream err, Path workDir) {
+    PrintStream savedGatesOut = Gates.out;
+    Gates.out = out;
+    try {
+      return runBody(args, in, out, err);
+    } finally {
+      Gates.out = savedGatesOut;
+    }
+  }
+
+  /** {@code main}'s body once {@link Gates#out} points at this run's {@code out} (ADR 0022). */
+  private static int runBody(String[] args, CStdin in, PrintStream out, PrintStream err) {
     if (args.length < 2 || args.length > 3) {
       err.print("Usage: multiply m n [seed]\n");
       return -2;
