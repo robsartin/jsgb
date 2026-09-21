@@ -157,4 +157,65 @@ class ArchitectureTest {
           .should()
           .onlyDependOnClassesThat()
           .resideInAnyPackage(BASE + ".dijk..", BASE + ".graph..", "java..");
+
+  // Generators added in increment 3b: books and games also use sort (for gb_linksort); econ stays
+  // on the plain kernel plus flip; lisa is a plain-kernel generator; gates additionally depends on
+  // flip (for the risc simulator's memory area).
+  @ArchTest
+  static final ArchRule booksDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".books..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(
+              BASE + ".books..",
+              BASE + ".graph..",
+              BASE + ".io..",
+              BASE + ".flip..",
+              BASE + ".sort..",
+              "java..");
+
+  @ArchTest
+  static final ArchRule econDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".econ..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(
+              BASE + ".econ..", BASE + ".graph..", BASE + ".io..", BASE + ".flip..", "java..");
+
+  @ArchTest
+  static final ArchRule gamesDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".games..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(
+              BASE + ".games..",
+              BASE + ".graph..",
+              BASE + ".io..",
+              BASE + ".flip..",
+              BASE + ".sort..",
+              "java..");
+
+  @ArchTest
+  static final ArchRule lisaDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".lisa..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(BASE + ".lisa..", BASE + ".graph..", BASE + ".io..", "java..");
+
+  @ArchTest
+  static final ArchRule gatesDependsOnlyOnKernel =
+      classes()
+          .that()
+          .resideInAPackage(BASE + ".gates..")
+          .should()
+          .onlyDependOnClassesThat()
+          .resideInAnyPackage(BASE + ".gates..", BASE + ".graph..", BASE + ".flip..", "java..");
 }

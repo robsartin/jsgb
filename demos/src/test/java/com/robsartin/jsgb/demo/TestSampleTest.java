@@ -215,23 +215,12 @@ class TestSampleTest {
   }
 
   @Test
-  @DisplayName(
-      "the main sequence so far reproduces the header and stanzas 0-3, 8 and 10-15 of"
-          + " sample.correct")
-  void shouldMatchSampleCorrectPrefixWhenMainRuns() {
+  @DisplayName("run reproduces sample.correct byte for byte")
+  void shouldMatchSampleCorrectWhenMainRuns() throws Exception {
     String expected =
-        SampleCorrect.HEADER
-            + SampleCorrect.stanza(0)
-            + SampleCorrect.stanza(1)
-            + SampleCorrect.stanza(2)
-            + SampleCorrect.stanza(3)
-            + SampleCorrect.stanza(8)
-            + SampleCorrect.stanza(10)
-            + SampleCorrect.stanza(11)
-            + SampleCorrect.stanza(12)
-            + SampleCorrect.stanza(13)
-            + SampleCorrect.stanza(14)
-            + SampleCorrect.stanza(15);
+        Files.readString(
+            Path.of(getClass().getResource("/oracle/sample.correct").toURI()),
+            StandardCharsets.ISO_8859_1);
     assertThat(Oracle.capture(ps -> TestSample.run(ps, dir))).isEqualTo(expected);
     assertThat(dir.resolve("test.gb")).exists();
   }
