@@ -5,8 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.robsartin.jsgb.books.Books;
 import com.robsartin.jsgb.econ.Econ;
 import com.robsartin.jsgb.games.Games;
+import com.robsartin.jsgb.gates.Gates;
 import com.robsartin.jsgb.graph.Graph;
 import com.robsartin.jsgb.lisa.Lisa;
+import java.io.PrintStream;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -151,5 +154,63 @@ class OracleInc3bTest {
       sb.append(a[k]).append(k % cols == cols - 1 ? '\n' : ' ');
     }
     return sb.toString();
+  }
+
+  @Test
+  @DisplayName("risc, gate_eval, run_risc and print_gates print exactly as the C")
+  void shouldMatchOracleWhenRiscPrinted() {
+    assertThat(Oracle.capture(ps -> TestSample.printSample(Gates.risc(2L), 1, ps)))
+        .isEqualTo(Oracle.inc3b("risc2_sample"));
+    StringBuilder buf = new StringBuilder();
+    assertThat(Gates.gateEval(Gates.risc(2L), "10000000000000001", buf))
+        .isEqualTo(Oracle.inc3bReturn("risc2_eval"));
+    assertThat(buf + "\n").isEqualTo(Oracle.inc3b("risc2_eval"));
+    long[] rom = {
+      0x2ff0, 0x1111, 0x1a30, 0x3333, 0x7f70, 0x5555, 0x0f8f, 0x3a21, 0x1a01, 0x0a12, 0x3a01,
+      0x4000, 0x5000, 0x6000, 0x2a63, 0x0f95, 0x3063, 0x1061, 0x6ac1, 0x5fd1, 0x2a63, 0x039b,
+      0x0843, 0x3463, 0x1561, 0x2863, 0x0c94, 0x4861, 0x6ac1, 0x2a63, 0x5a41, 0x0398, 0x6666,
+      0x0fa7
+    };
+    rom[1] = 3;
+    rom[3] = 4;
+    rom[5] = 10;
+    Graph g = Gates.risc(8L);
+    assertThat(
+            captureGates(
+                ps -> {
+                  ps.print("return=" + Gates.runRisc(g, rom, 34L, 8L) + "\n");
+                  for (long s : Gates.riscState) {
+                    ps.print(s + " ");
+                  }
+                  ps.print("\n");
+                }))
+        .isEqualTo(Oracle.inc3b("run_risc_mult"));
+    rom[5] = 7;
+    assertThat(
+            captureGates(
+                ps -> {
+                  ps.print("return=" + Gates.runRisc(g, rom, 34L, 0L) + "\n");
+                  for (long s : Gates.riscState) {
+                    ps.print(s + " ");
+                  }
+                  ps.print("\n");
+                }))
+        .isEqualTo(Oracle.inc3b("run_risc_div"));
+    assertThat(captureGates(ps -> Gates.printGates(Gates.risc(2L))))
+        .isEqualTo(Oracle.inc3b("risc2_gates"));
+  }
+
+  /** Like {@link Oracle#capture} but also routes {@link Gates#out} to the captured stream. */
+  private static String captureGates(Consumer<PrintStream> printer) {
+    PrintStream saved = Gates.out;
+    try {
+      return Oracle.capture(
+          ps -> {
+            Gates.out = ps;
+            printer.accept(ps);
+          });
+    } finally {
+      Gates.out = saved;
+    }
   }
 }
