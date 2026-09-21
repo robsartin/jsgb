@@ -95,6 +95,23 @@ class DemoOracleTest {
     assertThat(unregistered).isEmpty();
   }
 
+  /**
+   * Guards against a case leaving process-fresh globals dirty for the next one: the C starts each
+   * program in a fresh process, so {@code runCase} must restore the {@code run}-entry defaults once
+   * a case finishes, not just reset them at the top of the next {@code run}.
+   */
+  @Test
+  @DisplayName("runCase restores process-fresh globals when a case leaves them dirty")
+  void shouldRestoreProcessFreshGlobalsWhenCaseEnds() throws IOException {
+    Path laddersDir = oracleRoot().resolve("ladders");
+    runCase(laddersDir, "ladders", "alpha_heur_verbose");
+
+    assertThat(com.robsartin.jsgb.graph.Gb.verbose).isEqualTo(0);
+    assertThat(com.robsartin.jsgb.dijk.Dijkstra.queue)
+        .isInstanceOf(com.robsartin.jsgb.dijk.DList.class);
+    assertThat(Mems.mems).isEqualTo(0);
+  }
+
   private void runCase(Path demoDir, String demo, String caseName) throws IOException {
     Path dir = Files.createTempDirectory(tmp, "case");
     String seedPrefix = caseName + ".seed.";
@@ -116,7 +133,16 @@ class DemoOracleTest {
     PrintStream err = new PrintStream(errBytes, true, StandardCharsets.ISO_8859_1);
     CStdin in = new CStdin(new ByteArrayInputStream(stdin));
 
-    int code = Jsgb.DEMOS.get(demo).run(args.toArray(new String[0]), in, out, err, dir);
+    int code;
+    try {
+      code = Jsgb.DEMOS.get(demo).run(args.toArray(new String[0]), in, out, err, dir);
+    } finally {
+      // The C starts each program in a fresh process; restore the run-entry defaults so one
+      // case's process-fresh globals never leak into the next case's assertions.
+      com.robsartin.jsgb.graph.Gb.verbose = 0;
+      com.robsartin.jsgb.dijk.Dijkstra.queue = new com.robsartin.jsgb.dijk.DList();
+      Mems.mems = 0;
+    }
 
     assertThat(outBytes.toString(StandardCharsets.ISO_8859_1))
         .isEqualTo(readStringOrEmpty(demoDir.resolve(caseName + ".out")));
